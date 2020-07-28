@@ -1,0 +1,23 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - wb_universe
+
+id: wb_universe_branding
+theme: wb_universe
+region: header
+weight: -4
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Marque du site'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

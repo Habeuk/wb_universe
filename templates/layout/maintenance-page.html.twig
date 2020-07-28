@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Bootstrap Barrio's theme implementation to display a single Drupal page while offline.
+ *
+ * All available variables are mirrored in page.html.twig.
+ *
+ * @see template_preprocess_maintenance_page()
+ */
+ #}
+{% if page.before_content %}
+	<div class="before-content">
+	    {{ page.before_content }}
+	</div>
+{% endif %}
+<div id="page-wrapper-maintenance" class="">
+	<div class="container d-lg-flex align-items-lg-center">
+		<a href="/fr" title="Accueil" rel="home" class="d-block container-logo">
+          <img src="/themes/contrib/wb_universe/logo.png" alt="Accueil" class="img-fluid d-inline-block align-top logo" style="max-width: 300px;">
+        </a>
+      <div id="page">
+        <header id="header" role="banner">
+          	<h1 class="title">{{ site_name }}</h1>
+        </header>
+        <div class="text-body">
+    		<p>{{ 'Terremploi works to revitalize villages and small towns, via :'|trans }}</p>
+    		<ul>
+    			<li>{{ 'its free platform for takeover announcements or the creation of businesses and activities,'|trans }}</li>
+    			<li>{{ 'its personalized support services.'|trans }}</li>
+    		</ul>
+    		<p class="text-center">{{ 'You want to know more ? Do you have an ad to publish?'|trans }} <br>
+    		  <strong><a href="mailto:contact@wb_universe.com">contact@wb_universe.com</a></strong></p>
+        </div>
+      </div>
+	</div>
+</div>
+<!-- 
+
+<div class="text-body">
+    		<p>{{ 'Terremploi œuvre pour la redynamisation des villages et petites villes, via :'|trans }}</p>
+    		<ul>
+    			<li>{{ 'sa plateforme gratuite d’annonces de reprise ou création de commerces et d’activités,'|trans }}</li>
+    			<li>{{ 'ses services d’accompagnement personnalisés.'|trans }}</li>
+    		</ul>
+    		<p class="text-center">{{ 'Vous voulez en savoir plus ? Vous avez une annonce à publier ?'|trans }} <br>
+    		  <strong><a href="mailto:contact@wb_universe.com">contact@wb_universe.com</a></strong></p>
+</div>
+
+ -->

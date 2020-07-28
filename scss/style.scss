@@ -1,0 +1,32 @@
+@import "defaut/loader_model1.scss";
+
+body{
+	font-family: 'Raleway', sans-serif;	
+	font-weight:400;
+	font-size: 1em;
+	h1{
+		font-weight:700;
+		color: $color1;
+	}
+	h2,h3{
+		font-weight:600;
+	}
+	a{
+		text-decoration:none !important;
+	}
+	p,ol, ul, dl {
+	    margin-top: 0;
+	    margin-bottom: 1.8em;
+	}
+	.hidden{
+		display:none !important;	
+	}
+}
+
+.site-header-m2 img.logo{
+	max-height: 70px;
+}
+
+.footer-menu-rx{
+	background: $color1;	
+}

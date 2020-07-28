@@ -1,0 +1,40 @@
+# Disable the CDN provider so compiled source files can be used.
+cdn_provider: ''
+
+###############################################
+
+# Configuration de stylepage_status.
+wb_universe_stylepage_status: true
+
+# Configuration du pre entete.
+wb_universe_topheader_status: true
+
+# Configuration de pagenodesdisplay
+wb_universe_pagenodesdisplay_status: true
+
+#Configuration de l'entete
+wb_universe_header_status: true
+
+# Configuration de cards.
+wb_universe_cards_status: true
+
+# Configuation du slider
+wb_universe_slide_status: true
+
+# Configuration de carouselcards.
+wb_universe_carouselcards_status: true
+
+# Configuration de callactions.
+wb_universe_callactions_status: true
+
+# Configuration de comments.
+wb_universe_comments_status: true
+
+# Configuration de pricelists
+wb_universe_pricelists_status: true
+
+# Configuration de imagetextrightleft
+wb_universe_imagetextrightleft_status: true
+
+# Configuration de footers.
+wb_universe_footers_status: true

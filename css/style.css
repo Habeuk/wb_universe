@@ -1,0 +1,97 @@
+/**
+ * Boostrap load functions and mixins.
+ * Ce chemin est valide pour le loader uniqueùent.
+ */
+/**
+ * Les principales couleurs.
+ */
+/**
+ * text color.
+ */
+/**
+ * space section
+ */
+/**
+ * les variantes des couleurs ci-dessus, pour bootstrap
+ */
+/**
+ * Bootstrap
+ */
+/**
+ * md-bootstrap
+ */
+/**
+ * include mixins
+ */
+/**
+ * Chargement progressif
+ */
+/**
+ * Affichage de la langue.
+ * Model simple.
+ */
+/**
+ * 
+ */
+/**
+ * Card rotation
+ */
+/**
+ * la police
+ */
+/**
+ * Defzult style for drupal and bootstrap.
+ */
+/**
+ * translation on hover
+ */
+/**
+ * Before cover
+ */
+/**
+ * Before cover
+ */
+/**
+ *  pas de retour à la ligne
+ */
+/**
+ *  mixin for multiline limit text css
+ */
+/*!
+ * .list-element{@include list-element(($paddingY:10px, $paddingX:5px, $borderW:1px));}
+ */
+/**
+ *  Images area to preload,
+ *  on ajoute sur la div contenant l'image
+ */
+/**
+ *
+ */
+/**
+ * Affet Ombre
+ */
+/**
+ * Pricelist
+ */
+body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  font-size: 1em; }
+  body h1 {
+    font-weight: 700;
+    color: #112748; }
+  body h2, body h3 {
+    font-weight: 600; }
+  body a {
+    text-decoration: none !important; }
+  body p, body ol, body ul, body dl {
+    margin-top: 0;
+    margin-bottom: 1.8em; }
+  body .hidden {
+    display: none !important; }
+
+.site-header-m2 img.logo {
+  max-height: 70px; }
+
+.footer-menu-rx {
+  background: #112748; }
