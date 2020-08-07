@@ -11,8 +11,8 @@ global-style:
     node_modules/bootstrap/dist/js/bootstrap.min.js: {}    
     # *********  Custom scripts ********************************************************
     js/script-auto.js: {}
-    js/custom-plugin.js: {}
-    js/wbu.js: {}
+    #js/custom-plugin.js: {}
+    #js/wbu.js: {}
   dependencies:
     - core/jquery
     - core/drupal

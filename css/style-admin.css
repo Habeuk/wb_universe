@@ -1,3 +1,21 @@
+/**
+ * Les principales couleurs.
+ */
+/**
+ * text color.
+ */
+/**
+ * space section
+ */
+/**
+ * les variantes des couleurs ci-dessus, pour bootstrap
+ */
+/**
+ * Bootstrap
+ */
+/**
+ * md-bootstrap
+ */
 @import "../bootstrap-4/scss/_functions.scss";
 @import "../bootstrap-4/scss/_variables_custom.scss";
 @import "../bootstrap-4/scss/_variables.scss";
@@ -16,7 +34,7 @@
  * Model simple.
  */
 /**
- * 
+ *
  */
 /**
  * Card rotation

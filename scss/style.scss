@@ -1,32 +1,32 @@
-@import "defaut/loader_model1.scss";
+// charge les components, functions ...
+@import "defaut/loader_model1.scss"; // charge le style par defaut.
+@import "defaut/defaultStyle.scss";
 
-body{
-	font-family: 'Raleway', sans-serif;	
-	font-weight:400;
+body {
 	font-size: 1em;
-	h1{
-		font-weight:700;
-		color: $color1;
-	}
-	h2,h3{
-		font-weight:600;
-	}
-	a{
-		text-decoration:none !important;
-	}
-	p,ol, ul, dl {
-	    margin-top: 0;
-	    margin-bottom: 1.8em;
-	}
-	.hidden{
-		display:none !important;	
-	}
-}
 
-.site-header-m2 img.logo{
-	max-height: 70px;
-}
+	h1 {
+		font-weight: 700;
+	}
 
-.footer-menu-rx{
-	background: $color1;	
+	h2,
+	h3 {
+		font-weight: 600;
+	}
+
+	a {
+		text-decoration: none !important;
+	}
+
+	dl,
+	ol,
+	p,
+	ul {
+		margin-top   : 0;
+		margin-bottom: 1.8em;
+	}
+
+	.hidden {
+		display: none !important;
+	}
 }

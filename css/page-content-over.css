@@ -16,5 +16,4 @@
 /**
  * md-bootstrap
  */
-body {
-  padding: 5px; }
+@import "/siteweb/airportlome/public/web/themes/contrib/wb_universe/scss/page-content-over.scss";

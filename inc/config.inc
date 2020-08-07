@@ -11,7 +11,7 @@ const TEMPLATE_menu__account = 'menu__account_icon';
  *
  * @var string
  */
-const LOAD_SCSS_BY_SESSION = true;
+const LOAD_SCSS_BY_SESSION = false;
 
 /**
  * template utlisé par le menu principal.

@@ -18,8 +18,8 @@ libraries:
   - wb_universe/global-style
   - wb_universe/fontawesome
   - wb_universe/lazysize
-  - wb_universe/google-police
-  - wb_universe/google-analytics
+  #- wb_universe/google-police
+  #- wb_universe/google-analytics
 
 
 # Add custom css to ckeditor
@@ -27,9 +27,9 @@ ckeditor_stylesheets:
   - css/bootstrap.css
   - css/style.css
   #- css/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css
-  - css/ckeditor_custom.css
-  - https://fonts.googleapis.com/css?family=Roboto:300,400,500,700
-  - https://fonts.googleapis.com/css?family=Lato:300,400&display=swap
+  #- css/ckeditor_custom.css
+  #- https://fonts.googleapis.com/css?family=Roboto:300,400,500,700
+  #- https://fonts.googleapis.com/css?family=Lato:300,400&display=swap
 
 libraries-override:
   bootstrap_barrio/global-styling:

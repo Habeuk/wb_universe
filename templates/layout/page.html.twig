@@ -67,7 +67,6 @@
  * @see html.html.twig
  */
 #}
-
     {% if page.header %}
       <header class="main header">
         {{ page.header }}
@@ -81,9 +80,11 @@
     {% endif %}
     
     {% if page.content %}
-      <div class="content">
-        <div{{ page.content.attributes }}>{{ page.content|without('attributes') }}</div>
+    <div class="content-front">
+      <div class="container">
+        <div{{ page.content.attributes }}>{{ page.content|without('attributes', 'wrapper_attribute') }}</div>
       </div>
+    </div>
     {% endif %}
     
     {% if page.after_content %}
@@ -97,4 +98,3 @@
         {{ page.footer }}
       </footer>
     {% endif %}
-
