@@ -41,6 +41,13 @@ function wb_universe_preprocess_html(&$variables)
   if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
     $_css[] = 'administrator';
   }
+  // add
+  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  if ($variables['is_front']) {
+    $_css[] = 'front-page';
+  } else {
+    $_css[] = 'not-front-page';
+  }
   if (! empty($_css)) {
     $variables['html_attributes']->setAttribute('class', $_css);
   }
@@ -53,6 +60,15 @@ function wb_universe_preprocess_html(&$variables)
 function wb_universe_preprocess_page(&$variables)
 {
   MdbootstrapWbu::wbupreprocess_page($variables);
+}
+
+/**
+ * Implement hook_preprocess_ds_entity_view
+ * si le module ds est installé.
+ */
+function wb_universe_preprocess_ds_entity_view(&$variables)
+{
+  MdbootstrapWbu::wbupreprocess_ds_entity_view($variables);
 }
 
 /**
@@ -88,7 +104,6 @@ function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $va
  */
 function wb_universe_preprocess_node(&$variables)
 {
-  // dump($variables);
   MdbootstrapWbu::wbupreprocess_node($variables);
 }
 

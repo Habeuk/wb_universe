@@ -11,9 +11,9 @@ jQuery(document).ready( function($) {
 	 * https://web.whatsapp.com/send?phone=23796436433&text=bjr&source=&data=
 	 * https://api.whatsapp.com/send?phone=23796436433&text=https://appart-logement.com/fr/appartement/tam-tam-weekend/appartement-louer
 	 * https://forum.webflow.com/t/dynamic-share-buttons-for-different-social-media/30991
-	 * 
+	 *
 	 * https://drupal.stackexchange.com/questions/185494/user-login-rest-format
-	 * 
+	 *
 	 */
 	(function(){
 		var rx={
@@ -50,7 +50,7 @@ jQuery(document).ready( function($) {
 					if(price){
 						texte += '*Prix : '+price+'*';
 						texte += "\r\n\r\n";
-					}					
+					}
 					texte += 'Publier vos annonces sur *appart-logement.com*';
 					texte += "\r\n";
 					texte += 'Lire la suite : ';
@@ -61,15 +61,15 @@ jQuery(document).ready( function($) {
 			});
 			$('.socialmediaicons').html(html);
 		}
-	})();  
+	})();
 	/**
 	 * Facebook
-	 * 
+	 *
 	 */
 	(function(){
 		  // ** wait facebook initialise
-		  jQuery(document).bind('fbInit',function(){ 
-			  console.log('Facebook api is loaded');		  
+		  jQuery(document).bind('fbInit',function(){
+			  console.log('Facebook api is loaded');
 				  /**
 				   * 	share on facebook
 				   */
@@ -89,13 +89,13 @@ jQuery(document).ready( function($) {
 						});
 			  	  }
 				  $(' .fb-share ').click(function(){ shareFaceBook($(this).attr('data-href')); });
-				  
+
 				  	 /**
 					 * count number share facebook
 					 * https://developers.facebook.com/docs/graph-api/reference/v3.3/url
 					 * https://developers.facebook.com/docs/facebook-login/permissions/overview/
 					 * https://developers.facebook.com/docs/apps/review
-					 * 
+					 *
 					 */
 					(function(){
 						//console.log(' Face Count ');
@@ -105,7 +105,7 @@ jQuery(document).ready( function($) {
 								function (response) {
 								  if (response && !response.error) {
 									//console.log('OK');
-									//console.log(response);				      
+									//console.log(response);
 								  }else{
 									console.log('error');
 									console.log(response);
@@ -113,7 +113,7 @@ jQuery(document).ready( function($) {
 								}
 							);
 					})();
-					
+
 					/**
 			         *  inscription et connection via facabook
 			         */
@@ -149,7 +149,7 @@ jQuery(document).ready( function($) {
 			                  console.log('User cancelled login or did not fully authorize.');
 			                }
 			              }, {scope: 'public_profile,email'});
-			            }   
+			            }
 			            /**
 			             * deconnecyion de facebook
 			             */
@@ -158,7 +158,7 @@ jQuery(document).ready( function($) {
 			                console.log('deconnexion de app');
 			              });
 			            }
-			            $('.rxconnexion.facebook').click(function(){ 
+			            $('.rxconnexion.facebook').click(function(){
 			            	$('i',this).removeClass('d-none');
 			              // console.log('Retour du stutus de connection : '+ CheckStatusLogin());
 			              // if( CheckStatusLogin() != "connected"){LoginByFB();}else{LogoutByFB();}
@@ -178,9 +178,9 @@ jQuery(document).ready( function($) {
 			            	 console.log('infos users');
 			               //  gender, name, verified, name_format, hometown, address, age_range, birthday, cover, currency, devices, education, email, employee_number
 			               FB.api(
-			                   '/me', 
+			                   '/me',
 			                   'GET',
-			                   {fields: 'first_name,last_name,gender,name,email,verified,name_format,picture,hometown,address,age_range,birthday,cover'}, 
+			                   {fields: 'first_name,last_name,gender,name,email,verified,name_format,picture,hometown,address,age_range,birthday,cover'},
 			                   function(response) {
 			                     console.log('Get data from user');
 			                     var datas='';
@@ -188,13 +188,13 @@ jQuery(document).ready( function($) {
 			                    	 response['plateforme']='facebook';
 			                    	 datas = JSON.stringify(response);
 			                    	 console.log(" Infos de L'utilisateur : ", response);
-			                    	 postDatas('/rxlogin/identification', datas, false);              
+			                    	 postDatas('/rxlogin/identification', datas, false);
 			                     }else{
 			                         console.log(response);
 			                         LogoutByFB();
 			                         alert('impossible de se connecter Via Facebook');
 			                     }
-			                     
+
 			                     /**
 			                    * Load large image for user
 			                    */
@@ -209,7 +209,7 @@ jQuery(document).ready( function($) {
 				             );
 			                   }
 			               );
-			               
+
 			               // get
 			               FB.api('/me/permissions',  function(response) {
 			                 //console.log(' liste de permission ');
@@ -241,19 +241,19 @@ jQuery(document).ready( function($) {
 				js = d.createElement(s); js.id = id;
 				js.src = "https://connect.facebook.net/fr_FR/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
-			  }(document, 'script', 'facebook-jssdk'));		
+			  }(document, 'script', 'facebook-jssdk'));
 		  })();
-	});  
+	});
 	/**
 	 * post data
 	 */
      function postDatas(url,datas,reload) {
-       var reponse=''; 
+       var reponse='';
        $.ajax({
-          url: url, 
+          url: url,
           data: datas,
           method: "POST",
-          dataType: "json",         
+          dataType: "json",
           async: false,
           success: function(data) {
         	  reponse = data;
@@ -266,24 +266,24 @@ jQuery(document).ready( function($) {
         	  }
         	  if(data.connected){
         		  if(data.redirect==''){
-        			  location.reload(); 
+        			  location.reload();
         		  }else{
         			  window.location = '/immo-gestion/users/infos/create';
-        		  }   
+        		  }
         	  }
           },
           error:function (errormessage) {  console.log(errormessage);},
-          complete: function () {   
-            console.log("exécution complete avec succes"); 
+          complete: function () {
+            console.log("exécution complete avec succes");
             //if( reload ){ location.reload(); }
           }
         })
         return reponse;
      };
      reponse = JSON.stringify({});
-     postDatas('/rxlogin/loginurl', reponse, false); 
+     postDatas('/rxlogin/loginurl', reponse, false);
      /**
-      * 
+      *
      $('footer .widget-title').click(function(){
     	 var reponse = {
     			first_name: "Stephane kks6",
@@ -303,24 +303,13 @@ jQuery(document).ready( function($) {
     			}
     	 reponse['plateforme']='facebook';
     	reponse = JSON.stringify(reponse);
-    	postDatas('/rxlogin/identification', reponse, false); 		 
-    	 
+    	postDatas('/rxlogin/identification', reponse, false);
+
      });
      */
-	
+
 });
 
 /*
- * 
+ *
  */
-
-
-
-
-
-
-
-
-
-
-

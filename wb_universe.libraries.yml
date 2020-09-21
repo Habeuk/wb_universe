@@ -170,11 +170,28 @@ page_view_wb_universe:
   js:
     js/page-view-wb_universe.js: {}
 
+
 share-rx:
   js:
     #'https://connect.facebook.net/fr_US/sdk.js': { type: external, attributes: { async: true } }
     js/rx/share.js: {}
-
+       
+        
+aos:
+  js:
+    node_modules/aos/dist/aos.js: {}
+  css:
+    theme:
+      node_modules/aos/dist/aos.css: {}
+    
+    
 convert_csv_to_json:
   js:
     plugins/convert-csv-to-json/app.js: {}
+    
+smooth_scrollbar:
+  js:
+    node_modules/smooth-scrollbar/dist/smooth-scrollbar.js: {}
+    js/smooth-scrollbar-config.js: {}
+    
+    

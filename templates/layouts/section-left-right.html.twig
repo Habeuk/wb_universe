@@ -1,0 +1,36 @@
+
+{% set image_url %}
+	{{ content.image_bg }} 
+{% endset %}
+{% set classes = [
+          'section-left-right-simple',
+          'd-flex',
+          'justify-content-center',
+          "align-items-center",
+          "flex-wrap flex-column",
+          (settings.extra_classes) ? settings.extra_classes
+        ] 
+%}
+<section {{ content_attributes.addClass(classes) }} style="background-image:url('{{ image_url|striptags|trim }}')" >	
+		<div class="items d-flex align-items-center justify-content-center w-100 h-100">
+			<div class="item left h-100 d-flex align-items-center justify-content-center">
+				<div class="layout-texte">
+					<h4 class="titre">{{ content.title_left }}</h4>
+					<div class="texte">{{ content.texte_left }}</div>
+					{% if content.image_left %}
+						<div class="image-right">{{ content.image_left }}</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class="item right h-100 d-flex align-items-center justify-content-center">
+				<div class="layout-texte">
+					
+					<h4 class="titre">{{ content.title_right }}</h4>					
+					<div class="texte">{{ content.texte_right }}</div>
+					{% if content.image_right %}
+						<div class="image-right">{{ content.image_right }}</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>	
+</section>

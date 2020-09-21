@@ -1,5 +1,6 @@
 <?php
 use Drupal\Core\Template\Attribute;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_theme_suggestions_HOOK_alter()
@@ -59,28 +60,52 @@ function wb_universe_preprocess_views_view_unformatted(&$variables)
  */
 function wb_universe_preprocess_views_view_fields(&$variables)
 {
-  $group = 'wb_universe_row_view';
-  $name = $variables['view']->id() . $variables['view']->current_display;
-  $file = format_template_views_view_unformatted($group . $name);
-  if ($file) {
-    // dump($file);
-    $variables['template_format'] = $file;
-    // * node_teaser_wb_universe
-    if (! empty($file['formatter']['value'])) {
-      $template = $file['formatter']['value'];
-      $items = [
-        '#theme' => $template
-      ];
-      foreach ($variables['fields'] as $k => $value) {
-        if (! empty($file['fields'][$k]['data']['value'])) {
-          $items[$file['fields'][$k]['data']['value']][] = [
-            '#theme' => 'views_view_field_cutom',
-            '#field' => $value
-          ];
+  // dump('wb_universe_preprocess_views_view_fields');
+  $wbuniverse_row = true;
+  $wbuniverse_user_render = false;
+  if ($wbuniverse_row) {
+    $group = 'wb_universe_row_view';
+    $name = $variables['view']->id() . $variables['view']->current_display;
+    $file = format_template_views_view_unformatted($group . $name);
+    if ($file) {
+      // dump($file);
+      $variables['template_format'] = $file;
+      // * node_teaser_wb_universe
+      if (! empty($file['formatter']['value'])) {
+        $template = $file['formatter']['value'];
+        $items = [
+          '#theme' => $template
+        ];
+        foreach ($variables['fields'] as $k => $value) {
+          if (! empty($file['fields'][$k]['data']['value'])) {
+            $items[$file['fields'][$k]['data']['value']][] = [
+              '#theme' => 'views_view_field_cutom',
+              '#field' => $value
+            ];
+          }
         }
+        $variables['new_template_format'] = $items;
       }
-      $variables['new_template_format'] = $items;
     }
+  }
+  if ($wbuniverse_user_render) {
+    getuserInfosRender($variables['view']);
+  }
+}
+
+/**
+ * Verifie si le contenu est un entité de node,
+ * si c'est le cas, ajouter le rendu de l'utilisateur.
+ * Lorsque l'on utilise les layouts, on ne peut pas le faire en UI.
+ *
+ * @param ViewExecutable $view
+ */
+function getuserInfosRender(ViewExecutable $view)
+{
+  // dump($view);
+  $Entity = $view->getBaseEntityType();
+  if ($Entity) {
+    if ($Entity->id() == 'node') {}
   }
 }
 
