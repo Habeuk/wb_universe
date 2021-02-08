@@ -2,10 +2,11 @@ name: wb_universe
 type: theme
 description: 'This theme is built for conferences, exhibitions, events. The configuration is intuitive and you can load the content of the demonstration'
 core: 8.x
+core_version_requirement: ^8 || ^9
 base theme: bootstrap_barrio
 
 screenshot: wb_universe.png
-logo: logo.png
+logo: logo.png 
 
 regions:
   header: 'header'

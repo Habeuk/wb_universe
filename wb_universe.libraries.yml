@@ -118,11 +118,10 @@ styleadmin:
     js/script-admin.js: {}
   dependencies:
     - core/jquery
-    - core/jquery.ui.draggable
-    - core/jquery.ui.dropable
-    - core/jquery.ui.sortable
-    - core/jquery.ui.dialog
-    - core/jquery.ui.tab
+    - jquery_ui_sortable/sortable
+    - jquery_ui_droppable/droppable
+    #- core/jquery.ui.dialog
+    #- core/jquery.ui.tab
 
 #
 owlcarousel:
@@ -175,7 +174,7 @@ share-rx:
   js:
     #'https://connect.facebook.net/fr_US/sdk.js': { type: external, attributes: { async: true } }
     js/rx/share.js: {}
-       
+     
         
 aos:
   js:

@@ -2,8 +2,9 @@ jQuery(document).ready(function ($) {
 	//var responsive = $('.js-carousel').data('responsive');
 	$('.owl-carousel').each(function (i, v) {
 		var self = this;
-		var params = $(self).data('responsive');
-		//console.log('OWL responsive : ', params);
+		var params = $(self).data('owlresponsive');
+		console.log('OWL responsive : ', params);
+		// example : data-responsive='{"items":1,"nav":false,"dots":true}'
 		if (params) {
 			params['navText'] = [
 				'<i class="fa fa-angle-left" aria-hidden="true"></i>',
@@ -13,8 +14,8 @@ jQuery(document).ready(function ($) {
 			 * after the plugin has initialized.
 			 */
 			$(self).on('initialized.owl.carousel', function (event) {
-				//console.log('initialized.owl.carousel');
-
+				console.log('initialized.owl.carousel');
+				
 				setTimeout(function () {
 					$('.owl-dots', self).addClass('show');
 					$('.owl-dots > div', self).each(function (k, value) {
@@ -28,6 +29,7 @@ jQuery(document).ready(function ($) {
 					});
 
 				}, 200);
+				
 			});
 			$(self).owlCarousel(params);
 		}
