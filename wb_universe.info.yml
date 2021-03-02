@@ -19,8 +19,8 @@ libraries:
   - wb_universe/global-style
   - wb_universe/fontawesome
   - wb_universe/lazysize
-  #- wb_universe/google-police
-  #- wb_universe/google-analytics
+  - wb_universe/google-police
+  - wb_universe/google-analytics
 
 
 # Add custom css to ckeditor

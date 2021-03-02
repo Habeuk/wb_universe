@@ -9,6 +9,9 @@ wb_universe_stylepage_status: true
 # Configuration du pre entete.
 wb_universe_topheader_status: true
 
+# Configuration des layouts.
+wb_universe_layout_manager_status: true
+
 # Configuration de pagenodesdisplay
 wb_universe_pagenodesdisplay_status: true
 

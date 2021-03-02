@@ -2,10 +2,10 @@
  * Les principales couleurs.
  */
 /**
- * text color.
+ * Text color.
  */
 /**
- * space section
+ * Space section
  */
 /**
  * les variantes des couleurs ci-dessus, pour bootstrap
@@ -17,6 +17,6 @@
  * md-bootstrap
  */
 /**
- * defaut/model/socialmediaicons.scss
+ * Defaut/model/socialmediaicons.scss
  */
-@import "/siteweb/app-teamcommerce/public/web/themes/contrib/wb_universe/scss/page-content-over.scss";
+@import "/siteweb/EntrepriseFibreOptique/public/web/themes/contrib/wb_universe/scss/page-content-over.scss";

@@ -4,7 +4,6 @@ global-style:
       css/bootstrap-overlay.css: {}
       css/style-auto.css: {}
       css/style.css: {}
-
   js:
     # *********  Js for bootstrap 4 ********************************************************
     node_modules/@popperjs/core/dist/umd/popper.min.js: {}
@@ -16,9 +15,6 @@ global-style:
   dependencies:
     - core/jquery
     - core/drupal
-
-
-
 
 google-police:
   css:

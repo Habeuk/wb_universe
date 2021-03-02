@@ -268,6 +268,15 @@ class MdbootstrapWbu {
     // ############################### BEGIN SECTIONS.
 
     // \\ to update in defaultTheme.
+
+    /**
+     * Group Top headers
+     */
+    if (theme_get_setting($theme_name . '_topheader_status', $theme_name)) {
+      $DefineSetting->group = 'topheader';
+      $DefineSetting->form_topheader($form, $vertical_tabs_group, $form_state);
+    }
+
     /**
      * Group headers
      */
@@ -275,6 +284,14 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'header';
       $DefineSetting->form_header($form, $vertical_tabs_group, $form_state);
     }
+    /**
+     * Group Top headers
+     */
+    if (theme_get_setting($theme_name . '_layout_manager_status', $theme_name)) {
+      $DefineSetting->group = 'layout_manager';
+      $DefineSetting->formLayoutManager($form, $vertical_tabs_group, $form_state);
+    }
+
     /**
      * Group imagetextrightleft
      */

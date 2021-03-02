@@ -23,6 +23,11 @@ require_once ('inc/form.inc');
 require_once ('inc/views.inc');
 
 /**
+ * Action Ajax for theme
+ */
+require_once ('inc/ajaxtheme.inc');
+
+/**
  * Custom preprocess template
  */
 function wb_universe_preprocess(&$variables, $hook)
@@ -431,11 +436,6 @@ function _saveimage($image)
     }
   }
 }
-
-/**
- * Action Ajax for theme
- */
-require_once ('inc/ajaxtheme.inc');
 
 function _completManageFile($values)
 {

@@ -2,10 +2,10 @@
  * Les principales couleurs.
  */
 /**
- * text color.
+ * Text color.
  */
 /**
- * space section
+ * Space section
  */
 /**
  * les variantes des couleurs ci-dessus, pour bootstrap
@@ -17,7 +17,7 @@
  * md-bootstrap
  */
 /**
- * defaut/model/socialmediaicons.scss
+ * Defaut/model/socialmediaicons.scss
  */
 @import "../bootstrap-4/scss/_functions.scss";
 @import "../bootstrap-4/scss/_variables_custom.scss";
