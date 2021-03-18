@@ -3,7 +3,7 @@ wb_universe_text_center:
   label: 'section text center'
   category: 'WB Universe'
   template: 'templates/layouts/layout-extend--text-center'
-  class: 'Drupal\views_formatters\Plugin\LayoutTextCenter'
+  #class: 'Drupal\views_formatters\Plugin\LayoutTextCenter'
   default_region: description
   regions:
     description:
@@ -19,7 +19,7 @@ wb_universe_left_right_simple:
   label: 'section left right '
   category: 'WB Universe'
   template: templates/layouts/section-left-right
-  class: 'Drupal\views_formatters\Plugin\LayoutLeftRight'
+  #class: 'Drupal\views_formatters\Plugin\LayoutLeftRight'
   default_region: texte
   regions:
     image_bg:

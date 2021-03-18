@@ -58,7 +58,7 @@
 		border       : 1px solid $color;
 		border-radius: 25px;
 		color        : $color;
-		@include transition();
+		@include WBUtransition();
 	}
 
 	&:hover {
@@ -180,7 +180,7 @@
 /**
 * translation on hover
 */
-@mixin transition($propriete:all, $temps:0.3s, $style:ease-in-out) {
+@mixin WBUtransition($propriete:all, $temps:0.3s, $style:ease-in-out) {
 	transition-property       : $propriete;
 	transition-duration       : $temps;
 	transition-timing-function: $style;
