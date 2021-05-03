@@ -142,42 +142,6 @@
 	}
 }
 /**
- * la police
- */
-@mixin policeEcriture_AntennaCond() {
-	@font-face {
-		font-family: 'AntennaCond-Thin';
-		src        : url("../scss/defaut/police/AntennaCond/AntennaCond-Thin.otf");
-		font-family: 'AntennaCond-ExtraLight';
-		src        : url("../scss/defaut/police/AntennaCond/AntennaCond-ExtraLight.otf");
-	}
-}
-@mixin policeEcriture_BigNoodleTitling() {
-	@font-face {
-		font-family: 'BigNoodleTitling';
-		src        : url("../scss/defaut/police/BigNoodleTitling/big_noodle_titling.eot");
-		src        : url("../scss/defaut/police/BigNoodleTitling/big_noodle_titling.eot?#iefix") format('embedded-opentype'), url("../scss/defaut/police/BigNoodleTitling/big_noodle_titling.ttf") format('truetype'), url("../scss/defaut/police/BigNoodleTitling/big_noodle_titling.svg#LearningCurveProRegular") format('svg');
-	}
-}
-/**
-* Defzult style for drupal and bootstrap.
-*/
-//* alter space bootstrap */
-@mixin alterSpaceRowCol($padding_row-col-0:0px) {
-	margin-right: -$padding_row-col-0;
-	margin-left : -$padding_row-col-0;
-
-	.row {
-		margin-right: -$padding_row-col-0;
-		margin-left : -$padding_row-col-0;
-	}
-
-	[class*='col-'] {
-		padding-left : $padding_row-col-0;
-		padding-right: $padding_row-col-0;
-	}
-}
-/**
 * translation on hover
 */
 @mixin WBUtransition($propriete:all, $temps:0.3s, $style:ease-in-out) {

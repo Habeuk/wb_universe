@@ -7,9 +7,9 @@ global-style:
   js:
     # *********  Js for bootstrap 4 ********************************************************
     node_modules/@popperjs/core/dist/umd/popper.min.js: {}
-    node_modules/bootstrap/dist/js/bootstrap.min.js: {}    
+    node_modules/bootstrap/dist/js/bootstrap.min.js: {}
     # *********  Custom scripts ********************************************************
-    js/script-auto.js: {}
+    #js/script-auto.js: {}
     #js/custom-plugin.js: {}
     #js/wbu.js: {}
   dependencies:
@@ -99,7 +99,7 @@ viewportchecker:
 #
 timeTo:
   css:
-    theme:
+    component:
       plugins/jq-timeTo/timeTo.css: {}
   js:
     plugins/jq-timeTo/jquery.time-to.min.js: {}
@@ -108,7 +108,7 @@ timeTo:
 #
 styleadmin:
   css:
-    theme:
+    component:
       css/style-admin.css: {}
   js:
     js/script-admin.js: {}
@@ -119,10 +119,11 @@ styleadmin:
     #- core/jquery.ui.dialog
     #- core/jquery.ui.tab
 
+
 #
 owlcarousel:
   css:
-    theme:
+    component:
       node_modules/owl.carousel/dist/assets/owl.carousel.min.css: {}
       node_modules/owl.carousel/dist/assets/owl.theme.green.css: {}
   js:
@@ -141,7 +142,7 @@ lazysize:
   js:
     node_modules/lazysizes/lazysizes.min.js: {}
     node_modules/lazysizes/plugins/bgset/ls.bgset.js: {}
-    
+
 
 #
 vue_js:
@@ -170,23 +171,21 @@ share-rx:
   js:
     #'https://connect.facebook.net/fr_US/sdk.js': { type: external, attributes: { async: true } }
     js/rx/share.js: {}
-     
-        
+
+
 aos:
   js:
     node_modules/aos/dist/aos.js: {}
   css:
     theme:
       node_modules/aos/dist/aos.css: {}
-    
-    
+
+
 convert_csv_to_json:
   js:
     plugins/convert-csv-to-json/app.js: {}
-    
+
 smooth_scrollbar:
   js:
     node_modules/smooth-scrollbar/dist/smooth-scrollbar.js: {}
     js/smooth-scrollbar-config.js: {}
-    
-    

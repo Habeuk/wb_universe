@@ -1,8 +1,7 @@
 /**
  *  Importer la configuration.
  */
-@import "_variables_custom.scss";
-
+//@import "_variables_custom.scss";
 /**
  *  importer les données bootstrap 4.
  */
@@ -10,7 +9,5 @@
 
 .alert-wrapper {
   position: relative;
-  z-index: 10;
+  z-index : 10;
 }
-
-

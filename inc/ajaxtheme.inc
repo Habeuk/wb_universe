@@ -15,9 +15,6 @@ require_once $slider_file;
 $carouselcards_file = DRUPAL_ROOT . '/' . drupal_get_path('theme', 'wb_universe') . '/inc/ajax/carouselcards.inc';
 require_once $carouselcards_file;
 
-debugLog::$themeName = 'wb_universe';
-debugLog::$max_depth = 6;
-
 // \\ to update in defaultTheme.
 /**
  * Action Ajax for Headers

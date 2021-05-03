@@ -19,143 +19,28 @@
 /**
  * Defaut/model/socialmediaicons.scss
  */
-/**
- * Boostrap load functions and mixins.
- * Ce chemin est valide pour le loader uniqueùent.
- */
-/**
- * Les principales couleurs.
- */
-/**
- * text color.
- */
-/**
- * space section
- */
-/**
- * les variantes des couleurs ci-dessus, pour bootstrap
- */
-/**
- * Bootstrap
- */
-/**
- * md-bootstrap
- */
-/**
- * include mixins
- */
-/**
- * Chargement progressif
- */
-/**
- * Affichage de la langue.
- * Model simple.
- */
-/**
- *
- */
-/**
- * Card rotation
- */
-/**
- * la police
- */
-/**
- * Defzult style for drupal and bootstrap.
- */
-/**
- * translation on hover
- */
-/**
- * Before cover
- */
-/**
- * Before cover
- */
-/**
- *  pas de retour à la ligne
- */
-/**
- *  mixin for multiline limit text css
- */
-/*!
- * .list-element{@include list-element(($paddingY:10px, $paddingX:5px, $borderW:1px));}
- */
-/**
- *  Images area to preload,
- *  on ajoute sur la div contenant l'image
- */
-/**
- *
- */
-/**
- * Affet Ombre
- */
-/**
- * Pricelist
- */
-body {
-  color: #5a5a5a; }
-
-h1, .h1 {
-  font-size: 1.8em; }
-@media only screen and (min-width: 769px) {
-  h1, .h1 {
-    font-size: 2.5em; } }
-
-h2, .h2 {
-  font-size: 1.4em; }
-@media only screen and (min-width: 769px) {
-  h2, .h2 {
-    font-size: 2em; } }
-
-h3, .h3 {
-  font-size: 1.2em; }
-@media only screen and (min-width: 769px) {
-  h3, .h3 {
-    font-size: 1.75em; } }
-
-h4, .h4 {
-  font-size: 1em; }
-@media only screen and (min-width: 769px) {
-  h4, .h4 {
-    font-size: 1.5em; } }
-
-h5, .h5 {
-  font-size: 1em; }
-@media only screen and (min-width: 769px) {
-  h5, .h5 {
-    font-size: 1.25em; } }
-
-h6, .h6 {
-  font-size: 1em; }
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  margin-bottom: 0.4em; }
-
-/**
- * Boutons
- */
-.btn {
-  font-size: 1em; }
-
-/**
- * form col-auto.
- */
-form .js-form-item.col-auto {
-  padding-right: 0;
-  padding-left: 0; }
-
-body {
-  font-size: 1em; }
-  body h1 {
-    font-weight: 700; }
-  body h2, body h3 {
-    font-weight: 600; }
-  body a {
-    text-decoration: none !important; }
-  body dl, body ol, body p, body ul {
-    margin-top: 0;
-    margin-bottom: 1.8em; }
-  body .hidden {
-    display: none !important; }
+/*
+ body {
+ font-size: 1em;
+ h1 {
+ font-weight: 700;
+ }
+ h2,
+ h3 {
+ font-weight: 600;
+ }
+ a {
+ text-decoration: none !important;
+ }
+ dl,
+ ol,
+ p,
+ ul {
+ margin-top   : 0;
+ margin-bottom: 1.8em;
+ }
+ .hidden {
+ display: none !important;
+ }
+ }
+ /**/

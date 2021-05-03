@@ -1,12 +1,13 @@
+/*
 @import "defaut/loader_model1.scss";
 
 #page-wrapper-maintenance{
 	> div {
 		margin-bottom: $margin_bottom;
-		margin-top: $margin_top;	
-	}	
+		margin-top: $margin_top;
+	}
 	#page{
-		margin:0;	
+		margin:0;
 	}
 	.container-logo{
 		position:relative;
@@ -25,23 +26,23 @@
 				right:0;
 				content: "";
 				background:#e0e0e0;
-				width:1px;	
+				width:1px;
 				display:block;
-				
+
 			}
 		}
 	}
-	
+
 }
 
 .static-image{
 	&::before{
-		opacity: 0;	
+		opacity: 0;
 	}
 	.col-text{
 		@include media-min(M) {
 			flex: 0 0 90%;
-	    	max-width: 90%;	
+	    	max-width: 90%;
     	}
 	}
 	.rx-test{
@@ -57,3 +58,4 @@
     	bottom: -2.3em;
     }
 }
+/**/

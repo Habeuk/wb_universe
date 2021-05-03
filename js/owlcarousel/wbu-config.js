@@ -4,7 +4,7 @@ jQuery(document).ready(function ($) {
 		var self = this;
 		var params = $(self).data('owlresponsive');
 		console.log('OWL responsive : ', params);
-		// example : data-responsive='{"items":1,"nav":false,"dots":true}'
+		// example : data-owlresponsive='{"items":1,"nav":false,"dots":true,"loop":true,"autoplay":true}'
 		if (params) {
 			params['navText'] = [
 				'<i class="fa fa-angle-left" aria-hidden="true"></i>',

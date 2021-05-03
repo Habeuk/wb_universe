@@ -30,9 +30,8 @@ require_once ('inc/ajaxtheme.inc');
 /**
  * Custom preprocess template
  */
-function wb_universe_preprocess(&$variables, $hook)
-{
-  MdbootstrapWbu::wbupreprocess_template($variables, $hook, 'wb_universe');
+function wb_universe_preprocess(&$variables, $hook) {
+	MdbootstrapWbu::wbupreprocess_template($variables, $hook, 'wb_universe');
 }
 
 /**
@@ -40,40 +39,39 @@ function wb_universe_preprocess(&$variables, $hook)
  *
  * @param array $variables
  */
-function wb_universe_preprocess_html(&$variables)
-{
-  $_css = [];
-  if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
-    $_css[] = 'administrator';
-  }
-  // add
-  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
-  if ($variables['is_front']) {
-    $_css[] = 'front-page';
-  } else {
-    $_css[] = 'not-front-page';
-  }
-  if (! empty($_css)) {
-    $variables['html_attributes']->setAttribute('class', $_css);
-  }
-  MdbootstrapWbu::createFilesTheme('wb_universe', null, false);
+function wb_universe_preprocess_html(&$variables) {
+	$_css = [];
+	if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
+		$_css[] = 'administrator';
+	}
+	// add
+	$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+	if ($variables['is_front']) {
+		$_css[] = 'front-page';
+	}
+	else {
+		$_css[] = 'not-front-page';
+	}
+	if (! empty($_css)) {
+		$variables['html_attributes']->setAttribute('class', $_css);
+	}
+	MdbootstrapWbu::createFilesTheme('wb_universe', null, false);
 }
 
 /**
  * Implement hook_preprocess_page
  */
-function wb_universe_preprocess_page(&$variables)
-{
-  MdbootstrapWbu::wbupreprocess_page($variables);
+function wb_universe_preprocess_page(&$variables) {
+	// dump($variables);
+	MdbootstrapWbu::wbupreprocess_page($variables);
 }
 
 /**
  * Implement hook_preprocess_ds_entity_view
  * si le module ds est installé.
  */
-function wb_universe_preprocess_ds_entity_view(&$variables)
-{
-  MdbootstrapWbu::wbupreprocess_ds_entity_view($variables);
+function wb_universe_preprocess_ds_entity_view(&$variables) {
+	MdbootstrapWbu::wbupreprocess_ds_entity_view($variables);
 }
 
 /**
@@ -82,12 +80,11 @@ function wb_universe_preprocess_ds_entity_view(&$variables)
  * @param int $suggestions
  * @param int $variables
  */
-function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables)
-{
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($node) {
-    $suggestions[] = 'page__' . $node->bundle() . '_node';
-  }
+function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+	$node = \Drupal::routeMatch()->getParameter('node');
+	if ($node) {
+		$suggestions[] = 'page__' . $node->bundle() . '_node';
+	}
 }
 
 /**
@@ -96,70 +93,64 @@ function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $va
  * @param int $suggestions
  * @param int $variables
  */
-function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $variables)
-{
-  if (! empty($variables["elements"]["#view_mode"])) {
-    $suggestions[] = 'user__' . $variables["elements"]["#view_mode"];
-  }
+function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+	if (! empty($variables["elements"]["#view_mode"])) {
+		$suggestions[] = 'user__' . $variables["elements"]["#view_mode"];
+	}
 }
 
 /**
  *
  * @param array $variables
  */
-function wb_universe_preprocess_node(&$variables)
-{
-  MdbootstrapWbu::wbupreprocess_node($variables);
+function wb_universe_preprocess_node(&$variables) {
+	MdbootstrapWbu::wbupreprocess_node($variables);
 }
 
-function wb_universe_preprocess_comment__comment(&$variables)
-{
-  $variables['user_picture_header'] = $variables['user_picture'];
-  $variables['user_picture_header']['#theme'] = 'user__comment';
+function wb_universe_preprocess_comment__comment(&$variables) {
+	$variables['user_picture_header'] = $variables['user_picture'];
+	$variables['user_picture_header']['#theme'] = 'user__comment';
 }
 
-function wb_universe_preprocess_field(&$variables)
-{
-  /**
-   * Class for type boolean.
-   */
-  if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'boolean') {
-    $value = $variables['element']['#object']->get($variables['field_name'])->getValue();
-    if (! empty($value[0])) {
-      $variables['attributes']['class'][] = 'boolean-' . $value[0]['value'];
-    }
-  }
-  /**
-   * for link
-   */
-  if (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
-    foreach ($variables['items'] as $key => $value) {
-      // debugLog::logs( $variables['items'] , 'field_link_items', 'kint', true);
-      $variables['items'][$key]['attributes']->addClass('btn');
-      $variables['items'][$key]['attributes']->addClass('btn-outline-danger');
-    }
-  }
+function wb_universe_preprocess_field(&$variables) {
+	/**
+	 * Class for type boolean.
+	 */
+	if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'boolean') {
+		$value = $variables['element']['#object']->get($variables['field_name'])->getValue();
+		if (! empty($value[0])) {
+			$variables['attributes']['class'][] = 'boolean-' . $value[0]['value'];
+		}
+	}
+	/**
+	 * for link
+	 */
+	if (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
+		foreach ($variables['items'] as $key => $value) {
+			// debugLog::logs( $variables['items'] , 'field_link_items', 'kint', true);
+			$variables['items'][$key]['attributes']->addClass('btn');
+			$variables['items'][$key]['attributes']->addClass('btn-outline-danger');
+		}
+	}
 }
 
 /**
  */
-function wb_universe_preprocess_field__image(&$variables)
-{
-  MdbootstrapWbu::wbupreprocess_field__image($variables, 'wb_universe');
+function wb_universe_preprocess_field__image(&$variables) {
+	MdbootstrapWbu::wbupreprocess_field__image($variables, 'wb_universe');
 }
 
 /**
  *
  * @param array $variables
  */
-function wb_universe_preprocess_image_url(&$variables)
-{
-  if (isset($variables['image_style'])) {
-    $image_style = \Drupal\image\Entity\ImageStyle::load($variables['image_style']);
-    if ($image_style) {
-      $variables['image_url'] = $image_style->buildUrl($variables['file']->getFileUri());
-    }
-  }
+function wb_universe_preprocess_image_url(&$variables) {
+	if (isset($variables['image_style'])) {
+		$image_style = \Drupal\image\Entity\ImageStyle::load($variables['image_style']);
+		if ($image_style) {
+			$variables['image_url'] = $image_style->buildUrl($variables['file']->getFileUri());
+		}
+	}
 }
 
 /**
@@ -171,51 +162,63 @@ function wb_universe_preprocess_image_url(&$variables)
  * @param int $path
  * @return NULL[][][]
  */
-function wb_universe_theme($existing, $type, $theme, $path)
-{
-  return MdbootstrapWbu::LoadTemplates('wb_universe');
+function wb_universe_theme($existing, $type, $theme, $path) {
+	return MdbootstrapWbu::LoadTemplates('wb_universe');
 }
 
 /**
  * implement hook_preprocess_HOOK
  */
-function wb_universe_preprocess_menu(&$variables)
-{
-  if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
-    $theme_hook_original = $variables['theme_hook_original'];
-    /**
-     * Il faut creer en Admin l'item user/register=>inscription.
-     * De plus, il faut supprimer user/register si l'utilisateur est connecté.
-     */
-    if ($theme_hook_original == 'menu__account') {
-      /**
-       * remove user.register if user is connecté.
-       */
-      if (\Drupal::currentUser()->isAuthenticated()) {
-        $variables['items'] = Menus::MenuDeleteIemByRouteName($variables['items'], 'user.register');
-      }
-      if (TEMPLATE_menu__account == 'menu__account_icon') {
-        $icones = [
-          'user.page' => '<i class="fas fa-user-tie pr-1"></i>',
-          'user.logout' => '<i class="fas fa-unlock-alt pr-1"></i>',
-          'user.login' => '<i class="fas fa-sign-in-alt pr-1"></i>',
-          'user.register' => '<i class="fas fa-user-tie pr-1"></i>'
-        ];
-        $variables['items'] = Menus::MenuAddIcones($variables['items'], $icones);
-      }
-    } else if ($theme_hook_original == 'menu__main') {
-      if (TEMPLATE_menu__main == 'menu__main_full') {
-      /**
-       * Nothing to do for now.
-       */
-      }
-    }
-  }
+function wb_universe_preprocess_menu(&$variables) {
+	if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
+		$theme_hook_original = $variables['theme_hook_original'];
+		/**
+		 * Il faut creer en Admin l'item user/register=>inscription.
+		 * De plus, il faut supprimer user/register si l'utilisateur est connecté.
+		 */
+		if ($theme_hook_original == 'menu__account') {
+			/**
+			 * remove user.register if user is connecté.
+			 */
+			if (\Drupal::currentUser()->isAuthenticated()) {
+				$variables['items'] = Menus::MenuDeleteIemByRouteName($variables['items'], 'user.register');
+			}
+			if (TEMPLATE_menu__account == 'menu__account_icon') {
+				$icones = [
+					'user.page' => '<i class="fas fa-user-tie pr-1"></i>',
+					'user.logout' => '<i class="fas fa-unlock-alt pr-1"></i>',
+					'user.login' => '<i class="fas fa-sign-in-alt pr-1"></i>',
+					'user.register' => '<i class="fas fa-user-tie pr-1"></i>'
+				];
+				$variables['items'] = Menus::MenuAddIcones($variables['items'], $icones);
+			}
+		}
+		else if ($theme_hook_original == 'menu__main') {
+			if (TEMPLATE_menu__main == 'menu__main_full') {
+			/**
+			 * Nothing to do for now.
+			 */
+			}
+		}
+	}
 }
 
-function wb_universe_preprocess_links(&$variables)
-{
-  MdbootstrapWbu::ManageLinks($variables, 'wb_universe');
+function wb_universe_preprocess_links(&$variables) {
+	MdbootstrapWbu::ManageLinks($variables, 'wb_universe');
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for region.html.twig.
+ */
+function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+	// dump('input wb_universe_theme_suggestions');
+	if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
+		$suggestions[] = 'input__submit_button';
+	}
+}
+
+function wb_universe_preprocess_input(array $variables) {
+	//
 }
 
 /**
@@ -223,87 +226,79 @@ function wb_universe_preprocess_links(&$variables)
  * ALter menu.
  * This hook allows any module or theme to provide alternative theme function or template name suggestions and reorder or remove suggestions provided by hook_theme_suggestions_HOOK()
  */
-function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$variables, $hook)
-{
-  if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
-    $theme_hook_original = $variables['theme_hook_original'];
-    $options = [];
-    // dump($variables['theme_hook_original']);
-    if ($theme_hook_original == 'menu__account') {
-      $options['template'] = TEMPLATE_menu__account;
-    } else if ($theme_hook_original == 'menu__main') {
-      $options['template'] = TEMPLATE_menu__main;
-    }
-    $new_suggestions = SuggestionsMenus::Suggestions($theme_hook_original, $options);
-    foreach ($new_suggestions as $value) {
-      $suggestions[] = $value;
-    }
-  }
+function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$variables, $hook) {
+	if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
+		$theme_hook_original = $variables['theme_hook_original'];
+		$options = [];
+		// dump($variables['theme_hook_original']);
+		if ($theme_hook_original == 'menu__account') {
+			$options['template'] = TEMPLATE_menu__account;
+		}
+		else if ($theme_hook_original == 'menu__main') {
+			$options['template'] = TEMPLATE_menu__main;
+		}
+		$new_suggestions = SuggestionsMenus::Suggestions($theme_hook_original, $options);
+		foreach ($new_suggestions as $value) {
+			$suggestions[] = $value;
+		}
+	}
 }
 
 /**
  * implement hook_theme_suggestions_HOOK_alter()
  */
-function wb_universe_theme_suggestions_block_alter(array &$suggestions, array &$variables, $hook)
-{
-  if (! empty($variables['elements']['#id'])) {
-    /**
-     * Formatage du container main menu.
-     */
-    if (isset($variables['elements']["#plugin_id"]) && $variables['elements']["#plugin_id"] == 'system_menu_block:main') {
-      if (TEMPLATE_menu__main == 'menu__main_full') {
-        $suggestions[] = 'block__' . TEMPLATE_menu__main;
-      }
-    }
-  }
-
-  // dump($variables);
+function wb_universe_theme_suggestions_block_alter(array &$suggestions, array &$variables, $hook) {
+	if (! empty($variables['elements']['#id'])) {
+		/**
+		 * Formatage du container main menu.
+		 */
+		if (isset($variables['elements']["#plugin_id"]) && $variables['elements']["#plugin_id"] == 'system_menu_block:main') {
+			if (TEMPLATE_menu__main == 'menu__main_full') {
+				$suggestions[] = 'block__' . TEMPLATE_menu__main;
+			}
+		}
+	}
 }
 
 /**
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
-function wb_universe_preprocess_region(&$variables)
-{
-  $variables['attributes']['class'][0] = 'row-0';
+function wb_universe_preprocess_region(&$variables) {
+	$variables['attributes']['class'][0] = 'row-0';
 }
 
 /**
  *
  * @param int $variables
  */
-function wb_universe_preprocess_image(&$variables)
-{
-  $variables["attributes"]['class'][] = 'img-fluid';
+function wb_universe_preprocess_image(&$variables) {
+	$variables["attributes"]['class'][] = 'img-fluid';
 }
 
-function wb_universe_preprocess_form_element(&$variables)
-{
-  if (! empty($variables["element"]["#type"]) && $variables['element']['#type'] == 'checkbox') {
-    if (! empty($variables["label"]["#children"])) {
-      $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
-      $variables["label"]['#attributes']['class'][] = 'custom-control-label';
-      unset($variables["label"]["#children"]);
-    }
-  }
+function wb_universe_preprocess_form_element(&$variables) {
+	if (! empty($variables["element"]["#type"]) && $variables['element']['#type'] == 'checkbox') {
+		if (! empty($variables["label"]["#children"])) {
+			$variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
+			$variables["label"]['#attributes']['class'][] = 'custom-control-label';
+			unset($variables["label"]["#children"]);
+		}
+	}
 }
 
-function wb_universe_preprocess_file_upload_help(&$variables)
-{
-  if (! empty($variables['popover']) && ! empty($variables['popover']['requirements']['#attributes'])) {
-    $variables['popover']['requirements']['#attributes']['class'] = [];
-    $variables['popover']['requirements']['#attributes']['class'][] = 'help-block';
-  }
+function wb_universe_preprocess_file_upload_help(&$variables) {
+	if (! empty($variables['popover']) && ! empty($variables['popover']['requirements']['#attributes'])) {
+		$variables['popover']['requirements']['#attributes']['class'] = [];
+		$variables['popover']['requirements']['#attributes']['class'][] = 'help-block';
+	}
 }
 
 /**
  */
-function wb_universe_preprocess_page_title(&$variables)
-{
-  // dump($variables);
-  if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
-    $variables["title"]["#printed"] = false;
-  }
+function wb_universe_preprocess_page_title(&$variables) {
+	// dump($variables);
+	if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
+		$variables["title"]["#printed"] = false;
+	}
 }
 
 /**
@@ -313,11 +308,10 @@ function wb_universe_preprocess_page_title(&$variables)
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $variables)
-{
-  if (! empty($variables["elements"]["#view_mode"])) {
-    $suggestions[] = 'node__modele_' . $variables["elements"]["#view_mode"];
-  }
+function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+	if (! empty($variables["elements"]["#view_mode"])) {
+		$suggestions[] = 'node__modele_' . $variables["elements"]["#view_mode"];
+	}
 }
 
 /**
@@ -327,12 +321,23 @@ function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $va
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $variables)
-{
-  if (! empty($variables['links']['node-readmore'])) {
-    $suggestions[] = 'links__node_readmore';
-    $suggestions[] = 'links__node_' . $variables['links']['node-readmore']['url']->getOption('entity')->getType();
-  }
+function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $variables) {
+	if (! empty($variables['links']['node-readmore'])) {
+		$suggestions[] = 'links__node_readmore';
+		$suggestions[] = 'links__node_' . $variables['links']['node-readmore']['url']->getOption('entity')->getType();
+	}
+}
+
+/**
+ * implemente hook_theme_suggestions_HOOK_alter
+ *
+ * @param array $suggestions
+ * @param array $variables
+ */
+function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+	if (! empty($variables['element']['#type'])) {
+		$suggestions[] = 'form_element__' . $variables['element']['#type'];
+	}
 }
 
 /**
@@ -340,24 +345,29 @@ function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $v
  * @param array $suggestions
  * @param array $variables
  */
-function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, array $variables)
-{
-  // dump($variables);
-  if (! empty($variables['element']['#type'])) {
-    $suggestions[] = 'form_element__' . $variables['element']['#type'];
-  }
+function wb_universe_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+	if (! empty($variables['element']['#type'])) {
+		$suggestions[] = 'details__panels_card';
+	}
 }
 
 /**
+ * implemente hook_theme_suggestions_alter
  *
- * @param array $suggestions
- * @param array $variables
+ * @param int $suggestions
+ * @param int $variables
+ * @param int $hook
  */
-function wb_universe_theme_suggestions_details_alter(array &$suggestions, array $variables)
-{
-  if (! empty($variables['element']['#type'])) {
-    $suggestions[] = 'details__panels_card';
-  }
+function wb_universe_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+	if ($hook == 'layout') {
+		$override = 'layout__' . $variables['theme_hook_original'];
+		$suggestions[] = $override . '_default';
+		$node = \Drupal::routeMatch()->getParameter('node');
+		if ($node) {
+			$suggestions[] = $override . '__' . $node->bundle();
+			$suggestions[] = $override . '__' . $node->bundle() . '_' . $node->id();
+		}
+	}
 }
 
 /**
@@ -365,17 +375,16 @@ function wb_universe_theme_suggestions_details_alter(array &$suggestions, array 
  * @param string $form
  * @param string $form_state
  */
-function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL)
-{
-  if (isset($form_id)) {
-    return;
-  }
-  MdbootstrapWbu::defineSetting($form, $form_state);
+function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+	if (isset($form_id)) {
+		return;
+	}
+	MdbootstrapWbu::defineSetting($form, $form_state);
 
-  /**
-   * Save image ajax ( manage_image )
-   */
-  _completManageFile($form_state->getValues());
+	/**
+	 * Save image ajax ( manage_image )
+	 */
+	_completManageFile($form_state->getValues());
 }
 
 /**
@@ -386,34 +395,32 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state)
-{
-  // $account = \Drupal::currentUser();
-  // $values = $form_state->getValues();
-  // dump($values);
-  // die('end');
-  // $form_state->getTemporary();
-  // $form_state->getStorage();
-  // $form_state->getResponse();
+function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+	// $account = \Drupal::currentUser();
+	// $values = $form_state->getValues();
+	// dump($values);
+	// die('end');
+	// $form_state->getTemporary();
+	// $form_state->getStorage();
+	// $form_state->getResponse();
 }
 
-function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state)
-{
-  // debugLog::logs($form_state->getValues(), 'wb_universe_completsavefile2', 'dump', true);
-  // die('end');
-  $values = $form_state->getValues();
-  // dump($values);
-  // die('end');
-  SortArray::_sortFieldOfThemeAndSave($values, $form_state, 'wb_universe');
-  /**
-   * Creation / MAJ des fichiers templates.
-   */
-  $displays = $values['wb_universe_pagenodesdisplay'];
-  MdbootstrapWbu::createFilesTheme('wb_universe', $displays);
-  /**
-   * Performs actions after sumitted
-   */
-  MdbootstrapWbu::PerformsActions($form, $form_state);
+function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+	// debugLog::logs($form_state->getValues(), 'wb_universe_completsavefile2', 'dump', true);
+	// die('end');
+	$values = $form_state->getValues();
+	// dump($values);
+	// die('end');
+	SortArray::_sortFieldOfThemeAndSave($values, $form_state, 'wb_universe');
+	/**
+	 * Creation / MAJ des fichiers templates.
+	 */
+	$displays = $values['wb_universe_pagenodesdisplay'];
+	MdbootstrapWbu::createFilesTheme('wb_universe', $displays);
+	/**
+	 * Performs actions after sumitted
+	 */
+	MdbootstrapWbu::PerformsActions($form, $form_state);
 }
 
 /**
@@ -421,103 +428,102 @@ function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStat
  *
  * @param array $image
  */
-function _saveimage($image)
-{
-  if (! empty($image)) {
+function _saveimage($image) {
+	if (! empty($image)) {
 
-    // Load the file via file.fid.
-    if ($file = \Drupal\file\Entity\File::load($image[0])) {
-      // Change status to permanent.
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      // $file_usage->add($file, 'user', 'user', $account->id());
-      $file_usage->add($file, 'wb_universe', 'theme', $image[0]);
-    }
-  }
+		// Load the file via file.fid.
+		if ($file = \Drupal\file\Entity\File::load($image[0])) {
+			// Change status to permanent.
+			$file->setPermanent();
+			$file->save();
+			$file_usage = \Drupal::service('file.usage');
+			// $file_usage->add($file, 'user', 'user', $account->id());
+			$file_usage->add($file, 'wb_universe', 'theme', $image[0]);
+		}
+	}
 }
 
-function _completManageFile($values)
-{
-  if (! empty($values) && count($values) == 2) {
-    $i = 0;
-    foreach ($values as $key => $value) {
-      $i ++;
-      if (_wb_universe_endsWith($key, '_upload_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        } elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        }
-      } elseif (_wb_universe_endsWith($key, '_remove_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        } elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        }
-      }
-    }
-  }
+function _completManageFile($values) {
+	if (! empty($values) && count($values) == 2) {
+		$i = 0;
+		foreach ($values as $key => $value) {
+			$i ++;
+			if (_wb_universe_endsWith($key, '_upload_button')) {
+				if ($i == 1) {
+					$first_key = end(array_keys($values));
+					FindImageFidAndSave($values[$first_key]);
+				}
+				elseif ($i == 2) {
+					$first_key = reset(array_keys($values));
+					FindImageFidAndSave($values[$first_key]);
+				}
+			}
+			elseif (_wb_universe_endsWith($key, '_remove_button')) {
+				if ($i == 1) {
+					$first_key = end(array_keys($values));
+					FindImageFidAndDelete($values[$first_key]);
+				}
+				elseif ($i == 2) {
+					$first_key = reset(array_keys($values));
+					FindImageFidAndDelete($values[$first_key]);
+				}
+			}
+		}
+	}
 }
 
-function FindImageFidAndSave($values)
-{
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndSave($value);
-    }
-  } elseif (is_int($values)) {
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->add($file, 'wb_universe', 'theme', $values);
-      return true;
-    }
-  }
+function FindImageFidAndSave($values) {
+	if (is_array($values)) {
+		foreach ($values as $value) {
+			FindImageFidAndSave($value);
+		}
+	}
+	elseif (is_int($values)) {
+		if ($file = \Drupal\file\Entity\File::load($values)) {
+			$file->setPermanent();
+			$file->save();
+			$file_usage = \Drupal::service('file.usage');
+			$file_usage->add($file, 'wb_universe', 'theme', $values);
+			return true;
+		}
+	}
 }
 
-function FindImageFidAndDelete($values)
-{
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndDelete($value);
-    }
-  } elseif (intval($values)) {
-    // debugLog::logs($values, 'wb_universe_completsavefile2_remove_button', 'dump', true);
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      /**
-       * on supprime l'utilisation du fichier fichier
-       */
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->delete($file, 'wb_universe', 'theme', $values);
-      /**
-       * On supprime le fichier sur le serveur.
-       */
-      $file->delete();
-      return true;
-    }
-  }
+function FindImageFidAndDelete($values) {
+	if (is_array($values)) {
+		foreach ($values as $value) {
+			FindImageFidAndDelete($value);
+		}
+	}
+	elseif (intval($values)) {
+		// debugLog::logs($values, 'wb_universe_completsavefile2_remove_button', 'dump', true);
+		if ($file = \Drupal\file\Entity\File::load($values)) {
+			/**
+			 * on supprime l'utilisation du fichier fichier
+			 */
+			$file_usage = \Drupal::service('file.usage');
+			$file_usage->delete($file, 'wb_universe', 'theme', $values);
+			/**
+			 * On supprime le fichier sur le serveur.
+			 */
+			$file->delete();
+			return true;
+		}
+	}
 }
 
-function _wb_universe_endsWith($string, $endString)
-{
-  $len = strlen($endString);
-  if ($len == 0) {
-    return true;
-  }
-  return (substr($string, - $len) === $endString);
+function _wb_universe_endsWith($string, $endString) {
+	$len = strlen($endString);
+	if ($len == 0) {
+		return true;
+	}
+	return (substr($string, - $len) === $endString);
 }
 
 // with given substring
-function _wb_universe_startsWith($string, $startString)
-{
-  $len = strlen($startString);
-  return (substr($string, 0, $len) === $startString);
+function _wb_universe_startsWith($string, $startString) {
+	$len = strlen($startString);
+	return (substr($string, 0, $len) === $startString);
 }
 
 

@@ -19,5 +19,4 @@
 /**
  * Defaut/model/socialmediaicons.scss
  */
-body {
-  padding: 5px; }
+@import "/siteweb/lesroisdelareno/public/web/themes/contrib/wb_universe/scss/ckeditor_custom.scss";

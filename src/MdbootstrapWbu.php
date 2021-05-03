@@ -29,9 +29,14 @@ class MdbootstrapWbu {
      * Load section
      */
     $PreprocessPage->loadSection($theme_name, $variables);
+    
+    /**
+     * Ajout les librairies pour l'administration.
+     */    
+    self::addStyleAdmin($variables);
 
     /**
-     * Ajout les librairies
+     * Ajout les librairies pour les pages.
      */
     $PreprocessPage->AddLibrary($variables, $theme_name);
     /**
@@ -50,7 +55,21 @@ class MdbootstrapWbu {
       ]);
     }
   }
+  
+  /**
+   * on attache la librairie pour l'admin si l'utilisateur est administrateur.
+   * @param array $variables
+   */
+  public static function addStyleAdmin(&$variables){
+    if(isset($variables['is_admin']) && $variables['is_admin'] ){
+      $variables['page']['content']['#attached']['library'][]='wb_universe/styleadmin';
+    }
+  }
 
+  /**
+   * on attache la librairie pour l'admin si l'utilisateur est administrateur.
+   * @param array $variables
+   */
   public static function wbupreprocess_ds_entity_view(&$variables)
   {
     // dump($variables);
