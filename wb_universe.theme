@@ -35,6 +35,22 @@ function wb_universe_preprocess(&$variables, $hook) {
 }
 
 /**
+ * implement hook_css_alter
+ * pour mettre les fichiers du module formatage_models apres ceux des themes.
+ *
+ * @param array $css
+ * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
+ */
+function wb_universe_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+	//
+	foreach ($css as $uri => $library) {
+		if (\strripos($uri, "formatage_models/layouts")) {
+			$css[$uri]['group'] = 100;
+		}
+	}
+}
+
+/**
  * Use this fonction on module to alert meta data mymodule_page_attachments_alter(array &$page)
  *
  * @param array $variables
@@ -83,7 +99,12 @@ function wb_universe_preprocess_ds_entity_view(&$variables) {
 function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables) {
 	$node = \Drupal::routeMatch()->getParameter('node');
 	if ($node) {
-		$suggestions[] = 'page__' . $node->bundle() . '_node';
+		// $suggestions[] = 'page__' . $node->bundle() . '_node';
+		$field_name = "layout_builder__layout";
+		if ($node->hasField($field_name)) {
+			$suggestions[] = 'page__layout_builder';
+			$suggestions[] = 'page__' . $node->bundle() . '__layout';
+		}
 	}
 }
 
