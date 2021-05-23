@@ -1,15 +1,77 @@
-#drupal-off-canvas {
-	width: auto !important;
-}
-.layout-builder__add-block:hover .visually-hidden{
-	clip: auto;
-    height: auto;
-    width: auto;
-    display: inline-block;
-    padding: 0rem 0.5rem;
-    font-style: italic;
-    color: #6c8594;
-}
+/**
+ * Les principales couleurs.
+ */
+/**
+ * Text color.
+ */
+/**
+ * Space section
+ */
+/**
+ * les variantes des couleurs ci-dessus, pour bootstrap
+ */
+/**
+ * Bootstrap
+ */
+/**
+ * md-bootstrap
+ */
+/**
+ * Defaut/model/socialmediaicons.scss
+ */
+/*
+ .row-col-7 {
+ @include alterSpaceRowCol($padding_row-col-0:7px);
+ }
+ .row-col-my-2 {
+ @include alterSpaceRowCol($padding_row-col-0:0.26rem);
+ }
+ .row-col-0 {
+ @include alterSpaceRowCol($padding_row-col-0:0px);
+ }
+ #drupal-builder-iframe {
+ height: 100vh;
+ position: fixed;
+ top: 0;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ background: rgba(0, 0, 0, 0.51);
+ padding: 0 10px;
+ z-index: -9;
+ display: none;
+ }
+ #drupal-builder-iframe.active {
+ display: block;
+ z-index: 9999;
+ }
+ #vvveb-builder #top-panel {
+ height: 62px;
+ }
+ #vvveb-builder #canvas,
+ #vvveb-builder #left-panel,
+ #vvveb-builder #right-panel {
+ top: 62px;
+ }
+ #drupal-library-images-json {
+ display: none;
+ }
+ #drupal-images {
+ .drupal-images-lists {
+ img:not(.active):hover {
+ border: 5px solid rgb(82, 131, 220);
+ box-shadow: 0px 3px 3px #b5b5b5;
+ cursor: pointer;
+ }
+ img.active {
+ box-shadow: 0px 3px 3px #b5b5b5;
+ }
+ }
+ }
+ html.vvvbeJSactive {
+ position: fixed;
+ }
+ /**/
 .layout-builder {
   color: #000; }
   .layout-builder .visible-on-admin {
@@ -29,9 +91,3 @@
       text-indent: 0;
       margin: 0;
       color: #000; }
-/**
- * ajout de la couleur blanche sur panel de selection de layout/bloc
- */
-.layout-selection .layout-icon *:not(svg) {
-	color:#FFF;
-}
