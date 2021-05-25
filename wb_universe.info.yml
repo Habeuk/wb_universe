@@ -4,6 +4,9 @@ description: 'This theme is built for conferences, exhibitions, events. The conf
 core: 8.x
 core_version_requirement: ^8 || ^9
 base theme: bootstrap_barrio
+dependencies:
+  - drupal:system (>=8.8)
+  - drupal:bootstrap_barrio
 
 screenshot: wb_universe.png
 logo: logo.png 
