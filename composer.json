@@ -3,7 +3,6 @@
     "description": "Theme drupal 8",
     "type": "drupal-theme",
     "license": "GPL-2.0",
-    "version" : "1.3.0",
     "authors": [
         {
             "name": "stephane888",
@@ -11,5 +10,7 @@
         }
     ],
     "require": {
+    	"drupal/bootstrap_barrio": "^5.5",
+    	"stephane888/htmlbootstrap": "^1.2"
     }
 }
