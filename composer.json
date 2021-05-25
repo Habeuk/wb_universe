@@ -11,6 +11,7 @@
     ],
     "require": {
     	"drupal/bootstrap_barrio": "^5.5",
-    	"stephane888/htmlbootstrap": "^1.2"
+    	"stephane888/htmlbootstrap": "^1.2",
+    	"stephane888/debug": "^1.0",
     }
 }
