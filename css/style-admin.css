@@ -73,25 +73,43 @@
  }
  /**/
 .layout-builder {
-  color: #000; }
+  color: #000;
+  max-width: 100%;
+  overflow: hidden; }
   .layout-builder .visible-on-admin {
     display: block !important; }
   .layout-builder-block {
     padding: 0.5em;
     color: #000;
     letter-spacing: 0;
-    font-size: 14px; }
+    font-size: 14px;
+    max-width: 100%; }
+    .layout-builder-block [class*=layout-builder-block__content] {
+      overflow: hidden;
+      max-width: 100%; }
   .layout-builder__add-block {
     padding: 10px 0;
     line-height: 14px; }
-    .layout-builder__link--add {
-      font-size: 14px;
-      line-height: 14px;
-      letter-spacing: 0;
-      text-indent: 0;
-      margin: 0;
-      color: #000; }
-      .layout-builder__link:hover .visually-hidden {
+  .layout-builder .space-edit-admin {
+    background: #424040;
+    padding: 0.8rem 0.5rem;
+    font-size: 1.4rem;
+    color: #FFF; }
+    .layout-builder .space-edit-admin .layout-builder-block, .layout-builder .space-edit-admin .layout-builder__add-block {
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      font-size: 1rem; }
+    .layout-builder .space-edit-admin .layout-builder__add-block {
+      background-color: #d5e9fb;
+      border-bottom: 0.1rem solid rgba(66, 64, 64, 0.2); }
+      .layout-builder .space-edit-admin .layout-builder__link--add {
+        font-size: 14px;
+        line-height: 14px;
+        letter-spacing: 0;
+        text-indent: 0;
+        margin: 0;
+        color: #000; }
+      .layout-builder .space-edit-admin .layout-builder__link .visually-hidden {
         overflow: visible;
         width: auto;
         height: auto;
@@ -100,3 +118,6 @@
         padding-left: 1rem;
         font-style: italic;
         color: #909090; }
+        .layout-builder .space-edit-admin .layout-builder__link:hover .visually-hidden {
+          color: #04278c;
+          font-weight: 600; }
