@@ -132,3 +132,23 @@ html.vvvbeJSactive {
         }
     }
 }
+
+.layout-selection{
+    .list-group-item{
+        min-height: 125px;
+        img{
+            max-height: 100px !important;
+        }
+    }
+}
+
+.inline-block-list{
+    li a{
+        font-size: 1.5rem;
+    }
+}
+
+
+#drupal-off-canvas{
+    background: transparent;
+}

@@ -20,104 +20,137 @@
  * Defaut/model/socialmediaicons.scss
  */
 /*
- .row-col-7 {
- @include alterSpaceRowCol($padding_row-col-0:7px);
- }
- .row-col-my-2 {
- @include alterSpaceRowCol($padding_row-col-0:0.26rem);
- }
- .row-col-0 {
- @include alterSpaceRowCol($padding_row-col-0:0px);
- }
- #drupal-builder-iframe {
- height: 100vh;
- position: fixed;
- top: 0;
- bottom: 0;
- left: 0;
- right: 0;
- background: rgba(0, 0, 0, 0.51);
- padding: 0 10px;
- z-index: -9;
- display: none;
- }
- #drupal-builder-iframe.active {
- display: block;
- z-index: 9999;
- }
- #vvveb-builder #top-panel {
- height: 62px;
- }
- #vvveb-builder #canvas,
- #vvveb-builder #left-panel,
- #vvveb-builder #right-panel {
- top: 62px;
- }
- #drupal-library-images-json {
- display: none;
- }
- #drupal-images {
- .drupal-images-lists {
- img:not(.active):hover {
- border: 5px solid rgb(82, 131, 220);
- box-shadow: 0px 3px 3px #b5b5b5;
- cursor: pointer;
- }
- img.active {
- box-shadow: 0px 3px 3px #b5b5b5;
- }
- }
- }
- html.vvvbeJSactive {
- position: fixed;
- }
- /**/
+.row-col-7 {
+  @include alterSpaceRowCol($padding_row-col-0:7px);
+}
+
+.row-col-my-2 {
+  @include alterSpaceRowCol($padding_row-col-0:0.26rem);
+}
+
+.row-col-0 {
+  @include alterSpaceRowCol($padding_row-col-0:0px);
+}
+
+#drupal-builder-iframe {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.51);
+  padding: 0 10px;
+  z-index: -9;
+  display: none;
+}
+
+#drupal-builder-iframe.active {
+  display: block;
+  z-index: 9999;
+}
+
+#vvveb-builder #top-panel {
+  height: 62px;
+}
+
+#vvveb-builder #canvas,
+#vvveb-builder #left-panel,
+#vvveb-builder #right-panel {
+  top: 62px;
+}
+
+#drupal-library-images-json {
+  display: none;
+}
+
+#drupal-images {
+  .drupal-images-lists {
+    img:not(.active):hover {
+      border: 5px solid rgb(82, 131, 220);
+      box-shadow: 0px 3px 3px #b5b5b5;
+      cursor: pointer;
+    }
+
+    img.active {
+      box-shadow: 0px 3px 3px #b5b5b5;
+    }
+  }
+}
+
+html.vvvbeJSactive {
+  position: fixed;
+}
+/**/
 .layout-builder {
   color: #000;
   max-width: 100%;
-  overflow: hidden; }
-  .layout-builder .visible-on-admin {
-    display: block !important; }
-  .layout-builder-block {
-    padding: 0.5em;
-    color: #000;
-    letter-spacing: 0;
-    font-size: 14px;
-    max-width: 100%; }
-    .layout-builder-block [class*=layout-builder-block__content] {
-      overflow: hidden;
-      max-width: 100%; }
-  .layout-builder__add-block {
-    padding: 10px 0;
-    line-height: 14px; }
-  .layout-builder .space-edit-admin {
-    background: #424040;
-    padding: 0.8rem 0.5rem;
-    font-size: 1.4rem;
-    color: #FFF; }
-    .layout-builder .space-edit-admin .layout-builder-block, .layout-builder .space-edit-admin .layout-builder__add-block {
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
-      font-size: 1rem; }
-    .layout-builder .space-edit-admin .layout-builder__add-block {
-      background-color: #d5e9fb;
-      border-bottom: 0.1rem solid rgba(66, 64, 64, 0.2); }
-      .layout-builder .space-edit-admin .layout-builder__link--add {
-        font-size: 14px;
-        line-height: 14px;
-        letter-spacing: 0;
-        text-indent: 0;
-        margin: 0;
-        color: #000; }
-      .layout-builder .space-edit-admin .layout-builder__link .visually-hidden {
-        overflow: visible;
-        width: auto;
-        height: auto;
-        clip: auto;
-        display: inline-block;
-        padding-left: 1rem;
-        font-style: italic;
-        color: #909090; }
-        .layout-builder .space-edit-admin .layout-builder__link:hover .visually-hidden {
-          color: #04278c;
-          font-weight: 600; }
+  overflow: hidden;
+}
+.layout-builder .visible-on-admin {
+  display: block !important;
+}
+.layout-builder-block {
+  padding: 0.5em;
+  color: #000;
+  letter-spacing: 0;
+  font-size: 14px;
+  max-width: 100%;
+}
+.layout-builder-block [class*=layout-builder-block__content] {
+  overflow: hidden;
+  max-width: 100%;
+}
+.layout-builder__add-block {
+  padding: 10px 0;
+  line-height: 14px;
+}
+.layout-builder .space-edit-admin {
+  background: #424040;
+  padding: 0.8rem 0.5rem;
+  font-size: 1.4rem;
+  color: #FFF;
+}
+.layout-builder .space-edit-admin .layout-builder-block, .layout-builder .space-edit-admin .layout-builder__add-block {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+.layout-builder .space-edit-admin .layout-builder__add-block {
+  background-color: #d5e9fb;
+  border-bottom: 0.1rem solid rgba(66, 64, 64, 0.2);
+}
+.layout-builder .space-edit-admin .layout-builder__link--add {
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 0;
+  text-indent: 0;
+  margin: 0;
+  color: #000;
+}
+.layout-builder .space-edit-admin .layout-builder__link .visually-hidden {
+  overflow: visible;
+  width: auto;
+  height: auto;
+  clip: auto;
+  display: inline-block;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #909090;
+}
+.layout-builder .space-edit-admin .layout-builder__link:hover .visually-hidden {
+  color: #04278c;
+  font-weight: 600;
+}
+.layout-selection .list-group-item {
+  min-height: 125px;
+}
+.layout-selection .list-group-item img {
+  max-height: 100px !important;
+}
+.inline-block-list li a {
+  font-size: 1.5rem;
+}
+#drupal-off-canvas {
+  background: transparent;
+}
