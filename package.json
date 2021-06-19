@@ -4,7 +4,7 @@
     "@popperjs/core": "^2.9.2",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
-    "bootstrap": "^5.0.1",
+    "bootstrap": "^4.6.0",
     "classlist-polyfill": "^1.2.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.6.0",
