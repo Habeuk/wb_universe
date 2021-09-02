@@ -448,6 +448,15 @@ function wb_universe_preprocess_input__submit__icon(array &$variables)
 	}
 }
 
+/**
+ * Implements hook_theme_suggestions_HOOK_alter for form input elements.
+ */
+function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables)
+{
+	if (! empty($variables['element']['#wbu_theme_icon'])) {
+		$suggestions[] = $variables['theme_hook_original'] . '__' . $variables['element']['#wbu_theme_icon']['icon_theme'];
+	}
+}
 
 
 /**
