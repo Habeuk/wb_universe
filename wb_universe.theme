@@ -390,6 +390,67 @@ function wb_universe_theme_suggestions_alter(array &$suggestions, array $variabl
 }
 
 /**
+ * implement hook_preprocess_input__submit__icon
+ *
+ * @param array $variables
+ * @throws Exception
+ */
+function wb_universe_preprocess_input__submit__icon(array &$variables)
+{
+	$buttonIcon = [];
+	if (! empty($variables['element']['#wbu_theme_icon'])) {
+		$setting = $variables['element']['#wbu_theme_icon'];
+		if (empty($setting["icon_after"])) {
+			$buttonIcon[] = [
+					'#type' => "html_tag",
+					'#tag' => 'i',
+					'#value' => "",
+					'#attributes' => [
+							'class' => [
+									$setting["icon"]
+							]
+					]
+			];
+		}
+		if (empty($setting["hidde_text"])) {
+			$buttonIcon[] = $variables['element']['#value'];
+		}
+		if (! empty($setting["icon_after"])) {
+			$buttonIcon[] = [
+					'#type' => "html_tag",
+					'#tag' => 'i',
+					'#value' => "",
+					'#attributes' => [
+							'class' => [
+									$setting["icon"]
+							]
+					]
+			];
+		}
+		$variables['wbu_render'] = $buttonIcon;
+		if (! empty($variables['attributes'])) {
+			if ($setting['clean_class']) {
+				// $Attribute = new Attribute();
+				// $Attribute->getClass();
+				// $Attribute->removeClass();
+				/**
+				 *
+				 * @var \Drupal\Core\Template\AttributeArray $class
+				 */
+				$class = $variables['attributes']->getClass();
+				$variables['attributes']->removeClass($class->value());
+				$variables['attributes']->addClass($setting['class']);
+			}
+		}
+	}
+	else {
+		throw new Exception("wbu_theme_icon n'est pas definit");
+	}
+}
+
+
+
+/**
  *
  * @param string $form
  * @param string $form_state
