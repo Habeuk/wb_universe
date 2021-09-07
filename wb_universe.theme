@@ -44,7 +44,6 @@ function wb_universe_preprocess(&$variables, $hook)
  */
 function wb_universe_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets)
 {
-	//
 	foreach ( $css as $uri => $library ) {
 		if (\strripos($uri, "formatage_models/layouts")) {
 			$css[$uri]['group'] = 100;
@@ -63,7 +62,7 @@ function wb_universe_preprocess_html(&$variables)
 	if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
 		$_css[] = 'administrator';
 	}
-	// add
+	// Add.
 	$variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
 	if ($variables['is_front']) {
 		$_css[] = 'front-page';
@@ -82,7 +81,6 @@ function wb_universe_preprocess_html(&$variables)
  */
 function wb_universe_preprocess_page(&$variables)
 {
-	// dump($variables);
 	MdbootstrapWbu::wbupreprocess_page($variables);
 }
 
@@ -103,6 +101,11 @@ function wb_universe_preprocess_ds_entity_view(&$variables)
  */
 function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables)
 {
+	/**
+	 *
+	 * @var \Drupal\taxonomy\Entity\Term $taxonomy_term
+	 */
+	$taxonomy_term;
 	if ($node = \Drupal::routeMatch()->getParameter('node')) {
 		// $suggestions[] = 'page__' . $node->bundle() . '_node';
 		$field_name = "layout_builder__layout";
@@ -112,12 +115,12 @@ function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $va
 		}
 	}
 	else if ($taxonomy_term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
-		$suggestions[] = 'page__vocab_' . $taxonomy_term->getVocabularyId();
+		$suggestions[] = 'page__vocab_' . $taxonomy_term->bundle();
 	}
 }
 
 /**
- * implemente hook_theme_suggestions_HOOK_alter
+ * implemente hook_theme_suggestions_HOOK_alter.
  *
  * @param int $suggestions
  * @param int $variables
@@ -253,6 +256,7 @@ function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $v
 	if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
 		$suggestions[] = 'input__submit_button';
 	}
+	//
 	if (! empty($variables['element']['#wbu_theme_icon'])) {
 		$suggestions[] = $variables['theme_hook_original'] . '__' . $variables['element']['#wbu_theme_icon']['icon_theme'];
 	}
@@ -443,7 +447,11 @@ function wb_universe_preprocess_input__submit__icon(array &$variables)
 			];
 		}
 		if (empty($setting["hidde_text"])) {
-			$buttonIcon[] = $variables['element']['#value'];
+			$buttonIcon[] = [
+					'#type' => 'inline_template',
+					'#template' => $variables['element']['#value']
+			];
+			// ;
 		}
 		if (! empty($setting["icon_after"])) {
 			$buttonIcon[] = [
@@ -460,15 +468,15 @@ function wb_universe_preprocess_input__submit__icon(array &$variables)
 		$variables['wbu_render'] = $buttonIcon;
 		if (! empty($variables['attributes'])) {
 			if ($setting['clean_class']) {
-				// $Attribute = new Attribute();
-				// $Attribute->getClass();
-				// $Attribute->removeClass();
 				/**
 				 *
 				 * @var \Drupal\Core\Template\AttributeArray $class
 				 */
 				$class = $variables['attributes']->getClass();
 				$variables['attributes']->removeClass($class->value());
+				$variables['attributes']->addClass($setting['class']);
+			}
+			else {
 				$variables['attributes']->addClass($setting['class']);
 			}
 		}
@@ -489,7 +497,6 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
 		return;
 	}
 	MdbootstrapWbu::defineSetting($form, $form_state);
-
 	/**
 	 * Save image ajax ( manage_image )
 	 */
@@ -642,5 +649,6 @@ function _wb_universe_startsWith($string, $startString)
 	$len = strlen($startString);
 	return (substr($string, 0, $len) === $startString);
 }
+
 
 
