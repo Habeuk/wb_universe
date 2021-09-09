@@ -651,4 +651,3 @@ function _wb_universe_startsWith($string, $startString)
 }
 
 
-

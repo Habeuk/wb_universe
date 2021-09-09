@@ -19,116 +19,35 @@
 /**
  * Defaut/model/socialmediaicons.scss
  */
-/*
-.row-col-7 {
-  @include alterSpaceRowCol($padding_row-col-0:7px);
+#drupal-off-canvas {
+  background: transparent;
 }
-
-.row-col-my-2 {
-  @include alterSpaceRowCol($padding_row-col-0:0.26rem);
-}
-
-.row-col-0 {
-  @include alterSpaceRowCol($padding_row-col-0:0px);
-}
-
-#drupal-builder-iframe {
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.51);
-  padding: 0 10px;
-  z-index: -9;
-  display: none;
-}
-
-#drupal-builder-iframe.active {
-  display: block;
-  z-index: 9999;
-}
-
-#vvveb-builder #top-panel {
-  height: 62px;
-}
-
-#vvveb-builder #canvas,
-#vvveb-builder #left-panel,
-#vvveb-builder #right-panel {
-  top: 62px;
-}
-
-#drupal-library-images-json {
-  display: none;
-}
-
-#drupal-images {
-  .drupal-images-lists {
-    img:not(.active):hover {
-      border: 5px solid rgb(82, 131, 220);
-      box-shadow: 0px 3px 3px #b5b5b5;
-      cursor: pointer;
-    }
-
-    img.active {
-      box-shadow: 0px 3px 3px #b5b5b5;
-    }
-  }
-}
-
-html.vvvbeJSactive {
-  position: fixed;
-}
-/**/
 .layout-builder {
   color: #000;
-  max-width: 100%;
-  overflow: hidden;
-}
-.layout-builder .visible-on-admin {
-  display: block !important;
 }
 .layout-builder-block {
-  padding: 0.5em;
-  color: #000;
+  padding: 0;
   letter-spacing: 0;
-  font-size: 14px;
-  max-width: 100%;
-}
-.layout-builder-block [class*=layout-builder-block__content] {
-  overflow: hidden;
-  max-width: 100%;
 }
 .layout-builder__add-block {
   padding: 10px 0;
   line-height: 14px;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  right: 0;
+  bottom: auto;
+  display: none;
 }
-.layout-builder .space-edit-admin {
-  background: #424040;
-  padding: 0.8rem 0.5rem;
-  font-size: 1.4rem;
-  color: #FFF;
-}
-.layout-builder .space-edit-admin .layout-builder-block, .layout-builder .space-edit-admin .layout-builder__add-block {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  font-size: 1rem;
-}
-.layout-builder .space-edit-admin .layout-builder__add-block {
-  background-color: #d5e9fb;
-  border-bottom: 0.1rem solid rgba(66, 64, 64, 0.2);
-}
-.layout-builder .space-edit-admin .layout-builder__link--add {
+.layout-builder__link--add {
   font-size: 14px;
-  line-height: 14px;
+  line-height: 16px;
   letter-spacing: 0;
   text-indent: 0;
   margin: 0;
-  color: #000;
+  color: #686868;
 }
-.layout-builder .space-edit-admin .layout-builder__link .visually-hidden {
+.layout-builder__link .visually-hidden {
   overflow: visible;
   width: auto;
   height: auto;
@@ -137,20 +56,76 @@ html.vvvbeJSactive {
   padding-left: 1rem;
   font-style: italic;
   color: #909090;
+  font-size: 12px;
 }
-.layout-builder .space-edit-admin .layout-builder__link:hover .visually-hidden {
-  color: #04278c;
+.layout-builder__link:hover .visually-hidden {
   font-weight: 600;
+  color: #333;
+}
+/**
+ *
+ */
+.layout-region {
+  position: relative;
+  overflow: visible;
+  z-index: 0;
+  min-height: 15px;
+  outline: none;
+}
+.layout-region:hover {
+  z-index: 1;
+}
+.layout-region:hover::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px dashed #1c30f3;
+  box-shadow: 0 0 20px #efefef;
+}
+.layout-region:hover .layout-builder__add-block {
+  display: block;
+}
+.space-edit-admin {
+  background: #575858;
+  padding: 1rem;
+  color: #fff;
+}
+.layout-selection {
+  background: #575858 !important;
 }
 .layout-selection .list-group-item {
-  min-height: 125px;
+  position: relative !important;
+}
+.layout-selection .list-group-item::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -20px !important;
+  bottom: 0 !important;
+  right: auto !important;
+  width: 0 !important;
+  background: #89caeb !important;
+  display: block !important;
+}
+.layout-selection .list-group-item:hover {
+  background: rgba(137, 202, 235, 0.14) !important;
+}
+.layout-selection .list-group-item:hover::before {
+  width: 3px !important;
+}
+.layout-selection .list-group-item a {
+  text-decoration: none !important;
 }
 .layout-selection .list-group-item img {
-  max-height: 100px !important;
+  max-width: 100% !important;
+  max-height: 160px !important;
 }
-.inline-block-list li a {
-  font-size: 1.5rem;
-}
-#drupal-off-canvas {
-  background: transparent;
+/**
+ * --
+ */
+.inline-block-list__item {
+  font-size: 12px;
 }
