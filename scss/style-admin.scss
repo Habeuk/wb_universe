@@ -20,6 +20,16 @@
     bottom: auto;
     display: none;
   }
+  &__section {
+    &:hover {
+      .layout-region {
+        min-height: 40px;
+      }
+      .layout-builder__add-block {
+        display: block;
+      }
+    }
+  }
 
   &__link {
     &--add {

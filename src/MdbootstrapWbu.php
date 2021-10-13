@@ -66,7 +66,7 @@ class MdbootstrapWbu
 	 */
 	public static function addStyleAdmin(&$variables)
 	{
-		if (\Drupal::routeMatch()->getRouteName() === 'layout_builder.overrides.node.view' || \Drupal::routeMatch()->getRouteName() === 'layout_builder.defaults.block_content.view') {
+		if (\Drupal::routeMatch()->getRouteName() === 'layout_builder.overrides.node.view' || str_contains(\Drupal::routeMatch()->getRouteName(), 'layout_builder.defaults')) {
 			$variables['page']['content']['#attached']['library'][] = 'wb_universe/styleadmin';
 		}
 	}

@@ -39,6 +39,12 @@
   bottom: auto;
   display: none;
 }
+.layout-builder__section:hover .layout-region {
+  min-height: 40px;
+}
+.layout-builder__section:hover .layout-builder__add-block {
+  display: block;
+}
 .layout-builder__link--add {
   font-size: 14px;
   line-height: 16px;
@@ -122,6 +128,15 @@
 .layout-selection .list-group-item img {
   max-width: 100% !important;
   max-height: 160px !important;
+}
+#drupal-off-canvas textarea, #drupal-off-canvas select, #drupal-off-canvas input[type="date"], #drupal-off-canvas input[type="datetime"], #drupal-off-canvas input[type="datetime-local"], #drupal-off-canvas input[type="email"], #drupal-off-canvas input[type="month"], #drupal-off-canvas input[type="number"], #drupal-off-canvas input[type="password"], #drupal-off-canvas input[type="search"], #drupal-off-canvas input[type="tel"], #drupal-off-canvas input[type="text"], #drupal-off-canvas input[type="time"], #drupal-off-canvas input[type="url"], #drupal-off-canvas input[type="week"] {
+  color: #383a40;
+  padding: 0.65rem 1rem;
+  height: auto;
+  vertical-align: middle;
+  border-radius: 2px;
+  border: 1px solid #def0fd;
+  background-color: transparent;
 }
 /**
  * --
