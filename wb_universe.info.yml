@@ -1,6 +1,6 @@
 name: wb_universe
 type: theme
-description: 'This theme is built for conferences, exhibitions, events. The configuration is intuitive and you can load the content of the demonstration'
+description: "Ce theme fournit un ensemble de "
 core: 8.x
 core_version_requirement: ^8 || ^9
 base theme: bootstrap_barrio
@@ -19,16 +19,16 @@ regions:
   footer: 'footer'
 
 libraries:
-  - wb_universe/global-style
-  - wb_universe/fontawesome
+#  - wb_universe/global-style
+#  - wb_universe/fontawesome
   - wb_universe/lazysize
-  - wb_universe/google-police
-  - wb_universe/google-analytics
+#  - wb_universe/google-police
+#  - wb_universe/google-analytics
 
 
 # Add custom css to ckeditor
 ckeditor_stylesheets:
-  - css/bootstrap.css
+#  - css/bootstrap.css
   - css/style.css
   #- css/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css
   #- css/ckeditor_custom.css
