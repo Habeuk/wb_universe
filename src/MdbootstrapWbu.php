@@ -22,6 +22,11 @@ class MdbootstrapWbu {
     $theme_name = 'wb_universe';
     $PreprocessPage = new PreprocessPage();
     $PreprocessPage->ApplyActions($variables, $theme_name);
+
+    /**
+     * Ajout les librairies pour l'administration.
+     */
+    self::addStyleAdmin($variables);
   }
 
   /**
@@ -30,7 +35,6 @@ class MdbootstrapWbu {
    * @param array $variables
    */
   public static function addStyleAdmin(&$variables) {
-    dump($variables);
     if (\Drupal::routeMatch()->getRouteName() === 'layout_builder.overrides.node.view' || str_contains(\Drupal::routeMatch()->getRouteName(), 'layout_builder.defaults')) {
       $variables['page']['content']['#attached']['library'][] = 'wb_universe/styleadmin';
     }
