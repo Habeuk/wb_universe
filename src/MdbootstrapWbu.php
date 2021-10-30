@@ -27,6 +27,12 @@ class MdbootstrapWbu {
      * Ajout les librairies pour l'administration.
      */
     self::addStyleAdmin($variables);
+
+    /**
+     * Build scss (utiliser par le theme wb_universe pour generer les fichiers css.
+     * Cette methode peut etre utiliser par les themes enfants pour generer les styles.
+     */
+    $PreprocessPage->_load_scss($theme_name);
   }
 
   /**
