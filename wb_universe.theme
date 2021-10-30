@@ -42,7 +42,8 @@ function wb_universe_preprocess(&$variables, $hook) {
  * @param array $css
  * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
  */
-function wb_universe_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
+function wb_universe_css_alter(&$css,
+    \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
   foreach ($css as $uri => $library) {
     if (\strripos($uri, "formatage_models/layouts")) {
       $css[$uri]['group'] = 100;
@@ -58,7 +59,8 @@ function wb_universe_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface
  */
 function wb_universe_preprocess_html(&$variables) {
   $_css = [];
-  if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
+  if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole(
+      'administrator')) {
     $_css[] = 'administrator';
   }
   // Add.
@@ -96,7 +98,8 @@ function wb_universe_preprocess_ds_entity_view(&$variables) {
  * @param int $suggestions
  * @param int $variables
  */
-function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_page_alter(array &$suggestions,
+    array $variables) {
   /**
    *
    * @var \Drupal\taxonomy\Entity\Term $taxonomy_term
@@ -122,7 +125,8 @@ function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $va
  * @param int $suggestions
  * @param int $variables
  */
-function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_user_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables["elements"]["#view_mode"])) {
     $suggestions[] = 'user__' . $variables["elements"]["#view_mode"];
   }
@@ -145,7 +149,8 @@ function wb_universe_preprocess_field(&$variables) {
   /**
    * Class for type boolean.
    */
-  if (isset($variables['element']['#field_type']) && $variables['element']['#field_type'] == 'boolean') {
+  if (isset($variables['element']['#field_type']) &&
+      $variables['element']['#field_type'] == 'boolean') {
     $value = $variables['element']['#object']->get($variables['field_name'])->getValue();
     if (!empty($value[0])) {
       $variables['attributes']['class'][] = 'boolean-' . $value[0]['value'];
@@ -154,7 +159,8 @@ function wb_universe_preprocess_field(&$variables) {
   /**
    * for link
    */
-  if (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
+  if (isset($variables['element']['#field_name']) &&
+      $variables['element']['#field_name'] == 'node_link') {
     foreach ($variables['items'] as $key => $value) {
       // debugLog::logs( $variables['items'] , 'field_link_items', 'kint',
       // true);
@@ -176,9 +182,11 @@ function wb_universe_preprocess_field__image(&$variables) {
  */
 function wb_universe_preprocess_image_url(&$variables) {
   if (isset($variables['image_style'])) {
-    $image_style = \Drupal\image\Entity\ImageStyle::load($variables['image_style']);
+    $image_style = \Drupal\image\Entity\ImageStyle::load(
+        $variables['image_style']);
     if ($image_style) {
-      $variables['image_url'] = $image_style->buildUrl($variables['file']->getFileUri());
+      $variables['image_url'] = $image_style->buildUrl(
+          $variables['file']->getFileUri());
     }
   }
 }
@@ -211,11 +219,11 @@ function wb_universe_preprocess_menu(&$variables) {
        * remove user.register if user is connecté.
        */
       if (\Drupal::currentUser()->isAuthenticated()) {
-        $variables['items'] = Menus::MenuDeleteIemByRouteName($variables['items'], 'user.register');
+        $variables['items'] = Menus::MenuDeleteIemByRouteName(
+            $variables['items'], 'user.register');
       }
       if (TEMPLATE_menu__account == 'menu__account_icon') {
-        $icones = [
-          'user.page' => '<i class="fas fa-user-tie pr-1"></i>',
+        $icones = ['user.page' => '<i class="fas fa-user-tie pr-1"></i>',
           'user.logout' => '<i class="fas fa-unlock-alt pr-1"></i>',
           'user.login' => '<i class="fas fa-sign-in-alt pr-1"></i>',
           'user.register' => '<i class="fas fa-user-tie pr-1"></i>'
@@ -241,13 +249,16 @@ function wb_universe_preprocess_links(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
-function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables) {
-  if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
+function wb_universe_theme_suggestions_input_alter(array &$suggestions,
+    array $variables) {
+  if ($variables['element']['#type'] == 'submit' &&
+      theme_get_setting('bootstrap_barrio_button')) {
     $suggestions[] = 'input__submit_button';
   }
   //
   if (!empty($variables['element']['#wbu_theme_icon'])) {
-    $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['element']['#wbu_theme_icon']['icon_theme'];
+    $suggestions[] = $variables['theme_hook_original'] . '__' .
+        $variables['element']['#wbu_theme_icon']['icon_theme'];
   }
 }
 
@@ -258,7 +269,8 @@ function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $v
  * template name suggestions and reorder or remove suggestions provided by
  * hook_theme_suggestions_HOOK()
  */
-function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$variables, $hook) {
+function wb_universe_theme_suggestions_menu_alter(array &$suggestions,
+    array &$variables, $hook) {
   if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
     $theme_hook_original = $variables['theme_hook_original'];
     $options = [];
@@ -270,7 +282,8 @@ function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$v
       if ($theme_hook_original == 'menu__main') {
         $options['template'] = TEMPLATE_menu__main;
       }
-    $new_suggestions = SuggestionsMenus::Suggestions($theme_hook_original, $options);
+    $new_suggestions = SuggestionsMenus::Suggestions($theme_hook_original,
+        $options);
     foreach ($new_suggestions as $value) {
       $suggestions[] = $value;
     }
@@ -280,12 +293,14 @@ function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$v
 /**
  * implement hook_theme_suggestions_HOOK_alter()
  */
-function wb_universe_theme_suggestions_block_alter(array &$suggestions, array &$variables, $hook) {
+function wb_universe_theme_suggestions_block_alter(array &$suggestions,
+    array &$variables, $hook) {
   if (!empty($variables['elements']['#id'])) {
     /**
      * Formatage du container main menu.
      */
-    if (isset($variables['elements']["#plugin_id"]) && $variables['elements']["#plugin_id"] == 'system_menu_block:main') {
+    if (isset($variables['elements']["#plugin_id"]) &&
+        $variables['elements']["#plugin_id"] == 'system_menu_block:main') {
       if (TEMPLATE_menu__main == 'menu__main_full') {
         $suggestions[] = 'block__' . TEMPLATE_menu__main;
       }
@@ -309,9 +324,11 @@ function wb_universe_preprocess_image(&$variables) {
 }
 
 function wb_universe_preprocess_form_element(&$variables) {
-  if (!empty($variables["element"]["#type"]) && $variables['element']['#type'] == 'checkbox') {
+  if (!empty($variables["element"]["#type"]) &&
+      $variables['element']['#type'] == 'checkbox') {
     if (!empty($variables["label"]["#children"])) {
-      $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
+      $variables["children"] = new FormattableMarkup(
+          $variables["label"]["#children"], []);
       $variables["label"]['#attributes']['class'][] = 'custom-control-label';
       unset($variables["label"]["#children"]);
     }
@@ -380,7 +397,8 @@ function wb_universe_preprocess_details__panels_card(&$vars) {
 }
 
 function wb_universe_preprocess_file_upload_help(&$variables) {
-  if (!empty($variables['popover']) && !empty($variables['popover']['requirements']['#attributes'])) {
+  if (!empty($variables['popover']) &&
+      !empty($variables['popover']['requirements']['#attributes'])) {
     $variables['popover']['requirements']['#attributes']['class'] = [];
     $variables['popover']['requirements']['#attributes']['class'][] = 'help-block';
   }
@@ -402,7 +420,8 @@ function wb_universe_preprocess_page_title(&$variables) {
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_node_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables["elements"]["#view_mode"])) {
     $suggestions[] = 'node__modele_' . $variables["elements"]["#view_mode"];
   }
@@ -415,10 +434,12 @@ function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $va
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_links_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables['links']['node-readmore'])) {
     $suggestions[] = 'links__node_readmore';
-    $suggestions[] = 'links__node_' . $variables['links']['node-readmore']['url']->getOption('entity')->getType();
+    $suggestions[] = 'links__node_' .
+        $variables['links']['node-readmore']['url']->getOption('entity')->getType();
   }
 }
 
@@ -428,7 +449,8 @@ function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $v
  * @param array $suggestions
  * @param array $variables
  */
-function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_form_element_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables['element']['#type'])) {
     $suggestions[] = 'form_element__' . $variables['element']['#type'];
   }
@@ -439,7 +461,8 @@ function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, a
  * @param array $suggestions
  * @param array $variables
  */
-function wb_universe_theme_suggestions_details_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_details_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables['element']['#type'])) {
     $suggestions[] = 'details__panels_card';
   }
@@ -450,7 +473,8 @@ function wb_universe_theme_suggestions_details_alter(array &$suggestions, array 
  * @param array $suggestions
  * @param array $variables
  */
-function wb_universe_theme_suggestions_vertical_tabs_alter(array &$suggestions, array $variables) {
+function wb_universe_theme_suggestions_vertical_tabs_alter(array &$suggestions,
+    array $variables) {
   if (!empty($variables['element']['#type'])) {
     $suggestions[] = 'vertical_tabs__panels_card';
   }
@@ -463,7 +487,8 @@ function wb_universe_theme_suggestions_vertical_tabs_alter(array &$suggestions, 
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+function wb_universe_theme_suggestions_alter(array &$suggestions,
+    array $variables, $hook) {
   if ($hook == 'layout') {
     $override = 'layout__' . $variables['theme_hook_original'];
     $suggestions[] = $override . '_default';
@@ -486,33 +511,22 @@ function wb_universe_preprocess_input__submit__icon(array &$variables) {
   if (!empty($variables['element']['#wbu_theme_icon'])) {
     $setting = $variables['element']['#wbu_theme_icon'];
     if (empty($setting["icon_after"])) {
-      $buttonIcon[] = [
-        '#type' => "html_tag",
-        '#tag' => 'i',
-        '#value' => "",
-        '#attributes' => [
-          'class' => [
-            $setting["icon"]
-          ]
+      $buttonIcon[] = ['#type' => "html_tag", '#tag' => 'i', '#value' => "",
+        '#attributes' => ['class' => [$setting["icon"]
+        ]
         ]
       ];
     }
     if (empty($setting["hidde_text"])) {
-      $buttonIcon[] = [
-        '#type' => 'inline_template',
+      $buttonIcon[] = ['#type' => 'inline_template',
         '#template' => $variables['element']['#value']
       ];
       // ;
     }
     if (!empty($setting["icon_after"])) {
-      $buttonIcon[] = [
-        '#type' => "html_tag",
-        '#tag' => 'i',
-        '#value' => "",
-        '#attributes' => [
-          'class' => [
-            $setting["icon"]
-          ]
+      $buttonIcon[] = ['#type' => "html_tag", '#tag' => 'i', '#value' => "",
+        '#attributes' => ['class' => [$setting["icon"]
+        ]
         ]
       ];
     }
@@ -542,15 +556,16 @@ function wb_universe_preprocess_input__submit__icon(array &$variables) {
  * @param string $form
  * @param string $form_state
  */
-function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+function wb_universe_form_system_theme_settings_alter(&$form,
+    \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
   if (isset($form_id)) {
     return;
   }
-  MdbootstrapWbu::defineSetting($form, $form_state);
-  /**
-   * Save image ajax ( manage_image )
-   */
-  _completManageFile($form_state->getValues());
+  // MdbootstrapWbu::defineSetting($form, $form_state);
+/**
+ * Save image ajax ( manage_image )
+ */
+  // _completManageFile($form_state->getValues());
 }
 
 /**
@@ -562,7 +577,8 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+function wb_universe_settings_form_submit(&$form,
+    \Drupal\Core\Form\FormStateInterface $form_state) {
   // $account = \Drupal::currentUser();
   // $values = $form_state->getValues();
   // dump($values);
@@ -572,7 +588,8 @@ function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInt
   // $form_state->getResponse();
 }
 
-function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+function wb_universe_settings_form_submit_end(&$form,
+    \Drupal\Core\Form\FormStateInterface $form_state) {
   // debugLog::logs($form_state->getValues(), 'wb_universe_completsavefile2',
   // 'dump', true);
   // die('end');
