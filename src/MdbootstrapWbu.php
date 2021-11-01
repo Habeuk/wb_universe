@@ -22,6 +22,11 @@ class MdbootstrapWbu {
     $theme_name = 'wb_universe';
     $PreprocessPage = new PreprocessPage();
     $PreprocessPage->ApplyActions($variables, $theme_name);
+    /**
+     * Load section.Cette function doit etre decouper, pour separer le chargement des layouts et les styles.
+     * Les layouts du theme, tels que definit ne seront plus utilisés.
+     */
+    $PreprocessPage->loadSection($theme_name, $variables);
 
     /**
      * Ajout les librairies pour l'administration.
