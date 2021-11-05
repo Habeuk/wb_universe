@@ -32,15 +32,11 @@
 .layout-builder__add-block {
   padding: 10px 0;
   line-height: 14px;
-  position: absolute;
   top: calc(100% + 5px);
   left: 0;
   right: 0;
   bottom: auto;
-  display: none;
-}
-.layout-builder__section:hover .layout-region {
-  min-height: 40px;
+  display: block;
 }
 .layout-builder__section:hover .layout-builder__add-block {
   display: block;

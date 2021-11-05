@@ -13,17 +13,17 @@
   &__add-block {
     padding: 10px 0;
     line-height: 14px;
-    position: absolute;
+    //position: absolute;
     top: calc(100% + 5px);
     left: 0;
     right: 0;
     bottom: auto;
-    display: none;
+    display: block;
   }
   &__section {
     &:hover {
       .layout-region {
-        min-height: 40px;
+        // min-height: 40px;
       }
       .layout-builder__add-block {
         display: block;
