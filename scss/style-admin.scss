@@ -1,161 +1,161 @@
-#drupal-off-canvas {
-  background: transparent;
-}
-
-.layout-builder {
-  color: #000;
-
-  &-block {
-    padding: 0;
-    letter-spacing: 0;
-  }
-
-  &__add-block {
-    padding: 10px 0;
-    line-height: 14px;
-    position: relative;
-    top: calc(100% + 5px);
-    left: 0;
-    right: 0;
-    bottom: auto;
-    display: block;
-  }
-  &__section {
-    &:hover {
-      .layout-region {
-        min-height: 40px;
-        overflow: hidden;
-      }
-      .layout-builder__add-block {
-        display: block;
-      }
-    }
-  }
-
-  &__link {
-    &--add {
-      font-size: 14px;
-      line-height: 16px;
-      letter-spacing: 0;
-      text-indent: 0;
-      margin: 0;
-      color: #686868;
-    }
-    .visually-hidden {
-      overflow: visible;
-      width: auto;
-      height: auto;
-      clip: auto;
-      display: inline-block;
-      padding-left: 1rem;
-      font-style: italic;
-      color: #909090;
-      font-size: 12px;
-    }
-    &:hover {
-      .visually-hidden {
-        font-weight: 600;
-        color: #333;
-      }
-    }
-  }
-}
-/**
- *
- */
-.layout-region {
-  position: relative;
-  overflow: visible;
-  z-index: 0;
-  min-height: 15px;
-  outline: none;
-
-  &:hover {
-    z-index: 1;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
-      border: 1px dashed #1c30f3;
-      box-shadow: 0 0 20px #efefef;
-    }
-    .layout-builder__add-block {
-      display: block;
-    }
-  }
-}
-
-.space-edit-admin {
-  background: #575858;
-  padding: 1rem;
-  color: #fff;
-}
-
-// listes de layout.
-.layout-selection {
-  background: #575858 !important;
-  .list-group-item {
-    position: relative !important;
-
-    &::before {
-      content: "" !important;
-      position: absolute !important;
-      top: 0 !important;
-      left: -20px !important;
-      bottom: 0 !important;
-      right: auto !important;
-      width: 0 !important;
-      background: #89caeb !important;
-      display: block !important;
-    }
-    &:hover {
-      background: rgba(137, 202, 235, 0.14) !important;
-      &::before {
-        width: 3px !important;
-      }
-    }
-    a {
-      text-decoration: none !important;
-    }
-    img {
-      max-width: 100% !important;
-      max-height: 160px !important;
-    }
-  }
-}
-#drupal-off-canvas textarea,
-#drupal-off-canvas select,
-#drupal-off-canvas input[type="date"],
-#drupal-off-canvas input[type="datetime"],
-#drupal-off-canvas input[type="datetime-local"],
-#drupal-off-canvas input[type="email"],
-#drupal-off-canvas input[type="month"],
-#drupal-off-canvas input[type="number"],
-#drupal-off-canvas input[type="password"],
-#drupal-off-canvas input[type="search"],
-#drupal-off-canvas input[type="tel"],
-#drupal-off-canvas input[type="text"],
-#drupal-off-canvas input[type="time"],
-#drupal-off-canvas input[type="url"],
-#drupal-off-canvas input[type="week"] {
-  color: #383a40;
-  padding: 0.65rem 1rem;
-  height: auto;
-  vertical-align: middle;
-  border-radius: 2px;
-  border: 1px solid #def0fd;
-  background-color: transparent;
-}
-
-/**
- * --
- */
-.inline-block-list {
-  &__item {
-    font-size: 12px;
-  }
-}
+//#drupal-off-canvas {
+//  background: transparent;
+//}
+//
+//.layout-builder {
+//  color: #000;
+//
+//  &-block {
+//    padding: 0;
+//    letter-spacing: 0;
+//  }
+//
+//  &__add-block {
+//    padding: 10px 0;
+//    line-height: 14px;
+//    position: relative;
+//    top: calc(100% + 5px);
+//    left: 0;
+//    right: 0;
+//    bottom: auto;
+//    display: block;
+//  }
+//  &__section {
+//    &:hover {
+//      .layout-region {
+//        min-height: 40px;
+//        overflow: hidden;
+//      }
+//      .layout-builder__add-block {
+//        display: block;
+//      }
+//    }
+//  }
+//
+//  &__link {
+//    &--add {
+//      font-size: 14px;
+//      line-height: 16px;
+//      letter-spacing: 0;
+//      text-indent: 0;
+//      margin: 0;
+//      color: #686868;
+//    }
+//    .visually-hidden {
+//      overflow: visible;
+//      width: auto;
+//      height: auto;
+//      clip: auto;
+//      display: inline-block;
+//      padding-left: 1rem;
+//      font-style: italic;
+//      color: #909090;
+//      font-size: 12px;
+//    }
+//    &:hover {
+//      .visually-hidden {
+//        font-weight: 600;
+//        color: #333;
+//      }
+//    }
+//  }
+//}
+///**
+// *
+// */
+//.layout-region {
+//  position: relative;
+//  overflow: visible;
+//  z-index: 0;
+//  min-height: 15px;
+//  outline: none;
+//
+//  &:hover {
+//    z-index: 1;
+//
+//    &::before {
+//      content: "";
+//      position: absolute;
+//      top: -5px;
+//      left: -5px;
+//      right: -5px;
+//      bottom: -5px;
+//      border: 1px dashed #1c30f3;
+//      box-shadow: 0 0 20px #efefef;
+//    }
+//    .layout-builder__add-block {
+//      display: block;
+//    }
+//  }
+//}
+//
+//.space-edit-admin {
+//  background: #575858;
+//  padding: 1rem;
+//  color: #fff;
+//}
+//
+//// listes de layout.
+//.layout-selection {
+//  background: #575858 !important;
+//  .list-group-item {
+//    position: relative !important;
+//
+//    &::before {
+//      content: "" !important;
+//      position: absolute !important;
+//      top: 0 !important;
+//      left: -20px !important;
+//      bottom: 0 !important;
+//      right: auto !important;
+//      width: 0 !important;
+//      background: #89caeb !important;
+//      display: block !important;
+//    }
+//    &:hover {
+//      background: rgba(137, 202, 235, 0.14) !important;
+//      &::before {
+//        width: 3px !important;
+//      }
+//    }
+//    a {
+//      text-decoration: none !important;
+//    }
+//    img {
+//      max-width: 100% !important;
+//      max-height: 160px !important;
+//    }
+//  }
+//}
+//#drupal-off-canvas textarea,
+//#drupal-off-canvas select,
+//#drupal-off-canvas input[type="date"],
+//#drupal-off-canvas input[type="datetime"],
+//#drupal-off-canvas input[type="datetime-local"],
+//#drupal-off-canvas input[type="email"],
+//#drupal-off-canvas input[type="month"],
+//#drupal-off-canvas input[type="number"],
+//#drupal-off-canvas input[type="password"],
+//#drupal-off-canvas input[type="search"],
+//#drupal-off-canvas input[type="tel"],
+//#drupal-off-canvas input[type="text"],
+//#drupal-off-canvas input[type="time"],
+//#drupal-off-canvas input[type="url"],
+//#drupal-off-canvas input[type="week"] {
+//  color: #383a40;
+//  padding: 0.65rem 1rem;
+//  height: auto;
+//  vertical-align: middle;
+//  border-radius: 2px;
+//  border: 1px solid #def0fd;
+//  background-color: transparent;
+//}
+//
+///**
+// * --
+// */
+//.inline-block-list {
+//  &__item {
+//    font-size: 12px;
+//  }
+//}
