@@ -7,6 +7,8 @@ base theme: bootstrap_barrio
 dependencies:
   - drupal:system (>=8.8)
   - drupal:bootstrap_barrio
+  - drupal:pathauto
+  - drupal:admin_toolbar
 
 screenshot: wb_universe.png
 logo: logo.png 

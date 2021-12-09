@@ -11,7 +11,9 @@
     ],
     "require": {
     	"drupal/bootstrap_barrio": "^5.1",
+    	"drupal/pathauto": "^1.8",
+    	"drupal/admin_toolbar": "^3.0",
     	"stephane888/htmlbootstrap": "^1.2 | dev-1x",
-    	"stephane888/debug": "^1.0 | dev-1x"
+    	"stephane888/debug": "^1.0 | dev-1x"    	
     }
 }
