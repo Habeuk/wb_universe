@@ -11,26 +11,24 @@ dependencies:
   - drupal:admin_toolbar
 
 screenshot: wb_universe.png
-logo: logo.png 
+logo: logo.png
 
 regions:
-  header: 'header'
-  before_content: 'beforeContent'
-  content: 'content'
-  after_content: 'afterContent'
-  footer: 'footer'
+  header: "header"
+  before_content: "beforeContent"
+  content: "content"
+  after_content: "afterContent"
+  footer: "footer"
 
 libraries:
-#  - wb_universe/global-style
-#  - wb_universe/fontawesome
+  - wb_universe/fontawesome
   - wb_universe/lazysize
 #  - wb_universe/google-police
 #  - wb_universe/google-analytics
 
-
 # Add custom css to ckeditor
 ckeditor_stylesheets:
-#  - css/bootstrap.css
+  #  - css/bootstrap.css
   - css/style.css
   #- css/fontawesome/web-fonts-with-css/css/fontawesome-all.min.css
   #- css/ckeditor_custom.css
