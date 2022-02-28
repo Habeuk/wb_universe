@@ -195,19 +195,22 @@ class MdbootstrapWbu {
     $themes = self::getThemeInfos();
     
     /**
-     * active tree to get name like array.
-     * cette activation est fait sur les elments enfants.
+     * Active tree to get name like array.
+     * cette activation est fait sur les elzments enfants.
      */
     // $form['#tree'] = TRUE;
+    
     /**
      * On active le cache, pour permettre la modification des données via AJAX.
      */
     $form_state->setCached(FALSE);
+    
     /**
      * Ajout d'une function submit qui s'execute avant la function principal.
      */
     $form['#submit'][] = $theme_name . '_settings_form_submit';
     $form['#submit'][] = $theme_name . '_settings_form_submit_end';
+    
     /**
      * Ajout d'une function submit qui remplace la fonction de submit par
      * defaut.

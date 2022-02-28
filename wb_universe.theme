@@ -92,7 +92,33 @@ function wb_universe_preprocess_html(&$variables) {
   if (!empty($_css)) {
     $variables['html_attributes']->setAttribute('class', $_css);
   }
-  MdbootstrapWbu::createFilesTheme('wb_universe', null, false);
+  if ($IdAnalytique = theme_get_setting('google-analytics-gtag')) {
+    $scriptUrl = [
+      '#tag' => 'script',
+      '#attributes' => [
+        'async',
+        'src' => 'https://www.googletagmanager.com/gtag/js?id=' . $IdAnalytique
+      ]
+    ];
+    $scriptInit = [
+      '#tag' => 'script',
+      '#value' => "window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());            
+              gtag('config', '$IdAnalytique');
+            "
+    ];
+    $variables['page']['#attached']['html_head'][] = [
+      $scriptUrl,
+      'google-analytics-gtag'
+    ];
+    $variables['page']['#attached']['html_head'][] = [
+      $scriptInit,
+      'google-analytics-gtag-value'
+    ];
+    // dump($variables['page']['#attached']);
+  }
+  // MdbootstrapWbu::createFilesTheme('wb_universe', null, false);
 }
 
 /**
@@ -566,7 +592,15 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
   if (isset($form_id)) {
     return;
   }
+  
   // MdbootstrapWbu::defineSetting($form, $form_state);
+  $form['google-analytics-gtag'] = [
+    '#type' => 'textfield',
+    '#title' => 'Google Analytics (id de mesure)',
+    '#default_value' => theme_get_setting('google-analytics-gtag'),
+    '#weight' => -40
+  ];
+  // dump($form);
 /**
  * Save image ajax ( manage_image )
  */
