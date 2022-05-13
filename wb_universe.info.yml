@@ -9,6 +9,7 @@ dependencies:
   - drupal:bootstrap_barrio
   - drupal:pathauto
   - drupal:admin_toolbar
+  - drupal:block
 
 screenshot: wb_universe.png
 logo: logo.png
