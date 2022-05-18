@@ -9,6 +9,8 @@ global-style:
       css/bootstrap-overlay.css: {}
       css/style-auto.css: {}
       css/style.css: {}
+    
+global-style-js:
   js:
     # *********  Js for bootstrap 4 ********************************************************
     node_modules/@popperjs/core/dist/umd/popper.min.js: {}
