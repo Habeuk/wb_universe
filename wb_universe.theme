@@ -394,7 +394,7 @@ function wb_universe_preprocess_vertical_tabs__panels_card(&$vars) {
 function wb_universe_preprocess_details__panels_card(&$vars) {
   $vars['attributes']['class'][] = 'accordion';
   if (empty($vars['element']['#id'])) {
-    $id = rand(50, 9888);
+    $id = 'accordion-' . rand(50, 9888);
   }
   else
     $id = $vars['element']['#id'];
