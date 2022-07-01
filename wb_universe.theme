@@ -392,10 +392,14 @@ function wb_universe_preprocess_vertical_tabs__panels_card(&$vars) {
  * @param array $vars
  */
 function wb_universe_preprocess_details__panels_card(&$vars) {
-  // dump($vars);
   $vars['attributes']['class'][] = 'accordion';
-  $body_id = $vars['element']['#id'] . 'body';
-  $header_id = $vars['element']['#id'] . 'header';
+  if (empty($vars['element']['#id'])) {
+    $id = rand(50, 9888);
+  }
+  else
+    $id = $vars['element']['#id'];
+  $body_id = $id . 'body';
+  $header_id = $id . 'header';
   /**
    *
    * @var \Drupal\Core\Template\Attribute $summary_attributes
@@ -413,7 +417,7 @@ function wb_universe_preprocess_details__panels_card(&$vars) {
   $body_attributes->setAttribute('id', $body_id);
   $body_attributes->setAttribute('aria-labelledby', $header_id);
   if (!empty($vars['element']['#id']))
-    $body_attributes->setAttribute('data-parent', '#' . $vars['element']['#id']);
+    $body_attributes->setAttribute('data-parent', '#' . $id);
   if (!empty($vars['element']['#open'])) {
     $body_attributes->addClass('show');
   }
