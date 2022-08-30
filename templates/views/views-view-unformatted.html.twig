@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override to display a view of unformatted rows.
+ * Default theme implementation to display a view of unformatted rows.
  *
  * Available variables:
  * - title: The title of this group of rows. May be empty.
@@ -13,68 +13,20 @@
  *   used on rows.
  *
  * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
  */
 #}
-{% if template_format %}
-	<!-- Boostrap display -->
-	{% if template_format and template_format.template.value == 'bootstrap-grid' %}
-		{%
-      set row_classes = [
-        template_format.col.value ? template_format.col.value,
-        template_format.col_sm.value ? template_format.col_sm.value,
-        template_format.col_md.value ? template_format.col_md.value,
-        template_format.col_lg.value ? template_format.col_lg.value,
-        default_row_class ? 'views-row',
-      ]
-    %}
-		{% if title %}
-			<h3>{{ title }}</h3>
-		{% endif %}
-		{% for row in rows %}
-			<div{{row.attributes.addClass(row_classes)}}>
-				{{ row.content }}
-			</div>
-		{% endfor %}
-		{#
-		      {% if template_format.formatter and template_format.formatter.value == 'node_teaser_wb_universe' %}
-		          {% for row in new_template_format %}
-		            <div{{ row.attributes.addClass(row_classes) }}>
-		              {{ row.content }}
-		            </div>
-		          {% endfor %}
-		      {% else %}
-		          {% for row in rows %}
-		            <div{{ row.attributes.addClass(row_classes) }}>
-		              {{ row.content }}
-		            </div>
-		          {% endfor %}
-		      {% endif %}
-		    #}
-		<!-- default display -->
-	{% elseif template_format and template_format.template.value %}
-		{%
-      set row_classes = [
-      ]
-    %}
-		{% for row in rows %}
-			<div{{row.attributes.addClass(row_classes)}}>
-				{{ row.content }}
-			</div>
-		{% endfor %}
-	{% endif %}
-	<!-- default display -->
-{% else %}
-	{% if title %}
-		<h3>{{ title }}</h3>
-	{% endif %}
-	{% for row in rows %}
-		{%
-        set row_classes = [
-          default_row_class ? 'views-row',
-        ]
-      %}
-		<div{{row.attributes.addClass(row_classes)}}>
-			{{ row.content }}
-		</div>
-	{% endfor %}
+{% if title %}
+  <h3>{{ title }}</h3>
 {% endif %}
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+    ]
+  %}
+  <div{{ row.attributes.addClass(row_classes) }}>
+    {{- row.content -}}
+  </div>
+{% endfor %}

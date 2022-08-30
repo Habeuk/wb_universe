@@ -47,6 +47,10 @@ libraries-override:
         css/components/tableselect.css: false
         css/components/tablesort-indicator.css: false
         css/components/site-footer.css: false
+  bootstrap_barrio/comments:
+    css:
+      component:
+        css/components/comments.css: false
   bootstrap_barrio/node:
     css:
       component:

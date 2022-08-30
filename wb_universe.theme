@@ -12,7 +12,8 @@ use Stephane888\HtmlBootstrap\SuggestionsMenus;
 use Stephane888\HtmlBootstrap\Controller\Menus;
 use Stephane888\HtmlBootstrap\SortArray;
 use Drupal\Core\Render\Element;
-use function PHPUnit\Framework\stringContains;
+use Drupal\node\NodeInterface;
+use Drupal\Component\Utility\NestedArray;
 
 /**
  * config off theme
@@ -37,7 +38,7 @@ function wb_universe_preprocess(&$variables, $hook) {
 }
 
 /**
- * implement hook_css_alter
+ * implement hook_css_alter.
  * pour mettre les fichiers du module formatage_models apres ceux des themes.
  *
  * @param array $css
@@ -65,7 +66,7 @@ function wb_universe_preprocess_menu_local_action(&$vars) {
         }
       }
     }
-    // add outline btn
+    // Add outline btn.
     $vars['link']['#options']['attributes']['class'][] = 'btn-outline-secondary';
   }
 }
@@ -118,7 +119,20 @@ function wb_universe_preprocess_html(&$variables) {
     ];
     // dump($variables['page']['#attached']);
   }
-  // MdbootstrapWbu::createFilesTheme('wb_universe', null, false);
+  // Ajout du script pour skripe v3 ( on doit mettre une variable pour
+  // conditionner l'affichage et gerer la version ).
+  $scriptStripe = [
+    '#tag' => 'script',
+    '#attributes' => [
+      'async' => "async",
+      'src' => 'https://js.stripe.com/v3/'
+    ]
+  ];
+  $variables['page']['#attached']['html_head'][] = [
+    $scriptStripe,
+    'stripe-api-js'
+  ];
+  //
 }
 
 /**
@@ -151,15 +165,14 @@ function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $va
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     // $suggestions[] = 'page__' . $node->bundle() . '_node';
     $field_name = "layout_builder__layout";
-    if ($node->hasField($field_name)) {
+    if ($node instanceof NodeInterface && $node->hasField($field_name)) {
       $suggestions[] = 'page__layout_builder';
       $suggestions[] = 'page__' . $node->bundle() . '__layout';
     }
   }
-  else 
-    if ($taxonomy_term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
-      $suggestions[] = 'page__vocab_' . $taxonomy_term->bundle();
-    }
+  elseif ($taxonomy_term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
+    $suggestions[] = 'page__vocab_' . $taxonomy_term->bundle();
+  }
 }
 
 /**
@@ -479,7 +492,11 @@ function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $v
  * @param array $variables
  */
 function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
-  if (!empty($variables['element']['#type'])) {
+  // on verifie s'il ya une demande de surchage
+  if (!empty($variables['element']['#attributes']['data-twig'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#attributes']['data-twig'];
+  }
+  elseif (!empty($variables['element']['#type'])) {
     $suggestions[] = 'form_element__' . $variables['element']['#type'];
   }
 }
@@ -609,6 +626,19 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
  * Save image ajax ( manage_image )
  */
   // _completManageFile($form_state->getValues());
+}
+
+/**
+ * Implemente template_preprocess_radios
+ *
+ * @param array $vars
+ */
+function wb_universe_preprocess_radios(&$vars) {
+  // Avec la function template_preprocess_radios on ne peut pas passer des
+  // attributes au container des radios.
+  if (!empty($vars['element']['#wrapper_attributes'])) {
+    $vars['attributes'] = NestedArray::mergeDeep($vars['attributes'], $vars['element']['#wrapper_attributes']);
+  }
 }
 
 /**
