@@ -38,20 +38,7 @@ ckeditor_stylesheets:
   #- https://fonts.googleapis.com/css?family=Lato:300,400&display=swap
 
 libraries-override:
-  bootstrap_barrio/global-styling:
-    css:
-      component:
-        css/components/field.css: false
-        css/components/table.css: false
-        css/components/tabledrag.css: false
-        css/components/tableselect.css: false
-        css/components/tablesort-indicator.css: false
-        css/components/site-footer.css: false
-  bootstrap_barrio/comments:
-    css:
-      component:
-        css/components/comments.css: false
-  bootstrap_barrio/node:
-    css:
-      component:
-        css/components/node.css: false
+  bootstrap_barrio/global-styling: false
+  bootstrap_barrio/comments: false
+  bootstrap_barrio/node: false
+  bootstrap_styles/plugin.background_media.build: false
