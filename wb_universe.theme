@@ -5,24 +5,23 @@
  */
 use Drupal\wb_universe\MdbootstrapWbu;
 use Drupal\Component\Render\FormattableMarkup;
-// use Stephane888\Debug\debugLog;
 use Drupal\Core\Template\Attribute;
-use Drupal\Core\Url;
 use Stephane888\HtmlBootstrap\SuggestionsMenus;
 use Stephane888\HtmlBootstrap\Controller\Menus;
 use Stephane888\HtmlBootstrap\SortArray;
-use Drupal\Core\Render\Element;
 use Drupal\node\NodeInterface;
 use Drupal\Component\Utility\NestedArray;
+use Stephane888\Debug\Repositories\ConfigDrupal;
 
 /**
  * config off theme
  */
 require_once ('inc/config.inc');
+
 /**
  * custom config.
  */
-require_once ('inc/form.inc');
+require_once ('inc/FormCommerce.inc');
 require_once ('inc/views.inc');
 
 /**
@@ -117,7 +116,6 @@ function wb_universe_preprocess_html(&$variables) {
       $scriptInit,
       'google-analytics-gtag-value'
     ];
-    // dump($variables['page']['#attached']);
   }
   // Ajout du script pour skripe v3 ( on doit mettre une variable pour
   // conditionner l'affichage et gerer la version ).
@@ -301,6 +299,26 @@ function wb_universe_preprocess_links(&$variables) {
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
 function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  // try {
+  // /*
+  // * @var \Drupal\Core\Theme\ActiveTheme $theme
+  // */
+  // $theme = \Drupal::theme()->getActiveTheme();
+  // $route = \Drupal::routeMatch()->getRouteName();
+  // /**
+  // *
+  // * @var \Drupal\Core\Extension\ThemeHandler $theme_handler
+  // */
+  // $theme_handler = \Drupal::service('theme_handler');
+  // $settings = ConfigDrupal::getSettingsTheme();
+  // if ('commerce_cart.page' == $route) {
+  // dump($settings);
+  // dump(theme_get_setting('bootstrap_barrio_button'));
+  // }
+  // }
+  // catch (\Exception $e) {
+  // \Drupal::messenger()->addMessage('error de debogage');
+  // }
   if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
     $suggestions[] = 'input__submit_button';
   }
@@ -321,7 +339,6 @@ function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$v
   if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
     $theme_hook_original = $variables['theme_hook_original'];
     $options = [];
-    // dump($variables['theme_hook_original']);
     if ($theme_hook_original == 'menu__account') {
       $options['template'] = TEMPLATE_menu__account;
     }
@@ -379,7 +396,6 @@ function wb_universe_preprocess_form_element(&$variables) {
 
 function wb_universe_element_info_alter(array &$types) {
   if (!empty($types['vertical_tabs'])) {
-    // dump($types['vertical_tabs']);
     // $types['vertical_tabs']['#pre_render'][] = [
     // \Drupal\wb_universe\Render\Element\VerticalTabs::class,
     // 'processVerticalTabs'
@@ -387,16 +403,60 @@ function wb_universe_element_info_alter(array &$types) {
   }
 }
 
+function wb_universe_preprocess_select(&$variables) {
+  /**
+   * Ajout de la class form-control
+   */
+  $variables['attributes']['class'][] = 'form-control';
+}
+
+/**
+ *
+ * @param
+ *        $variables
+ */
+function wb_universe_preprocess_fieldset(&$variables) {
+  /**
+   * Recuperer les classes passée aux niveaux hook_form_alter et de les ajouter.
+   */
+  // Class pour le titre.
+  if (!empty($variables['element']['#legend'])) {
+    /**
+     *
+     * @var Drupal\Core\Template\Attribute $attribute
+     */
+    $attribute = $variables['legend']['attributes'];
+    if (!empty($variables['element']['#legend']['attributes']))
+      foreach ($variables['element']['#legend']['attributes'] as $k => $value) {
+        $attribute->setAttribute($k, $value);
+      }
+    $variables['legend']['attributes'] = $attribute;
+    //
+    if (!empty($variables['children'])) {
+      $variables['children'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => [
+          'class' => [
+            ""
+          ]
+        ],
+        '#value' => $variables['children']
+      ];
+    }
+    // dump($variables);
+    // dump($variables['children']);
+  }
+}
+
 function wb_universe_preprocess_vertical_tabs__panels_card(&$vars) {
   // $elements = Element::children($vars['element']['group']);
   // foreach ($elements as $delta) {
-  // //
   // $header_attributes = new Attribute();
   // $header_attributes->addClass('card-header bg-info');
   // $vars['element']['group'][$delta]['header_attributes'] =
   // $header_attributes;
   // }
-  // dump($vars);
 }
 
 /**
@@ -450,9 +510,11 @@ function wb_universe_preprocess_file_upload_help(&$variables) {
 }
 
 /**
+ *
+ * @param
+ *        $variables
  */
 function wb_universe_preprocess_page_title(&$variables) {
-  // dump($variables);
   if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
     $variables["title"]["#printed"] = false;
   }
@@ -621,11 +683,6 @@ function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\
     '#default_value' => theme_get_setting('google-analytics-gtag'),
     '#weight' => -40
   ];
-  // dump($form);
-/**
- * Save image ajax ( manage_image )
- */
-  // _completManageFile($form_state->getValues());
 }
 
 /**
@@ -661,12 +718,7 @@ function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInt
 }
 
 function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  // debugLog::logs($form_state->getValues(), 'wb_universe_completsavefile2',
-  // 'dump', true);
-  // die('end');
   $values = $form_state->getValues();
-  // dump($values);
-  // die('end');
   SortArray::_sortFieldOfThemeAndSave($values, $form_state, 'wb_universe');
   /**
    * Creation / MAJ des fichiers templates.
@@ -686,7 +738,6 @@ function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStat
  */
 function _saveimage($image) {
   if (!empty($image)) {
-    
     // Load the file via file.fid.
     if ($file = \Drupal\file\Entity\File::load($image[0])) {
       // Change status to permanent.
@@ -753,7 +804,7 @@ function FindImageFidAndDelete($values) {
   }
   elseif (intval($values)) {
     // debugLog::logs($values, 'wb_universe_completsavefile2_remove_button',
-    // 'dump', true);
+    
     if ($file = \Drupal\file\Entity\File::load($values)) {
       /**
        * on supprime l'utilisation du fichier fichier
