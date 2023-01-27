@@ -417,7 +417,7 @@ function wb_universe_preprocess_select(&$variables) {
  */
 function wb_universe_preprocess_fieldset(&$variables) {
   /**
-   * Recuperer les classes passée aux niveaux hook_form_alter et de les ajouter.
+   * Recuperer les classes passée aux niveaux hook_form_alter et les ajouter.
    */
   // Class pour le titre.
   if (!empty($variables['element']['#legend'])) {
@@ -431,21 +431,6 @@ function wb_universe_preprocess_fieldset(&$variables) {
         $attribute->setAttribute($k, $value);
       }
     $variables['legend']['attributes'] = $attribute;
-    //
-    if (!empty($variables['children'])) {
-      $variables['children'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#attributes' => [
-          'class' => [
-            ""
-          ]
-        ],
-        '#value' => $variables['children']
-      ];
-    }
-    // dump($variables);
-    // dump($variables['children']);
   }
 }
 

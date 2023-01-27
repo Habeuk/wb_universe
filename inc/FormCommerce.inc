@@ -24,7 +24,20 @@ function wb_universe_form_alter(&$form, FormStateInterface $form_state, $form_id
         foreach ($form['review'] as &$value) {
           if (is_array($value) && !empty($value['#type']) && $value['#type'] == 'fieldset') {
             $value['#legend']['attributes']['class'][] = 'h2';
-            $value['#legendcommerce'] = "kksa888";
+            // dump($value);
+            // on differencie l'affichage des payment;
+            if (!empty($value['summary']['payment_gateway'])) {
+              $value['summary']['payment_gateway'] = [
+                '#type' => 'html_tag',
+                '#tag' => 'div',
+                '#attributes' => [
+                  'class' => [
+                    "h4"
+                  ]
+                ],
+                '#value' => $value['summary']['payment_gateway']['#markup']
+              ];
+            }
           }
         }
       }
