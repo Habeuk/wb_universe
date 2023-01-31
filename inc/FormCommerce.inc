@@ -19,7 +19,7 @@ function wb_universe_form_alter(&$form, FormStateInterface $form_state, $form_id
         // On force la paiement la modification du titre, mais il est logique
         // qu'on doit chnager cela.
         if (!empty($value['#pane_id']) && $value['#pane_id'] == 'payment_information') {
-          $value['#title'] = "Information de livraison";
+          // $value['#title'] = "Information de livraison";
         }
       }
     }
@@ -49,7 +49,7 @@ function wb_universe_form_alter(&$form, FormStateInterface $form_state, $form_id
           // logique
           // qu'on doit chnager cela.
           if ($k == 'payment_information') {
-            $value['#title'] = "Information de livraison";
+            // $value['#title'] = "Information de livraison";
           }
         }
       }
