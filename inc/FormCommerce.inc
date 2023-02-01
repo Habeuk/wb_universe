@@ -53,6 +53,22 @@ function wb_universe_form_alter(&$form, FormStateInterface $form_state, $form_id
           }
         }
       }
+    /**
+     * On doit mieux comprendre Finalize shipmentCancel shipment, mais en
+     * attendant on se doit masquer ce champs.
+     * RQ: l'entite qui gere cela c'est "commerce_shipment" on peut le retirer
+     * au niveau de l'affichage du formulaire.
+     * Bref c'etait dans =>
+     * /admin/commerce/config/shipment-types/shipping_with_creneau/edit/display
+     * il fallait desactiver le champs State.
+     */
+      // if
+      // (!empty($form['review']['shipping_information']['summary'][0]['shipment']))
+      // {
+      // $form['review']['shipping_information']['summary'][0]['#access'] =
+      // false;
+      // dump($form['review']['shipping_information']['summary'][0]);
+      // }
     }
     /**
      * Etape : order_information.
