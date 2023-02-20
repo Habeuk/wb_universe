@@ -191,8 +191,13 @@ aos:
 convert_csv_to_json:
   js:
     plugins/convert-csv-to-json/app.js: {}
+    
+chartjs:
+  js:
+    node_modules/chart.js/dist/chart.umd.js: {}
 
 smooth_scrollbar:
   js:
     node_modules/smooth-scrollbar/dist/smooth-scrollbar.js: {}
     js/smooth-scrollbar-config.js: {}
+ 
