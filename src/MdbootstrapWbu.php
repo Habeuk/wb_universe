@@ -176,6 +176,10 @@ class MdbootstrapWbu {
     // dump($variables);
   }
   
+  /**
+   *
+   * @deprecated delete before 4x
+   */
   public static function ManageLinks(&$variables, $theme_name) {
     $PreprocessManu = new PreprocessMenu();
     $PreprocessManu->links($variables, $theme_name);

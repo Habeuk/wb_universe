@@ -316,9 +316,8 @@ function wb_universe_preprocess_menu(&$variables) {
   }
 }
 
-function wb_universe_preprocess_links(&$variables) {
-  // MdbootstrapWbu::ManageLinks($variables, 'wb_universe');
-}
+// function wb_universe_preprocess_links(&$variables) {
+// }
 
 /**
  * Implements hook_preprocess_HOOK() for region.html.twig.
