@@ -226,6 +226,13 @@ function wb_universe_preprocess_field(&$variables) {
   // du contenus.
   // ( ces classes doivent prevenir du themes ou au moins les valeurs doivent
   // etre surcharger. ).
+  /**
+   * on ajoute des classes au niveau du conteneur du champs, du label et aussi
+   * du contenus.
+   * ( NB: ces classes doivent prevenir du themes ou au moins les valeurs
+   * doivent
+   * etre surcharger. ).
+   */
   if (!empty($variables['title_attributes'])) {
     $variables['title_attributes']['class'][] = 'font-weight-bold';
   }
@@ -235,15 +242,19 @@ function wb_universe_preprocess_field(&$variables) {
         'font-weight-bold' // Cette class doit etre paramettre.
       ]
     ];
-  if (!empty($variables['attributes'])) {
-    $variables['attributes']['class'][] = 'mb-2';
-  }
-  else
-    $variables['attributes'] = [
-      'class' => [
-        'mb-2' // Cette class doit etre paramettre.
-      ]
-    ];
+/**
+ * Apres quelques jours d'utilisation, on va dans ce premier temps desactivéer
+ * cela car cela cas la pluspart des designs.
+ */
+  // if (!empty($variables['attributes'])) {
+  // $variables['attributes']['class'][] = 'mb-2';
+  // }
+  // else
+  // $variables['attributes'] = [
+  // 'class' => [
+  // 'mb-2' // Cette class doit etre paramettre.
+  // ]
+  // ];
 }
 
 /**

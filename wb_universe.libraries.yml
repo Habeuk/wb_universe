@@ -167,7 +167,7 @@ sign-in:
 maintenance_page:
   css:
     theme:
-      css/maintenance-page.css: {}
+      coming-soon/facmaster/css/script.css: {}
 #
 page_view_wb_universe:
   js:
