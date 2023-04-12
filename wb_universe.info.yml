@@ -44,3 +44,6 @@ libraries-override:
   bootstrap_styles/plugin.background_media.build: false
   # commerce
   commerce_checkout/form: false
+  # disable ckeditor
+  ckeditor/drupal.ckeditor: false
+  core/ckeditor: false
