@@ -25,6 +25,7 @@ libraries:
   - wb_universe/fontawesome
   - wb_universe/lazysize
   - wb_universe/global-style-js
+  - wb_universe/aos
 #  - wb_universe/google-police
 #  - wb_universe/google-analytics
 
