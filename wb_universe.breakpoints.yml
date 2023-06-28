@@ -1,22 +1,22 @@
-wb_universe.small:
-  label: 'BP small'
-  mediaQuery: '(min-width: 0px)'
+wb_universe.mobile:
+  label: 'BP mobile'
+  mediaQuery: ''
   weight: 0
   multipliers:
     - 1x
     - 2x
 
-wb_universe.medium:
-  label: 'BP medium'
+wb_universe.tablet:
+  label: 'BP tablet'
   mediaQuery: '(min-width: 768px)'
   weight: 1
   multipliers:
     - 1x
     - 2x
 
-wb_universe.large:
-  label: 'BP large'
-  mediaQuery: '(min-width: 1200px)'
+wb_universe.desktop:
+  label: 'BP desktop'
+  mediaQuery: '(min-width: 1366px)'
   weight: 2
   multipliers:
     - 1x
@@ -24,7 +24,7 @@ wb_universe.large:
 
 wb_universe.extralarge:
   label: 'BP extralarge'
-  mediaQuery: '(min-width: 1600px)'
+  mediaQuery: '(min-width: 1920px)'
   weight: 3
   multipliers:
     - 1x
