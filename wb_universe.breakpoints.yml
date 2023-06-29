@@ -8,7 +8,7 @@ wb_universe.mobile:
 
 wb_universe.tablet:
   label: 'BP tablet'
-  mediaQuery: '(min-width: 768px)'
+  mediaQuery: '(min-width: 769px)'
   weight: 1
   multipliers:
     - 1x
@@ -16,7 +16,7 @@ wb_universe.tablet:
 
 wb_universe.desktop:
   label: 'BP desktop'
-  mediaQuery: '(min-width: 1366px)'
+  mediaQuery: '(min-width: 1367px)'
   weight: 2
   multipliers:
     - 1x
@@ -24,7 +24,7 @@ wb_universe.desktop:
 
 wb_universe.extralarge:
   label: 'BP extralarge'
-  mediaQuery: '(min-width: 1920px)'
+  mediaQuery: '(min-width: 1921px)'
   weight: 3
   multipliers:
     - 1x
