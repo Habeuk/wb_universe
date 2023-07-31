@@ -1,6 +1,6 @@
 wb_universe.mobile:
   label: 'BP mobile'
-  mediaQuery: ''
+  mediaQuery: '(min-width: 575px)'
   weight: 0
   multipliers:
     - 1x
@@ -9,6 +9,14 @@ wb_universe.mobile:
 wb_universe.tablet:
   label: 'BP tablet'
   mediaQuery: '(min-width: 769px)'
+  weight: 1
+  multipliers:
+    - 1x
+    - 2x
+    
+wb_universe.bootstrap_lg:
+  label: 'BP bootstrap_lg'
+  mediaQuery: '(min-width: 992px)'
   weight: 1
   multipliers:
     - 1x

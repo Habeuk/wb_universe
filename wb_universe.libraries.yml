@@ -147,8 +147,8 @@ wowJs:
 #
 lazysize:
   js:
-    node_modules/lazysizes/lazysizes.min.js: {}
-    node_modules/lazysizes/plugins/bgset/ls.bgset.js: {}
+    node_modules/lazysizes/lazysizes.min.js: { attributes: { async: true },  preprocess: false  }
+    node_modules/lazysizes/plugins/bgset/ls.bgset.js: { attributes: { async: true },  preprocess: false  }
 
 
 #

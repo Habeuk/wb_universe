@@ -206,6 +206,23 @@ function wb_universe_preprocess_field(&$variables) {
   }
   /**
    * for link
+   * Pour ces derniers on doit recuperer la css definie au niveau du
+   * content_attributes ( add by formatage_models ) et ajouter au niveau de la
+   * balise <a>.
+   */
+  elseif ($variables['field_type'] == 'link') {
+    if ($variables['content_attributes'])
+      foreach ($variables['items'] as &$value) {
+        if (!empty($value['content']['#options']['attributes'])) {
+          $value['content']['#options']['attributes']->merge($variables['content_attributes']);
+        }
+        else {
+          $value['content']['#options']['attributes'] = $variables['content_attributes'];
+        }
+      }
+  }
+  /**
+   * for node link
    */
   elseif (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
     foreach ($variables['items'] as $key => $value) {
@@ -215,53 +232,10 @@ function wb_universe_preprocess_field(&$variables) {
       $variables['items'][$key]['attributes']->addClass('btn-outline-danger');
     }
   }
-  else {
-    // dump($variables);
-  }
-  // on ajoute des classes au niveau du conteneur du champs, du label et aussi
-  // du contenus.
-  // ( ces classes doivent prevenir du themes ou au moins les valeurs doivent
-  // etre surcharger. ).
-  /**
-   * on ajoute des classes au niveau du conteneur du champs, du label et aussi
-   * du contenus.
-   * ( NB: ces classes doivent prevenir du themes ou au moins les valeurs
-   * doivent
-   * etre surcharger. ).
-   */
-  if (!empty($variables['title_attributes'])) {
-    $variables['title_attributes']['class'][] = 'font-weight-bold';
-  }
-  else
-    $variables['title_attributes'] = [
-      'class' => [
-        'font-weight-bold' // Cette class doit etre paramettre.
-      ]
-    ];
-  
-  // On aligne le label avec la valeur si l'utilisateur là activée.
-/**
- * Gerer par le module formatage_models.
- */
-  // if (!empty($variables['label_display']) && $variables['label_display'] ==
-  // 'inline') {
-  // $variables['title_attributes']['class'][] = 'font-weight-bold pr-3';
-  // $variables['attributes']['class'][] = 'd-flex align-items-baseline';
+  // else {
+  // if ($variables['field_name'] == 'field_call_to_action')
+  // dump($variables);
   // }
-
-/**
- * Apres quelques jours d'utilisation, on va dans ce premier temps desactivéer
- * cela car cela cas la pluspart des designs.
- */
-  // if (!empty($variables['attributes'])) {
-  // $variables['attributes']['class'][] = 'mb-2';
-  // }
-  // else
-  // $variables['attributes'] = [
-  // 'class' => [
-  // 'mb-2' // Cette class doit etre paramettre.
-  // ]
-  // ];
 }
 
 /**
