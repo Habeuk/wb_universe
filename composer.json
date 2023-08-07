@@ -1,19 +1,19 @@
 {
-    "name": "stephane888/wb_universe",
-    "description": "Theme drupal 8",
-    "type": "drupal-theme",
-    "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-            "name": "stephane888",
-            "email": "kksasteph888@gmail.com"
-        }
-    ],
-    "require": {
-    	"drupal/bootstrap_barrio": "^5.1",
-    	"drupal/pathauto": "^1.8",
-    	"drupal/admin_toolbar": "^3.0",
-    	"stephane888/htmlbootstrap": "^1.2 | dev-1x",
-    	"stephane888/debug": "^2.0 | dev-2x"    	
+  "name": "habeuk/wb_universe",
+  "description": "Theme drupal 8",
+  "type": "drupal-theme",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "stephane888",
+      "email": "kksasteph888@gmail.com"
     }
+  ],
+  "require": {
+    "drupal/bootstrap_barrio": "^5.1",
+    "drupal/pathauto": "^1.8",
+    "drupal/admin_toolbar": "^3.0",
+    "habeuk/htmlbootstrap": "^1.2 | dev-1x",
+    "habeuk/debug": "^2.0 | dev-2x"
+  }
 }
