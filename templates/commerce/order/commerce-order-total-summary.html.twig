@@ -20,15 +20,15 @@
 #}
 {{ attach_library('commerce_order/total_summary') }}
 <div{{ attributes }}>
-  <div class="order-total-line order-total-line__subtotal">
+  <div class="order-total-line order-total-line__subtotal pb-3 mt-4 mb-3 border-bottom d-flex justify-content-between">
     <span class="order-total-line-label">{{ 'Subtotal'|t }} </span><span class="order-total-line-value">{{ totals.subtotal|commerce_price_format }}</span>
   </div>
   {% for adjustment in totals.adjustments %}
-    <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} d-flex justify-content-end">
+    <div class="order-total-line order-total-line__adjustment order-total-line__adjustment--{{ adjustment.type|clean_class }} d-flex justify-content-between pb-3 mb-3 border-bottom">
       <span class="order-total-line-label">{{ adjustment.label|raw }} </span><span class="order-total-line-value">{{ adjustment.amount|commerce_price_format }}</span>
     </div>
   {% endfor %}
-  <h4 class="order-total-line order-total-line__total mb-5">
+  <h4 class="order-total-line order-total-line__total mb-5 d-flex justify-content-between">
     <span class="order-total-line-label">{{ 'Total'|t }} </span><span class="order-total-line-value">{{ totals.total|commerce_price_format }}</span>
   </h4>
 </div>
