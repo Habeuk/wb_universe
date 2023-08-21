@@ -214,7 +214,13 @@ function wb_universe_preprocess_field(&$variables) {
     if ($variables['content_attributes'])
       foreach ($variables['items'] as &$value) {
         if (!empty($value['content']['#options']['attributes'])) {
-          $value['content']['#options']['attributes']->merge($variables['content_attributes']);
+          if (is_array($value['content']['#options']['attributes'])) {
+            $value['content']['#options']['attributes']['class'] += $variables['content_attributes']['class'];
+            // dd($value['content']['#options']['attributes'],
+            // $variables['content_attributes']);
+          }
+          else
+            $value['content']['#options']['attributes']->merge($variables['content_attributes']);
         }
         else {
           $value['content']['#options']['attributes'] = $variables['content_attributes'];
