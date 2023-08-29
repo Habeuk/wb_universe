@@ -23,7 +23,7 @@ class Theme {
   public function __construct() {
     $this->image_styles = \Drupal::entityQuery('image_style')->execute();
     $this->regions = $this->get_regions();
-    $this->themePath = drupal_get_path('theme', $this->themeName);
+    $this->themePath = $this->pathResolver->getPath('theme', $this->themeName);
   }
   
   /**

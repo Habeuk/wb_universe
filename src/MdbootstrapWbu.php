@@ -233,7 +233,7 @@ class MdbootstrapWbu {
      */
     // $form['#suffix'] = new FormattableMarkup(
     // file_get_contents(
-    // DRUPAL_ROOT . '/' . drupal_get_path('theme', $theme_name) .
+    // DRUPAL_ROOT . '/' . $this->pathResolver->getPath('theme', $theme_name) .
     // '/js/components_vuejs/templates/forms.html.twig'), []);
     
     // $form['wb_universe_markup_vvvbejs'] = array('#type' => 'markup',

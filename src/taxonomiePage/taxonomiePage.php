@@ -23,7 +23,7 @@ $form[$group]['config'][$name] = $themes->add_checkbox( $name, $group, $form[$gr
 $name = 'field_image'; $form[$group]['config'][$name] = [];
 $form[$group]['config'][$name] = $themes->add_textfield( $name, $group, $form[$group]['config'][$name], $title='Nom machine du champs', $default='field_image' );
 
-$listVocabulaire = taxonomy_vocabulary_get_names();//\Drupal\taxonomy\Entity\Vocabulary::loadMultiple();
+$listVocabulaire = Drupal::entityQuery('taxonomy_vocabulary')->execute() ;//\Drupal\taxonomy\Entity\Vocabulary::loadMultiple();
 
 foreach ( $listVocabulaire as $key => $value ) {
 	//// groups vocabulary
