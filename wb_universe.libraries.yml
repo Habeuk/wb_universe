@@ -20,7 +20,6 @@ global-style-js:
     #js/custom-plugin.js: {}
     #js/wbu.js: {}
   dependencies:
-    - core/jquery
     - core/drupal
 
 google-police:
@@ -119,12 +118,6 @@ styleadmin:
       css/style-admin.css: {}
   js:
     js/script-admin.js: {}
-  dependencies:
-    - core/jquery
-    - jquery_ui_sortable/sortable
-    - jquery_ui_droppable/droppable
-    #- core/jquery.ui.dialog
-    #- core/jquery.ui.tab
 
 
 #
@@ -136,8 +129,6 @@ owlcarousel:
   js:
     node_modules/owl.carousel/dist/owl.carousel.min.js: {}
     js/owlcarousel/wbu-config.js: {}
-  dependencies:
-    - core/jquery
 
 #
 wowJs:

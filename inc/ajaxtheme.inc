@@ -6,13 +6,16 @@ require_once 'ajax/TopHeader.inc';
 require_once 'ajax/LayoutManager.inc';
 
 // \\ to update in defaultTheme.
+$pathResolver = \Drupal::service('extension.path.resolver');
 /**
  * Action Ajax for slide
  */
-$slider_file = DRUPAL_ROOT . '/' . $this->pathResolver->getPath('theme', 'wb_universe') . '/inc/ajax/slide.inc';
+
+ 
+$slider_file = DRUPAL_ROOT . '/' . $pathResolver->getPath('theme', 'wb_universe') . '/inc/ajax/slide.inc';
 require_once $slider_file;
 
-$carouselcards_file = DRUPAL_ROOT . '/' . $this->pathResolver->getPath('theme', 'wb_universe') . '/inc/ajax/carouselcards.inc';
+$carouselcards_file = DRUPAL_ROOT . '/' . $pathResolver->getPath('theme', 'wb_universe') . '/inc/ajax/carouselcards.inc';
 require_once $carouselcards_file;
 
 // \\ to update in defaultTheme.

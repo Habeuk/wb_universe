@@ -1,11 +1,9 @@
 name: wb_universe
 type: theme
 description: "Ce theme fournit un ensemble de "
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^9 || ^10
 base theme: bootstrap_barrio
 dependencies:
-  - drupal:system (>=8.8)
   - drupal:bootstrap_barrio
   - drupal:pathauto
   - drupal:admin_toolbar
@@ -43,8 +41,5 @@ libraries-override:
   bootstrap_barrio/comments: false
   bootstrap_barrio/node: false
   bootstrap_styles/plugin.background_media.build: false
-  # commerce
-  commerce_checkout/form: false
   # disable ckeditor
   ckeditor/drupal.ckeditor: false
-  core/ckeditor: false
