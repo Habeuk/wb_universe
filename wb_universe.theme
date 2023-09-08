@@ -213,18 +213,19 @@ function wb_universe_preprocess_field(&$variables) {
   elseif ($variables['field_type'] == 'link') {
     if ($variables['content_attributes'])
       foreach ($variables['items'] as &$value) {
-        if (!empty($value['content']['#options']['attributes'])) {
-          if (is_array($value['content']['#options']['attributes'])) {
-            $value['content']['#options']['attributes']['class'] += $variables['content_attributes']['class'];
-            // dd($value['content']['#options']['attributes'],
-            // $variables['content_attributes']);
+        if (!empty($value['attributes'])) {
+          if (!empty($value['content']['#options']['attributes'])) {
+            if (is_array($value['content']['#options']['attributes'])) {
+              $value['content']['#options']['attributes']['class'] += $value['attributes']->toArray()["class"];
+            }
+            else
+              $value['content']['#options']['attributes']->merge($value['attributes']);
+          }else {
+            $value['content']['#options']['attributes'] = $value['attributes']->toArray();
           }
-          else
-            $value['content']['#options']['attributes']->merge($variables['content_attributes']);
         }
-        else {
-          $value['content']['#options']['attributes'] = $variables['content_attributes'];
-        }
+        
+        
       }
   }
   /**
