@@ -13,7 +13,7 @@
     "drupal/bootstrap_barrio": "^5.1",
     "drupal/pathauto": "^1.8",
     "drupal/admin_toolbar": "^3.0",
-    "habeuk/htmlbootstrap": "^1.2 | dev-1x",
+    "habeuk/htmlbootstrap": "^1.5 | dev-1x",
     "habeuk/debug": "^2.0 | dev-2x"
   }
 }
