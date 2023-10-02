@@ -216,16 +216,17 @@ function wb_universe_preprocess_field(&$variables) {
         if (!empty($value['attributes'])) {
           if (!empty($value['content']['#options']['attributes'])) {
             if (is_array($value['content']['#options']['attributes'])) {
+              if (empty($value['content']['#options']['attributes']['class']))
+                $value['content']['#options']['attributes']['class'] = [];
               $value['content']['#options']['attributes']['class'] += $value['attributes']->toArray()["class"];
             }
             else
               $value['content']['#options']['attributes']->merge($value['attributes']);
-          }else {
+          }
+          else {
             $value['content']['#options']['attributes'] = $value['attributes']->toArray();
           }
         }
-        
-        
       }
   }
   /**
