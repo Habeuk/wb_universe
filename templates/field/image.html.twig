@@ -11,11 +11,11 @@
  */
  <img{{ attributes.addClass(classes) }} />
 #}
+
 {%
 set classes = [
-  style_name ? 'image-style-' ~ style_name|clean_class,
-  'lazyload'
+  style_name ? 'image-style-' ~ style_name|clean_class
 ]
 %}
-{% set attributes = attributes.addClass(classes) %}
-<img{{ attributes|without('src') }} data-src="{{ attributes.src }}" />
+<img{{ attributes.addClass(classes) }} />
+
