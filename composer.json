@@ -1,6 +1,6 @@
 {
   "name": "habeuk/wb_universe",
-  "description": "Theme drupal 8",
+  "description": "Theme drupal 10 by habeuk.com",
   "type": "drupal-theme",
   "license": "GPL-2.0-or-later",
   "authors": [
@@ -10,10 +10,6 @@
     }
   ],
   "require": {
-    "drupal/bootstrap_barrio": "^5.1",
-    "drupal/pathauto": "^1.8",
-    "drupal/admin_toolbar": "^3.0",
-    "habeuk/htmlbootstrap": "^1.5 | dev-1x",
-    "habeuk/debug": "^2.0 | dev-2x"
+    "drupal/bootstrap_barrio": "^5.1"
   }
 }
