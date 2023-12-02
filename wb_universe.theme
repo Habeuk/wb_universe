@@ -1,70 +1,4 @@
 <?php
-/**
- * TwBeereMPLI888
- * file template
- */
-use Drupal\wb_universe\MdbootstrapWbu;
-use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Template\Attribute;
-use Stephane888\HtmlBootstrap\SuggestionsMenus;
-use Stephane888\HtmlBootstrap\Controller\Menus;
-use Stephane888\HtmlBootstrap\SortArray;
-use Drupal\node\NodeInterface;
-use Drupal\Component\Utility\NestedArray;
-use Stephane888\Debug\Repositories\ConfigDrupal;
-
-/**
- * config off theme
- */
-require_once ('inc/config.inc');
-
-require_once ('inc/views.inc');
-
-/**
- * Action Ajax for theme
- */
-require_once ('inc/ajaxtheme.inc');
-
-/**
- * Custom preprocess template
- */
-function wb_universe_preprocess(&$variables, $hook) {
-  MdbootstrapWbu::wbupreprocess_template($variables, $hook, 'wb_universe');
-}
-
-/**
- * implement hook_css_alter.
- * pour mettre les fichiers du module formatage_models apres ceux des themes.
- *
- * @param array $css
- * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
- */
-function wb_universe_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
-  foreach ($css as $uri => $library) {
-    if (\strripos($uri, "formatage_models/layouts")) {
-      $css[$uri]['group'] = 100;
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK() for menu-local-action.html.twig.
- */
-function wb_universe_preprocess_menu_local_action(&$vars) {
-  $useBtOutline = theme_get_setting('bootstrap_barrio_button_outline');
-  if ($useBtOutline && $vars['link']['#options']) {
-    if (!empty($vars['link']['#options']['attributes']['class'])) {
-      // remove all class begin by btn-*
-      foreach ($vars['link']['#options']['attributes']['class'] as $k => $value) {
-        if (strpos($value, "btn-") !== false) {
-          unset($vars['link']['#options']['attributes']['class'][$k]);
-        }
-      }
-    }
-    // Add outline btn.
-    $vars['link']['#options']['attributes']['class'][] = 'btn-outline-secondary';
-  }
-}
 
 /**
  * Use this fonction on module to alert meta data
@@ -100,7 +34,7 @@ function wb_universe_preprocess_html(&$variables) {
       '#tag' => 'script',
       '#value' => "window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());            
+              gtag('js', new Date());
               gtag('config', '$IdAnalytique');
             "
     ];
@@ -126,74 +60,13 @@ function wb_universe_preprocess_html(&$variables) {
     $scriptStripe,
     'stripe-api-js'
   ];
-  //
 }
 
 /**
- * Implement hook_preprocess_page
- */
-function wb_universe_preprocess_page(&$variables) {
-  MdbootstrapWbu::wbupreprocess_page($variables);
-}
-
-/**
- * Implement hook_preprocess_ds_entity_view
- * si le module ds est installé.
- */
-function wb_universe_preprocess_ds_entity_view(&$variables) {
-  MdbootstrapWbu::wbupreprocess_ds_entity_view($variables);
-}
-
-/**
- * Implemente hook_theme_suggestions_HOOK_alter
- *
- * @param int $suggestions
- * @param int $variables
- */
-function wb_universe_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-  /**
-   *
-   * @var \Drupal\taxonomy\Entity\Term $taxonomy_term
-   */
-  $taxonomy_term;
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
-    // $suggestions[] = 'page__' . $node->bundle() . '_node';
-    $field_name = "layout_builder__layout";
-    if ($node instanceof NodeInterface && $node->hasField($field_name)) {
-      $suggestions[] = 'page__layout_builder';
-      $suggestions[] = 'page__' . $node->bundle() . '__layout';
-    }
-  }
-  elseif ($taxonomy_term = \Drupal::routeMatch()->getParameter('taxonomy_term')) {
-    $suggestions[] = 'page__vocab_' . $taxonomy_term->bundle();
-  }
-}
-
-/**
- * implemente hook_theme_suggestions_HOOK_alter.
- *
- * @param int $suggestions
- * @param int $variables
- */
-function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $variables) {
-  if (!empty($variables["elements"]["#view_mode"])) {
-    $suggestions[] = 'user__' . $variables["elements"]["#view_mode"];
-  }
-}
-
-/**
+ * Formatage des champs.
  *
  * @param array $variables
  */
-function wb_universe_preprocess_node(&$variables) {
-  MdbootstrapWbu::wbupreprocess_node($variables);
-}
-
-function wb_universe_preprocess_comment__comment(&$variables) {
-  $variables['user_picture_header'] = $variables['user_picture'];
-  $variables['user_picture_header']['#theme'] = 'user__comment';
-}
-
 function wb_universe_preprocess_field(&$variables) {
   /**
    * Class for type boolean.
@@ -247,160 +120,7 @@ function wb_universe_preprocess_field(&$variables) {
 }
 
 /**
- */
-function wb_universe_preprocess_field__image(&$variables) {
-  MdbootstrapWbu::wbupreprocess_field__image($variables, 'wb_universe');
-}
-
-/**
- *
- * @param array $variables
- */
-function wb_universe_preprocess_image_url(&$variables) {
-  if (isset($variables['image_style'])) {
-    $image_style = \Drupal\image\Entity\ImageStyle::load($variables['image_style']);
-    if ($image_style) {
-      $variables['image_url'] = $image_style->buildUrl($variables['file']->getFileUri());
-    }
-  }
-}
-
-/**
- * implement hook_theme
- *
- * @param int $existing
- * @param int $type
- * @param int $theme
- * @param int $path
- * @return NULL[][][]
- */
-function wb_universe_theme($existing, $type, $theme, $path) {
-  return MdbootstrapWbu::LoadTemplates('wb_universe');
-}
-
-/**
- * implement hook_preprocess_HOOK
- */
-function wb_universe_preprocess_menu(&$variables) {
-  if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
-    $theme_hook_original = $variables['theme_hook_original'];
-    /**
-     * Il faut creer en Admin l'item user/register=>inscription.
-     * De plus, il faut supprimer user/register si l'utilisateur est connecté.
-     */
-    if ($theme_hook_original == 'menu__account') {
-      /**
-       * remove user.register if user is connecté.
-       */
-      if (\Drupal::currentUser()->isAuthenticated()) {
-        $variables['items'] = Menus::MenuDeleteIemByRouteName($variables['items'], 'user.register');
-      }
-      if (TEMPLATE_menu__account == 'menu__account_icon') {
-        $icones = [
-          'user.page' => '<i class="fas fa-user-tie pr-1"></i>',
-          'user.logout' => '<i class="fas fa-unlock-alt pr-1"></i>',
-          'user.login' => '<i class="fas fa-sign-in-alt pr-1"></i>',
-          'user.register' => '<i class="fas fa-user-tie pr-1"></i>'
-        ];
-        $variables['items'] = Menus::MenuAddIcones($variables['items'], $icones);
-      }
-    }
-    else 
-      if ($theme_hook_original == 'menu__main') {
-        if (TEMPLATE_menu__main == 'menu__main_full') {
-        /**
-         * Nothing to do for now.
-         */
-        }
-      }
-  }
-}
-
-// function wb_universe_preprocess_links(&$variables) {
-// }
-
-/**
- * Implements hook_preprocess_HOOK() for region.html.twig.
- */
-function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables) {
-  // try {
-  // /*
-  // * @var \Drupal\Core\Theme\ActiveTheme $theme
-  // */
-  // $theme = \Drupal::theme()->getActiveTheme();
-  // $route = \Drupal::routeMatch()->getRouteName();
-  // /**
-  // *
-  // * @var \Drupal\Core\Extension\ThemeHandler $theme_handler
-  // */
-  // $theme_handler = \Drupal::service('theme_handler');
-  // $settings = ConfigDrupal::getSettingsTheme();
-  // if ('commerce_cart.page' == $route) {
-  // dump($settings);
-  // dump(theme_get_setting('bootstrap_barrio_button'));
-  // }
-  // }
-  // catch (\Exception $e) {
-  // \Drupal::messenger()->addMessage('error de debogage');
-  // }
-  if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
-    $suggestions[] = 'input__submit_button';
-  }
-  //
-  if (!empty($variables['element']['#wbu_theme_icon'])) {
-    $suggestions[] = $variables['theme_hook_original'] . '__' . $variables['element']['#wbu_theme_icon']['icon_theme'];
-  }
-}
-
-/**
- * implement hook_theme_suggestions_HOOK_alter()
- * ALter menu.
- * This hook allows any module or theme to provide alternative theme function or
- * template name suggestions and reorder or remove suggestions provided by
- * hook_theme_suggestions_HOOK()
- */
-function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$variables, $hook) {
-  if ($variables['theme_hook_original'] != 'menu__toolbar__admin') {
-    $theme_hook_original = $variables['theme_hook_original'];
-    $options = [];
-    if ($theme_hook_original == 'menu__account') {
-      $options['template'] = TEMPLATE_menu__account;
-    }
-    else 
-      if ($theme_hook_original == 'menu__main') {
-        $options['template'] = TEMPLATE_menu__main;
-      }
-    $new_suggestions = SuggestionsMenus::Suggestions($theme_hook_original, $options);
-    foreach ($new_suggestions as $value) {
-      $suggestions[] = $value;
-    }
-  }
-}
-
-/**
- * implement hook_theme_suggestions_HOOK_alter()
- */
-function wb_universe_theme_suggestions_block_alter(array &$suggestions, array &$variables, $hook) {
-  if (!empty($variables['elements']['#id'])) {
-    /**
-     * Formatage du container main menu.
-     */
-    if (isset($variables['elements']["#plugin_id"]) && $variables['elements']["#plugin_id"] == 'system_menu_block:main') {
-      if (TEMPLATE_menu__main == 'menu__main_full') {
-        $suggestions[] = 'block__' . TEMPLATE_menu__main;
-      }
-    }
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK() for region.html.twig.
- */
-function wb_universe_preprocess_region(&$variables) {
-  $variables['attributes']['class'][0] = 'row-0';
-}
-
-/**
+ * à verifier si cela fonctionne ?
  *
  * @param int $variables
  */
@@ -408,454 +128,73 @@ function wb_universe_preprocess_image(&$variables) {
   $variables["attributes"]['class'][] = 'img-fluid';
 }
 
-function wb_universe_preprocess_form_element(&$variables) {
-  if (!empty($variables["element"]["#type"]) && $variables['element']['#type'] == 'checkbox') {
-    if (!empty($variables["label"]["#children"])) {
-      $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
-      $variables["label"]['#attributes']['class'][] = 'custom-control-label';
-      unset($variables["label"]["#children"]);
-    }
-  }
-}
-
-function wb_universe_element_info_alter(array &$types) {
-  if (!empty($types['vertical_tabs'])) {
-    // $types['vertical_tabs']['#pre_render'][] = [
-    // \Drupal\wb_universe\Render\Element\VerticalTabs::class,
-    // 'processVerticalTabs'
-    // ];
-  }
-}
-
-function wb_universe_preprocess_select(&$variables) {
-  /**
-   * Ajout de la class form-control
-   */
-  $variables['attributes']['class'][] = 'form-control';
-}
-
 /**
+ * On verra le comportement de la page title.
  *
  * @param
  *        $variables
  */
-function wb_universe_preprocess_fieldset(&$variables) {
-  /**
-   * Recuperer les classes passée aux niveaux hook_form_alter et les ajouter.
-   */
-  // Class pour le titre.
-  if (!empty($variables['element']['#legend'])) {
-    /**
-     *
-     * @var Drupal\Core\Template\Attribute $attribute
-     */
-    $attribute = $variables['legend']['attributes'];
-    if (!empty($variables['element']['#legend']['attributes']))
-      foreach ($variables['element']['#legend']['attributes'] as $k => $value) {
-        $attribute->setAttribute($k, $value);
-      }
-    $variables['legend']['attributes'] = $attribute;
-    //
-    if (!empty($variables['children'])) {
-      $variables['children'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#attributes' => [
-          'class' => [
-            ""
-          ]
-        ],
-        '#value' => $variables['children']
-      ];
-    }
-    // dump($variables);
-    // dump($variables['children']);
-  }
-}
-
-function wb_universe_preprocess_vertical_tabs__panels_card(&$vars) {
-  // $elements = Element::children($vars['element']['group']);
-  // foreach ($elements as $delta) {
-  // $header_attributes = new Attribute();
-  // $header_attributes->addClass('card-header bg-info');
-  // $vars['element']['group'][$delta]['header_attributes'] =
-  // $header_attributes;
-  // }
-}
-
-/**
- * implements hook_preprocess_details__panels_card
- *
- * @param array $vars
- */
-function wb_universe_preprocess_details__panels_card(&$vars) {
-  $vars['attributes']['class'][] = 'accordion';
-  if (empty($vars['element']['#id'])) {
-    $id = 'accordion-' . rand(50, 9888);
-  }
-  else
-    $id = $vars['element']['#id'];
-  $body_id = $id . 'body';
-  $header_id = $id . 'header';
-  /**
-   *
-   * @var \Drupal\Core\Template\Attribute $summary_attributes
-   */
-  $summary_attributes = $vars['summary_attributes'];
-  $summary_attributes->addClass('btn btn-block text-left');
-  $summary_attributes->setAttribute('type', 'button');
-  $summary_attributes->setAttribute('data-toggle', 'collapse');
-  $summary_attributes->setAttribute('data-target', '#' . $body_id);
-  $summary_attributes->setAttribute('aria-expanded', 'true');
-  $summary_attributes->setAttribute('aria-controls', $body_id);
-  // body attributes
-  $body_attributes = new Attribute();
-  $body_attributes->addClass('collapse');
-  $body_attributes->setAttribute('id', $body_id);
-  $body_attributes->setAttribute('aria-labelledby', $header_id);
-  if (!empty($vars['element']['#id']))
-    $body_attributes->setAttribute('data-parent', '#' . $id);
-  if (!empty($vars['element']['#open'])) {
-    $body_attributes->addClass('show');
-  }
-  $vars['body_attributes'] = $body_attributes;
-  // header_attributes
-  $header_attributes = new Attribute();
-  $header_attributes->addClass('card-header');
-  $header_attributes->setAttribute('id', $header_id);
-  $vars['header_attributes'] = $header_attributes;
-}
-
-function wb_universe_preprocess_file_upload_help(&$variables) {
-  if (!empty($variables['popover']) && !empty($variables['popover']['requirements']['#attributes'])) {
-    $variables['popover']['requirements']['#attributes']['class'] = [];
-    $variables['popover']['requirements']['#attributes']['class'][] = 'help-block';
-  }
-}
-
-/**
- *
- * @param
- *        $variables
- */
-function wb_universe_preprocess_page_title(&$variables) {
-  if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
-    $variables["title"]["#printed"] = false;
-  }
-}
+// function wb_universe_preprocess_page_title(&$variables) {
+// if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
+// $variables["title"]["#printed"] = false;
+// }
+// }
 
 /**
  * implemente hook_theme_suggestions_HOOK_alter
+ * à voir
  *
  * @param int $suggestions
  * @param int $variables
  * @param int $hook
  */
-function wb_universe_theme_suggestions_node_alter(array &$suggestions, array $variables) {
-  if (!empty($variables["elements"]["#view_mode"])) {
-    $suggestions[] = 'node__modele_' . $variables["elements"]["#view_mode"];
-  }
-}
+// function wb_universe_theme_suggestions_links_alter(array &$suggestions, array
+// $variables) {
+// if (!empty($variables['links']['node-readmore'])) {
+// $suggestions[] = 'links__node_readmore';
+// $suggestions[] = 'links__node_' .
+// $variables['links']['node-readmore']['url']->getOption('entity')->getType();
+// }
+// }
+
+// /**
+// * implemente hook_theme_suggestions_HOOK_alter
+// * à voir si on peut faire mieux.
+// * @param array $suggestions
+// * @param array $variables
+// */
+// function wb_universe_theme_suggestions_form_element_alter(array
+// &$suggestions, array $variables) {
+// // on verifie s'il ya une demande de surchage
+// if (!empty($variables['element']['#attributes']['data-twig'])) {
+// $suggestions[] = 'form_element__' .
+// $variables['element']['#attributes']['data-twig'];
+// }
+// elseif (!empty($variables['element']['#type'])) {
+// $suggestions[] = 'form_element__' . $variables['element']['#type'];
+// }
+// }
 
 /**
- * implemente hook_theme_suggestions_HOOK_alter
- *
- * @param int $suggestions
- * @param int $variables
- * @param int $hook
- */
-function wb_universe_theme_suggestions_links_alter(array &$suggestions, array $variables) {
-  if (!empty($variables['links']['node-readmore'])) {
-    $suggestions[] = 'links__node_readmore';
-    $suggestions[] = 'links__node_' . $variables['links']['node-readmore']['url']->getOption('entity')->getType();
-  }
-}
-
-/**
- * implemente hook_theme_suggestions_HOOK_alter
- *
- * @param array $suggestions
- * @param array $variables
- */
-function wb_universe_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
-  // on verifie s'il ya une demande de surchage
-  if (!empty($variables['element']['#attributes']['data-twig'])) {
-    $suggestions[] = 'form_element__' . $variables['element']['#attributes']['data-twig'];
-  }
-  elseif (!empty($variables['element']['#type'])) {
-    $suggestions[] = 'form_element__' . $variables['element']['#type'];
-  }
-}
-
-/**
- *
- * @param array $suggestions
- * @param array $variables
- */
-function wb_universe_theme_suggestions_details_alter(array &$suggestions, array $variables) {
-  if (!empty($variables['element']['#type'])) {
-    $suggestions[] = 'details__panels_card';
-  }
-}
-
-/**
- *
- * @param array $suggestions
- * @param array $variables
- */
-function wb_universe_theme_suggestions_vertical_tabs_alter(array &$suggestions, array $variables) {
-  if (!empty($variables['element']['#type'])) {
-    $suggestions[] = 'vertical_tabs__panels_card';
-  }
-}
-
-/**
- * implemente hook_theme_suggestions_alter
- *
- * @param int $suggestions
- * @param int $variables
- * @param int $hook
- */
-function wb_universe_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  if ($hook == 'layout') {
-    $override = 'layout__' . $variables['theme_hook_original'];
-    $suggestions[] = $override . '_default';
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if ($node) {
-      $suggestions[] = $override . '__' . $node->bundle();
-      $suggestions[] = $override . '__' . $node->bundle() . '_' . $node->id();
-    }
-  }
-}
-
-/**
- * implement hook_preprocess_input__submit__icon
- *
- * @param array $variables
- * @throws Exception
- */
-function wb_universe_preprocess_input__submit__icon(array &$variables) {
-  $buttonIcon = [];
-  if (!empty($variables['element']['#wbu_theme_icon'])) {
-    $setting = $variables['element']['#wbu_theme_icon'];
-    if (empty($setting["icon_after"])) {
-      $buttonIcon[] = [
-        '#type' => "html_tag",
-        '#tag' => 'i',
-        '#value' => "",
-        '#attributes' => [
-          'class' => [
-            $setting["icon"]
-          ]
-        ]
-      ];
-    }
-    if (empty($setting["hidde_text"])) {
-      $buttonIcon[] = [
-        '#type' => 'inline_template',
-        '#template' => $variables['element']['#value']
-      ];
-      // ;
-    }
-    if (!empty($setting["icon_after"])) {
-      $buttonIcon[] = [
-        '#type' => "html_tag",
-        '#tag' => 'i',
-        '#value' => "",
-        '#attributes' => [
-          'class' => [
-            $setting["icon"]
-          ]
-        ]
-      ];
-    }
-    $variables['wbu_render'] = $buttonIcon;
-    if (!empty($variables['attributes'])) {
-      if ($setting['clean_class']) {
-        /**
-         *
-         * @var \Drupal\Core\Template\AttributeArray $class
-         */
-        $class = $variables['attributes']->getClass();
-        $variables['attributes']->removeClass($class->value());
-        $variables['attributes']->addClass($setting['class']);
-      }
-      else {
-        $variables['attributes']->addClass($setting['class']);
-      }
-    }
-  }
-  else {
-    throw new Exception("wbu_theme_icon n'est pas definit");
-  }
-}
-
-/**
+ * àvoir
  *
  * @param string $form
  * @param string $form_state
  */
-function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
-  if (isset($form_id)) {
-    return;
-  }
-  
-  // MdbootstrapWbu::defineSetting($form, $form_state);
-  $form['google-analytics-gtag'] = [
-    '#type' => 'textfield',
-    '#title' => 'Google Analytics (id de mesure)',
-    '#default_value' => theme_get_setting('google-analytics-gtag'),
-    '#weight' => -40
-  ];
-}
+// function wb_universe_form_system_theme_settings_alter(&$form,
+// \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+// if (isset($form_id)) {
+// return;
+// }
 
-/**
- * Implemente template_preprocess_radios
- *
- * @param array $vars
- */
-function wb_universe_preprocess_radios(&$vars) {
-  // Avec la function template_preprocess_radios on ne peut pas passer des
-  // attributes au container des radios.
-  if (!empty($vars['element']['#wrapper_attributes'])) {
-    $vars['attributes'] = NestedArray::mergeDeep($vars['attributes'], $vars['element']['#wrapper_attributes']);
-  }
-}
+// // MdbootstrapWbu::defineSetting($form, $form_state);
+// $form['google-analytics-gtag'] = [
+// '#type' => 'textfield',
+// '#title' => 'Google Analytics (id de mesure)',
+// '#default_value' => theme_get_setting('google-analytics-gtag'),
+// '#weight' => -40
+// ];
+// }
 
-/**
- * function personnalisé qui s'execute avant la sauvergarde des données du
- * theme.
- *
- * Make the uploaded images permanent.
- *
- * @param array $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- */
-function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  // $account = \Drupal::currentUser();
-  // $values = $form_state->getValues();
-  // dump($values);
-  // die('end');
-  // $form_state->getTemporary();
-  // $form_state->getStorage();
-  // $form_state->getResponse();
-}
-
-function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  $values = $form_state->getValues();
-  SortArray::_sortFieldOfThemeAndSave($values, $form_state, 'wb_universe');
-  /**
-   * Creation / MAJ des fichiers templates.
-   */
-  $displays = $values['wb_universe_pagenodesdisplay'];
-  MdbootstrapWbu::createFilesTheme('wb_universe', $displays);
-  /**
-   * Performs actions after sumitted
-   */
-  MdbootstrapWbu::PerformsActions($form, $form_state);
-}
-
-/**
- * Save image
- *
- * @param array $image
- */
-function _saveimage($image) {
-  if (!empty($image)) {
-    // Load the file via file.fid.
-    if ($file = \Drupal\file\Entity\File::load($image[0])) {
-      // Change status to permanent.
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      // $file_usage->add($file, 'user', 'user', $account->id());
-      $file_usage->add($file, 'wb_universe', 'theme', $image[0]);
-    }
-  }
-}
-
-function _completManageFile($values) {
-  if (!empty($values) && count($values) == 2) {
-    $i = 0;
-    foreach ($values as $key => $value) {
-      $i++;
-      if (_wb_universe_endsWith($key, '_upload_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        }
-        elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        }
-      }
-      elseif (_wb_universe_endsWith($key, '_remove_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        }
-        elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        }
-      }
-    }
-  }
-}
-
-function FindImageFidAndSave($values) {
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndSave($value);
-    }
-  }
-  elseif (is_int($values)) {
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->add($file, 'wb_universe', 'theme', $values);
-      return true;
-    }
-  }
-}
-
-function FindImageFidAndDelete($values) {
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndDelete($value);
-    }
-  }
-  elseif (intval($values)) {
-    // debugLog::logs($values, 'wb_universe_completsavefile2_remove_button',
-    
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      /**
-       * on supprime l'utilisation du fichier fichier
-       */
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->delete($file, 'wb_universe', 'theme', $values);
-      /**
-       * On supprime le fichier sur le serveur.
-       */
-      $file->delete();
-      return true;
-    }
-  }
-}
-
-function _wb_universe_endsWith($string, $endString) {
-  $len = strlen($endString);
-  if ($len == 0) {
-    return true;
-  }
-  return (substr($string, -$len) === $endString);
-}
-
-// with given substring
-function _wb_universe_startsWith($string, $startString) {
-  $len = strlen($startString);
-  return (substr($string, 0, $len) === $startString);
-}
 
 

@@ -18,7 +18,7 @@ use Stephane888\HtmlBootstrap\PreprocessMenu;
 use Drupal\node\Entity\Node;
 
 class MdbootstrapWbu {
-  
+
   public static function wbupreprocess_page(&$variables) {
     $theme_name = 'wb_universe';
     $PreprocessPage = new PreprocessPage();
@@ -29,12 +29,12 @@ class MdbootstrapWbu {
      * Les layouts du theme, tels que definit ne seront plus utilisés.
      */
     $PreprocessPage->loadSection($theme_name, $variables);
-    
+
     /**
      * Ajout les librairies pour l'administration.
      */
     // self::addStyleAdmin($variables);
-    
+
     /**
      * Build scss (utiliser par le theme wb_universe pour generer les fichiers
      * css.
@@ -43,7 +43,7 @@ class MdbootstrapWbu {
      */
     $PreprocessPage->_load_scss($theme_name);
   }
-  
+
   /**
    * on attache la librairie pour l'admin si l'utilisateur est administrateur.
    *
@@ -54,7 +54,7 @@ class MdbootstrapWbu {
       $variables['page']['content']['#attached']['library'][] = 'wb_universe/styleadmin';
     }
   }
-  
+
   /**
    * on attache la librairie pour l'admin si l'utilisateur est administrateur.
    *
@@ -69,7 +69,7 @@ class MdbootstrapWbu {
       // $variables['render_user'] = $variables['content']['render_user'];
     }
   }
-  
+
   public static function wbupreprocess_node(&$variables) {
     $show_render_user = false;
     $theme_name = 'wb_universe';
@@ -80,13 +80,13 @@ class MdbootstrapWbu {
       $variables['#custom_url'] = self::getUrlNode($variables['node']);
     }
   }
-  
+
   public static function getUrlNode($nid) {
     return Url::fromRoute('entity.node.canonical', [
       'node' => $nid
     ])->toString();
   }
-  
+
   /**
    * permet de creer le rendu du compte utilisateur à partir d'un node.
    *
@@ -94,7 +94,7 @@ class MdbootstrapWbu {
    */
   public static function addUserRenderOnNode(Node $node) {
     $user = $node->getOwner();
-    
+
     // $node->getFields();
     // $entity_type = 'user';
     // $view_mode = 'full';
@@ -107,7 +107,7 @@ class MdbootstrapWbu {
     }
     return $fields;
   }
-  
+
   /**
    * permet de creer le rendu du compte utilisateur à partir d'un node.
    *
@@ -121,14 +121,14 @@ class MdbootstrapWbu {
     $fields['created_time'] = \Drupal::service('date.formatter')->format($node->getCreatedTime(), 'long');
     return $fields;
   }
-  
+
   public static function getValueFiledOfNode(Node $node, $field_name) {
     if ($node->hasField($field_name)) {
       return $node->get($field_name)->getValue();
     }
     return false;
   }
-  
+
   /**
    */
   public static function wbupreprocess_page_getJourJ(&$variables) {
@@ -136,23 +136,18 @@ class MdbootstrapWbu {
     // ***** retrive date setting
     $variables['JourJ'] = $themes->JourJ('2019-05-28 08:00:00');
   }
-  
+
   /**
    * Retrieves a theme instance of \Drupal\bootstrap.
    */
   public static function getThemeInfos() {
     return new ThemeUtility();
   }
-  
+
   public static function LoadTemplates($theme_name) {
     return PreprocessPage::LoadTemplates($theme_name);
   }
-  
-  public static function wbupreprocess_template(&$variables, $hook, $theme_name) {
-    $PreprocessTemplate = new PreprocessTemplate();
-    $PreprocessTemplate->Preprocess($variables, $hook, $theme_name);
-  }
-  
+
   public static function PerformsActions($form, $form_state) {
     /**
      * create default style for image.
@@ -161,7 +156,7 @@ class MdbootstrapWbu {
     $styles = [];
     return PreprocessTemplate::CreateStyles($styles);
   }
-  
+
   /**
    *
    * @param array $variables
@@ -171,11 +166,11 @@ class MdbootstrapWbu {
     $PreprocessPage = new PreprocessPage();
     $PreprocessPage->Preprocess_field__image($variables, $theme_name);
   }
-  
+
   public static function ManageMenus(&$variables, $theme_name) {
     // dump($variables);
   }
-  
+
   /**
    *
    * @deprecated delete before 4x
@@ -184,7 +179,7 @@ class MdbootstrapWbu {
     $PreprocessManu = new PreprocessMenu();
     $PreprocessManu->links($variables, $theme_name);
   }
-  
+
   /**
    * theme setting
    */
@@ -197,24 +192,24 @@ class MdbootstrapWbu {
     $host = \Drupal::request()->getHost();
     // dump( \Drupal::request()->get );
     $themes = self::getThemeInfos();
-    
+
     /**
      * Active tree to get name like array.
      * cette activation est fait sur les elzments enfants.
      */
     // $form['#tree'] = TRUE;
-    
+
     /**
      * On active le cache, pour permettre la modification des données via AJAX.
      */
     $form_state->setCached(FALSE);
-    
+
     /**
      * Ajout d'une function submit qui s'execute avant la function principal.
      */
     $form['#submit'][] = $theme_name . '_settings_form_submit';
     $form['#submit'][] = $theme_name . '_settings_form_submit_end';
-    
+
     /**
      * Ajout d'une function submit qui remplace la fonction de submit par
      * defaut.
@@ -235,7 +230,7 @@ class MdbootstrapWbu {
     // file_get_contents(
     // DRUPAL_ROOT . '/' . $this->pathResolver->getPath('theme', $theme_name) .
     // '/js/components_vuejs/templates/forms.html.twig'), []);
-    
+
     // $form['wb_universe_markup_vvvbejs'] = array('#type' => 'markup',
     // '#allowed_tags' => ['iframe', 'div'
     // ],
@@ -252,7 +247,7 @@ class MdbootstrapWbu {
     // '#markup' => '<div id="drupal-library-images-json" >' .
     // $themes->load_images() . '</div>'
     // );
-    
+
     // ############################### [ Tous les elements juste apres form
     // doivent avoir le nom du theme ]
     /**
@@ -269,11 +264,11 @@ class MdbootstrapWbu {
         'id' => 'wb_universe-contents'
       ]
     );
-    
+
     // ############################### BEGIN SECTIONS.
-    
+
     // \\ to update in defaultTheme.
-    
+
     /**
      * Group Top headers
      */
@@ -281,7 +276,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'topheader';
       $DefineSetting->form_topheader($form, $vertical_tabs_group, $form_state);
     }
-    
+
     /**
      * Group headers
      */
@@ -296,7 +291,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'layout_manager';
       $DefineSetting->formLayoutManager($form, $vertical_tabs_group, $form_state);
     }
-    
+
     /**
      * Group imagetextrightleft
      */
@@ -304,7 +299,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'imagetextrightleft';
       $DefineSetting->form_imagetextrightleft($form, $vertical_tabs_group, $form_state);
     }
-    
+
     /**
      * Group cards
      */
@@ -312,7 +307,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'cards';
       $DefineSetting->form_cards($form, $vertical_tabs_group, $form_state);
     }
-    
+
     /**
      * Group cards
      */
@@ -342,7 +337,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'carouselcards';
       $DefineSetting->form_carouselcards($form, $vertical_tabs_group, $form_state);
     }
-    
+
     // \\ to update in defaultTheme.
     /**
      * Group carouselcards
@@ -351,7 +346,7 @@ class MdbootstrapWbu {
       $DefineSetting->group = 'footers';
       $DefineSetting->form_footers($form, $vertical_tabs_group, $form_state);
     }
-    
+
     // \\ to update in defaultTheme.
     /**
      * Group carouselcards
@@ -369,7 +364,7 @@ class MdbootstrapWbu {
       $DefineSetting->form_pagenodesdisplay($form, $vertical_tabs_group, $form_state);
     }
   }
-  
+
   // \\ to update in defaultTheme.
   /**
    *
@@ -380,7 +375,7 @@ class MdbootstrapWbu {
     $PreprocessPage = new PreprocessPage();
     $PreprocessPage->createTemplates($theme_name, $displays, $force);
   }
-  
+
   /**
    *
    * @param array $variables
@@ -408,5 +403,5 @@ class MdbootstrapWbu {
       $variables['wbu_block_previous']['title'] = $view_2->getTitle();
     }
   }
-  
+
 }
