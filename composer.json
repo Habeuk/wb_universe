@@ -10,6 +10,5 @@
     }
   ],
   "require": {
-    "drupal/bootstrap_barrio": "^5.1"
   }
 }

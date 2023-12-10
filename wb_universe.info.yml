@@ -19,8 +19,8 @@ regions:
   after_content: "afterContent"
   footer: "footer"
 
-libraries-override:
-  bootstrap_barrio/global-styling: false
-  bootstrap_barrio/comments: false
-  bootstrap_barrio/node: false
-  bootstrap_styles/plugin.background_media.build: false
+#libraries-override:
+#  bootstrap_barrio/global-styling: false
+#  bootstrap_barrio/comments: false
+#  bootstrap_barrio/node: false
+#  bootstrap_styles/plugin.background_media.build: false
