@@ -1,0 +1,5 @@
+# Default settings of wb_universe theme.
+general_settings:
+  load_bootstrap: true
+stripe_settings:
+  load_stripe: false

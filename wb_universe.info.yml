@@ -1,6 +1,6 @@
-name: wb_universe
+name: WbUniverse
 type: theme
-description: "Ce theme format le rendu afin que le html generer soit compatible avec la librarie bootstrap 5"
+description: "Ce theme format le rendu afin que le html generer soit compatible avec la librarie bootstrap 5. Build by habeuk.com"
 core_version_requirement: ^9 || ^10
 base theme: stable9
 dependencies:

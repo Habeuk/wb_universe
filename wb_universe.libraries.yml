@@ -1,0 +1,8 @@
+bootstrap_default:
+  css:
+    theme:
+      css/global-style.css: {}
+  js:
+    js/global-style.js: { preprocess: false }
+  dependencies:
+    - core/once

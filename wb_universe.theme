@@ -8,7 +8,8 @@
  */
 function wb_universe_preprocess_html(&$variables) {
   $_css = [];
-  if (\Drupal\user\Entity\User::load(\Drupal::currentUser()->id())->hasRole('administrator')) {
+  $uid = \Drupal::currentUser()->id();
+  if ($uid && \Drupal\user\Entity\User::load($uid)->hasRole('administrator')) {
     $_css[] = 'administrator';
   }
   // Add.
@@ -63,6 +64,17 @@ function wb_universe_preprocess_html(&$variables) {
 }
 
 /**
+ * implement hook_library_info_alter
+ * Permet d'ajuster les librairies en fonction de la configuration.
+ *
+ * @param array $libraries
+ * @param array $extension
+ */
+function wb_universe_library_info_alter(&$libraries, $extension) {
+  $general_settings = theme_get_setting('stripe_settings');
+}
+
+/**
  * Formatage des champs.
  *
  * @param array $variables
@@ -107,20 +119,14 @@ function wb_universe_preprocess_field(&$variables) {
    */
   elseif (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
     foreach ($variables['items'] as $key => $value) {
-      // debugLog::logs( $variables['items'] , 'field_link_items', 'kint',
-      // true);
       $variables['items'][$key]['attributes']->addClass('btn');
       $variables['items'][$key]['attributes']->addClass('btn-outline-danger');
     }
   }
-  // else {
-  // if ($variables['field_name'] == 'field_call_to_action')
-  // dump($variables);
-  // }
 }
 
 /**
- * à verifier si cela fonctionne ?
+ * implement hook_preprocess_image
  *
  * @param int $variables
  */
