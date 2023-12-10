@@ -4,7 +4,6 @@ description: "Ce theme format le rendu afin que le html generer soit compatible 
 core_version_requirement: ^9 || ^10
 base theme: stable9
 dependencies:
-  - drupal:bootstrap_barrio
   - drupal:pathauto
   - drupal:admin_toolbar
   - drupal:block
