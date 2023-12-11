@@ -11,17 +11,9 @@ const devMode = process.env.NODE_ENV !== "production";
 
 const plugins = [];
 
-/**
- * Permet definir un dossier pour regrouper les couleurs.
- * example  const color_dir= "purple/";
- */
-// empty for default file.
-// const color_dir = "teal/";
-// const color_dir = "passion/";
-// const color_dir = "purple/";
 plugins.push(
   new MiniCssExtractPlugin({
-    filename: "./css/" + color_dir + "[name].css",
+    filename: "./css/[name].css",
     chunkFilename: "[id].css",
   })
 );
@@ -30,18 +22,11 @@ module.exports = {
   plugins,
   mode: env || "development", // On définit le mode en fonction de la valeur de NODE_ENV
   entry: {
-    "global-style": "./src/js/global-style.js",
-    "vendor-style": "./src/js/vendor-style.js",
-    "menu-style": "./src/js/menu-style.js",
-    "slider-style": "./src/js/slider-style.js",
-    "breadcrumb-style": "./src/js/breadcrumb-style.js",
-    "teaser-style": "./src/js/teaser-style.js",
-    "text-image-style": "./src/js/text-image-style.js",
-    // "components": "./src/js/components.js",
+    "bootstrap-default": "./src/js/bootstrap_default.js",
   },
   output: {
     path: path.resolve(__dirname, "../"),
-    filename: "./js/teal/[name].js",
+    filename: "./js/[name].js",
   },
   devtool: devMode ? "inline-source-map" : false,
   module: {

@@ -1,5 +1,9 @@
 # Default settings of wb_universe theme.
 general_settings:
   load_bootstrap: true
+  grid:
+    content_css: "container"
+    content_css_home: ""
+    content_css_taxo: ""
 stripe_settings:
   load_stripe: false

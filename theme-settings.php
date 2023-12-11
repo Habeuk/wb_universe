@@ -12,6 +12,7 @@ use Drupal\wb_universe\Form\Settings;
  */
 function wb_universe_form_system_theme_settings_alter(&$form, &$form_state) {
   Settings::generalSettings($form, $form_state);
+  Settings::StripeSettings($form, $form_state);
   // close favicon
   if (!empty($form['favicon'])) {
     $form['favicon']['#open'] = false;

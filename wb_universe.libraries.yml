@@ -1,8 +1,14 @@
 bootstrap_default:
   css:
     theme:
-      css/global-style.css: {}
+      css/bootstrap-default.css: {}
   js:
-    js/global-style.js: { preprocess: false }
+    js/bootstrap-default.js: {}
+  dependencies:
+    - core/once
+
+stripe_v3:
+  js:
+    https://js.stripe.com/v3/: { preprocess: false, type: external, attributes:{async: true} }
   dependencies:
     - core/once

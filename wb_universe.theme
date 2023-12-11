@@ -71,7 +71,27 @@ function wb_universe_preprocess_html(&$variables) {
  * @param array $extension
  */
 function wb_universe_library_info_alter(&$libraries, $extension) {
-  $general_settings = theme_get_setting('stripe_settings');
+  $stripe_settings = theme_get_setting('stripe_settings');
+  $general_settings = theme_get_setting('general_settings');
+  if ($general_settings['load_bootstrap']) {
+    //
+  }
+}
+
+/**
+ * implement hook_page_attachments_alter
+ *
+ * @param array $attachments
+ */
+function wb_universe_page_attachments_alter(array &$attachments) {
+  $stripe_settings = theme_get_setting('stripe_settings');
+  $general_settings = theme_get_setting('general_settings');
+  if ($general_settings['load_bootstrap']) {
+    $attachments["#attached"]["library"][] = "wb_universe/bootstrap_default";
+  }
+  if ($stripe_settings['load_stripe']) {
+    $attachments["#attached"]["library"][] = "wb_universe/stripe_v3";
+  }
 }
 
 /**

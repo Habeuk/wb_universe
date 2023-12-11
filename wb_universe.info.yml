@@ -12,9 +12,14 @@ screenshot: wb_universe.png
 logo: logo.png
 
 regions:
-  header: "header"
-  before_content: "beforeContent"
+  top_header: "Top header"
+  header: "Header"  
+  highlighted: "highlighted"
+  help: "help"
+  before_content: "Before content"
   content: "content"
+  sidebar_first: "Sidebar first"
+  sidebar_second: "Sidebar second"
   after_content: "afterContent"
   footer: "footer"
 
