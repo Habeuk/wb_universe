@@ -11,7 +11,8 @@ use Stephane888\HtmlBootstrap\Controller\Menus;
 use Stephane888\HtmlBootstrap\SortArray;
 use Drupal\node\NodeInterface;
 use Drupal\Component\Utility\NestedArray;
-use Stephane888\Debug\Repositories\ConfigDrupal;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * config off theme
@@ -252,6 +253,10 @@ function wb_universe_preprocess_field__image(&$variables) {
   MdbootstrapWbu::wbupreprocess_field__image($variables, 'wb_universe');
 }
 
+function wb_universe_preprocess_input__submit_button(&$variables) {
+  // dump($variables);
+}
+
 /**
  *
  * @param array $variables
@@ -323,27 +328,7 @@ function wb_universe_preprocess_menu(&$variables) {
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
 function wb_universe_theme_suggestions_input_alter(array &$suggestions, array $variables) {
-  // try {
-  // /*
-  // * @var \Drupal\Core\Theme\ActiveTheme $theme
-  // */
-  // $theme = \Drupal::theme()->getActiveTheme();
-  // $route = \Drupal::routeMatch()->getRouteName();
-  // /**
-  // *
-  // * @var \Drupal\Core\Extension\ThemeHandler $theme_handler
-  // */
-  // $theme_handler = \Drupal::service('theme_handler');
-  // $settings = ConfigDrupal::getSettingsTheme();
-  // if ('commerce_cart.page' == $route) {
-  // dump($settings);
-  // dump(theme_get_setting('bootstrap_barrio_button'));
-  // }
-  // }
-  // catch (\Exception $e) {
-  // \Drupal::messenger()->addMessage('error de debogage');
-  // }
-  if ($variables['element']['#type'] == 'submit' && theme_get_setting('bootstrap_barrio_button')) {
+  if ($variables['element']['#type'] == 'submit') {
     $suggestions[] = 'input__submit_button';
   }
   //
@@ -719,6 +704,32 @@ function wb_universe_preprocess_radios(&$vars) {
   // attributes au container des radios.
   if (!empty($vars['element']['#wrapper_attributes'])) {
     $vars['attributes'] = NestedArray::mergeDeep($vars['attributes'], $vars['element']['#wrapper_attributes']);
+  }
+}
+
+/**
+ *
+ * @param array $form
+ * @param FormStateInterface $form_state
+ */
+function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
+  $keys = Element::children($form);
+  $ignorefields = [
+    'form_build_id',
+    'form_id',
+    'form_token'
+  ];
+  foreach ($keys as $field_input) {
+    if (!in_array($field_input, $ignorefields)) {
+      if ('actions' == $field_input) {
+        $form[$field_input]['submit']['#attributes']['class'][] = 'btn btn-primary';
+        $form[$field_input]['submit']['#attributes']['class'][] = 'btn-lg';
+      }
+      else {
+        $form[$field_input]['#attributes']['class'][] = 'form-control-lg';
+        $form[$field_input]['#theme_wrappers'][] = 'form_element__clean';
+      }
+    }
   }
 }
 
