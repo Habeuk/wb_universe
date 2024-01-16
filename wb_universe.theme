@@ -13,6 +13,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\wb_universe\ThemeSettings;
 
 /**
  * config off theme
@@ -135,6 +136,14 @@ function wb_universe_preprocess_html(&$variables) {
  */
 function wb_universe_preprocess_page(&$variables) {
   MdbootstrapWbu::wbupreprocess_page($variables);
+  // applique les classes provenant de la configuration du theme.
+  $routeName = \Drupal::routeMatch()->getRouteName();
+  $class = theme_get_setting('wb_universe_pages.container.' . ThemeSettings::getValidKeyForConfig($routeName));
+  if ($class) {
+    if (isset($variables["page"]["content"]['attributes']) && is_object($variables["page"]["content"]['attributes'])) {
+      $variables["page"]["content"]['attributes']->addClass($class);
+    }
+  }
 }
 
 /**
@@ -673,25 +682,6 @@ function wb_universe_preprocess_input__submit__icon(array &$variables) {
   else {
     throw new Exception("wbu_theme_icon n'est pas definit");
   }
-}
-
-/**
- *
- * @param string $form
- * @param string $form_state
- */
-function wb_universe_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
-  if (isset($form_id)) {
-    return;
-  }
-  
-  // MdbootstrapWbu::defineSetting($form, $form_state);
-  $form['google-analytics-gtag'] = [
-    '#type' => 'textfield',
-    '#title' => 'Google Analytics (id de mesure)',
-    '#default_value' => theme_get_setting('google-analytics-gtag'),
-    '#weight' => -40
-  ];
 }
 
 /**
