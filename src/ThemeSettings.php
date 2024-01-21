@@ -5,7 +5,14 @@ namespace Drupal\wb_universe;
 use Symfony\Component\Routing\RouteCollection;
 
 class ThemeSettings {
-  
+  /**
+   * Valeur definie dans le hook_preprocess_page et permet par la suite dans les
+   * hook en dessous de savoir s'il ya une sidebar ou pas.
+   *
+   * @var boolean
+   */
+  public static $hasSideBar = false;
+
   /**
    * Permet de retounrer les types de container definie dans les styles du
    * theme.
@@ -19,21 +26,46 @@ class ThemeSettings {
       '' => "Aucun"
     ];
   }
-  
+
   /**
+   * Retourne les routes liées à la recherche.
    *
    * @return array|\Symfony\Component\Routing\array<string,
    */
-  public static function getRoutesForSerach() {
+  public static function getRoutesForViews() {
     /**
      *
      * @var \Drupal\Core\Routing\RouteProvider $router
      */
     $router = \Drupal::service('router.route_provider');
-    $routeCollection = self::getRouteByName("search.view");
+    $routeCollection = self::getRouteByName("view.%");
+    $routes = $routeCollection->all();
+    $r = [];
+    // remove content admin.
+    foreach ($routes as $routeName => $route) {
+      /** @var \Symfony\Component\Routing\Route $route */
+      if (!str_contains($route->getPath(), "/admin/")) {
+        $r[$routeName] = $route;
+      }
+    }
+    return $r;
+  }
+
+  /**
+   * Retourne les routes liées à la recherche.
+   *
+   * @return array|\Symfony\Component\Routing\array<string,
+   */
+  public static function getRoutesForSearch() {
+    /**
+     *
+     * @var \Drupal\Core\Routing\RouteProvider $router
+     */
+    $router = \Drupal::service('router.route_provider');
+    $routeCollection = self::getRouteByName("search.view%");
     return $routeCollection->all();
   }
-  
+
   /**
    * Permet de retourner la bonne valeur de la clée.
    * Les données de configuration ne supporte pas "%% key contains a dot which
@@ -44,25 +76,25 @@ class ThemeSettings {
   public static function getValidKeyForConfig($key) {
     return str_replace(".", '-', $key);
   }
-  
+
   /**
    * Drupal n'offre pas pour l'instant, la possibité de filtrer les routes en
    * fonction du nom, on a recherché dans le service 'router.route_provider'.
    */
   private static function getRouteByName($name) {
-    $query = "select name, route from {router} where name LIKE '%$name%'";
+    $query = "select name, route from {router} where name LIKE '$name'";
     try {
       $routes = \Drupal::database()->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
     catch (\Exception $e) {
       $routes = [];
     }
-    
+
     $collection = new RouteCollection();
     foreach ($routes as $row) {
       $collection->add($row['name'], unserialize($row['route']));
     }
     return $collection;
   }
-  
+
 }

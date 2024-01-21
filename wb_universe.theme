@@ -8,7 +8,6 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Template\Attribute;
 use Stephane888\HtmlBootstrap\SuggestionsMenus;
 use Stephane888\HtmlBootstrap\Controller\Menus;
-use Stephane888\HtmlBootstrap\SortArray;
 use Drupal\node\NodeInterface;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
@@ -25,14 +24,7 @@ require_once ('inc/views.inc');
 /**
  * Action Ajax for theme
  */
-require_once ('inc/ajaxtheme.inc');
-
-/**
- * Custom preprocess template
- */
-function wb_universe_preprocess(&$variables, $hook) {
-  MdbootstrapWbu::wbupreprocess_template($variables, $hook, 'wb_universe');
-}
+// require_once ('inc/ajaxtheme.inc');
 
 /**
  * implement hook_css_alter.
@@ -102,7 +94,7 @@ function wb_universe_preprocess_html(&$variables) {
       '#tag' => 'script',
       '#value' => "window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());            
+              gtag('js', new Date());
               gtag('config', '$IdAnalytique');
             "
     ];
@@ -135,23 +127,89 @@ function wb_universe_preprocess_html(&$variables) {
  * Implement hook_preprocess_page
  */
 function wb_universe_preprocess_page(&$variables) {
-  MdbootstrapWbu::wbupreprocess_page($variables);
-  // applique les classes provenant de la configuration du theme.
+  // MdbootstrapWbu::wbupreprocess_page($variables);
   $routeName = \Drupal::routeMatch()->getRouteName();
-  $class = theme_get_setting('wb_universe_pages.container.' . ThemeSettings::getValidKeyForConfig($routeName));
+  /**
+   * wb_universe_pages:
+   * applique les classes et ou configuration provenant de la configuration du
+   * theme.
+   */
+  $class = theme_get_setting('wb_universe_pages.search.' . ThemeSettings::getValidKeyForConfig($routeName));
+  if (!$class) {
+    $class = theme_get_setting('wb_universe_pages.views.' . ThemeSettings::getValidKeyForConfig($routeName));
+  }
   if ($class) {
-    if (isset($variables["page"]["content"]['attributes']) && is_object($variables["page"]["content"]['attributes'])) {
-      $variables["page"]["content"]['attributes']->addClass($class);
+    $variables["attributes_container"] = $class;
+  }
+  /**
+   * Build layouts
+   */
+  $wb_universe_layout = theme_get_setting('wb_universe_layout');
+  if (!empty($wb_universe_layout)) {
+    $show_sidebar_left = $wb_universe_layout['sidebar_left']['show'] ?? false;
+    $show_sidebar_right = $wb_universe_layout['sidebar_right']['show'] ?? false;
+    $variables['show_sidebar_left'] = $show_sidebar_left;
+    $variables['show_sidebar_right'] = $show_sidebar_right;
+    if (!empty($variables['page']['sidebar_left']) || !empty($variables['page']['sidebar_right'])) {
+      ThemeSettings::$hasSideBar = true;
     }
+    // if (($show_sidebar_left || $show_sidebar_right) &&
+    // (!empty($variables['page']['sidebar_left']))) {
+    // $variables['attributes_container'] =
+    // $wb_universe_layout['attributes_container'];
+    // if (!empty($variables['page']['sidebar_left'])) {
+    // $AttributeLeft = new Attribute();
+    // $AttributeLeft->addClass($wb_universe_layout['sidebar_left']['class']);
+    // }
+    // $variables['page']['sidebar_left']['attributes']['class'][] =
+    // 'kksa8882025';
+    // dump($variables['page']);
+    // }
   }
 }
 
 /**
- * Implement hook_preprocess_ds_entity_view
- * si le module ds est installé.
+ *
+ * @param array $variables
  */
-function wb_universe_preprocess_ds_entity_view(&$variables) {
-  MdbootstrapWbu::wbupreprocess_ds_entity_view($variables);
+function wb_universe_preprocess_region__sidebar_left(&$vars) {
+  $wb_universe_layout = theme_get_setting('wb_universe_layout');
+  $vars['attributes']['class'][] = $wb_universe_layout['sidebar_left']['class'];
+}
+
+/**
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_region__sidebar_right(&$vars) {
+  $wb_universe_layout = theme_get_setting('wb_universe_layout');
+  $vars['attributes']['class'][] = $wb_universe_layout['sidebar_right']['class'];
+}
+
+/**
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_region__content(&$vars) {
+  _apply_style_region__content($vars);
+}
+
+/**
+ * Cette region est definie par le theme bootstrap_barrio.
+ *
+ * @param array $vars
+ */
+function wb_universe_preprocess_region__nowrap(&$vars) {
+  if ($vars['elements']['#region'] == 'content') {
+    _apply_style_region__content($vars);
+  }
+}
+
+function _apply_style_region__content(&$vars) {
+  if (ThemeSettings::$hasSideBar) {
+    $wb_universe_layout = theme_get_setting('wb_universe_layout');
+    $vars['attributes']['class'][] = $wb_universe_layout['content']['class'];
+  }
 }
 
 /**
@@ -189,14 +247,6 @@ function wb_universe_theme_suggestions_user_alter(array &$suggestions, array $va
   if (!empty($variables["elements"]["#view_mode"])) {
     $suggestions[] = 'user__' . $variables["elements"]["#view_mode"];
   }
-}
-
-/**
- *
- * @param array $variables
- */
-function wb_universe_preprocess_node(&$variables) {
-  MdbootstrapWbu::wbupreprocess_node($variables);
 }
 
 function wb_universe_preprocess_comment__comment(&$variables) {
@@ -257,16 +307,6 @@ function wb_universe_preprocess_field(&$variables) {
 }
 
 /**
- */
-function wb_universe_preprocess_field__image(&$variables) {
-  MdbootstrapWbu::wbupreprocess_field__image($variables, 'wb_universe');
-}
-
-function wb_universe_preprocess_input__submit_button(&$variables) {
-  // dump($variables);
-}
-
-/**
  *
  * @param array $variables
  */
@@ -319,7 +359,7 @@ function wb_universe_preprocess_menu(&$variables) {
         $variables['items'] = Menus::MenuAddIcones($variables['items'], $icones);
       }
     }
-    else 
+    else
       if ($theme_hook_original == 'menu__main') {
         if (TEMPLATE_menu__main == 'menu__main_full') {
         /**
@@ -360,7 +400,7 @@ function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array &$v
     if ($theme_hook_original == 'menu__account') {
       $options['template'] = TEMPLATE_menu__account;
     }
-    else 
+    else
       if ($theme_hook_original == 'menu__main') {
         $options['template'] = TEMPLATE_menu__main;
       }
@@ -391,7 +431,8 @@ function wb_universe_theme_suggestions_block_alter(array &$suggestions, array &$
  * Implements hook_preprocess_HOOK() for region.html.twig.
  */
 function wb_universe_preprocess_region(&$variables) {
-  $variables['attributes']['class'][0] = 'row-0';
+  if (!empty($variables['attributes']['class'][0]))
+    $variables['attributes']['class'][0] = 'row-0';
 }
 
 /**
@@ -722,141 +763,4 @@ function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $f
     }
   }
 }
-
-/**
- * function personnalisé qui s'execute avant la sauvergarde des données du
- * theme.
- *
- * Make the uploaded images permanent.
- *
- * @param array $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- */
-function wb_universe_settings_form_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  // $account = \Drupal::currentUser();
-  // $values = $form_state->getValues();
-  // dump($values);
-  // die('end');
-  // $form_state->getTemporary();
-  // $form_state->getStorage();
-  // $form_state->getResponse();
-}
-
-function wb_universe_settings_form_submit_end(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  $values = $form_state->getValues();
-  SortArray::_sortFieldOfThemeAndSave($values, $form_state, 'wb_universe');
-  /**
-   * Creation / MAJ des fichiers templates.
-   */
-  $displays = $values['wb_universe_pagenodesdisplay'];
-  MdbootstrapWbu::createFilesTheme('wb_universe', $displays);
-  /**
-   * Performs actions after sumitted
-   */
-  MdbootstrapWbu::PerformsActions($form, $form_state);
-}
-
-/**
- * Save image
- *
- * @param array $image
- */
-function _saveimage($image) {
-  if (!empty($image)) {
-    // Load the file via file.fid.
-    if ($file = \Drupal\file\Entity\File::load($image[0])) {
-      // Change status to permanent.
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      // $file_usage->add($file, 'user', 'user', $account->id());
-      $file_usage->add($file, 'wb_universe', 'theme', $image[0]);
-    }
-  }
-}
-
-function _completManageFile($values) {
-  if (!empty($values) && count($values) == 2) {
-    $i = 0;
-    foreach ($values as $key => $value) {
-      $i++;
-      if (_wb_universe_endsWith($key, '_upload_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        }
-        elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndSave($values[$first_key]);
-        }
-      }
-      elseif (_wb_universe_endsWith($key, '_remove_button')) {
-        if ($i == 1) {
-          $first_key = end(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        }
-        elseif ($i == 2) {
-          $first_key = reset(array_keys($values));
-          FindImageFidAndDelete($values[$first_key]);
-        }
-      }
-    }
-  }
-}
-
-function FindImageFidAndSave($values) {
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndSave($value);
-    }
-  }
-  elseif (is_int($values)) {
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      $file->setPermanent();
-      $file->save();
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->add($file, 'wb_universe', 'theme', $values);
-      return true;
-    }
-  }
-}
-
-function FindImageFidAndDelete($values) {
-  if (is_array($values)) {
-    foreach ($values as $value) {
-      FindImageFidAndDelete($value);
-    }
-  }
-  elseif (intval($values)) {
-    // debugLog::logs($values, 'wb_universe_completsavefile2_remove_button',
-    
-    if ($file = \Drupal\file\Entity\File::load($values)) {
-      /**
-       * on supprime l'utilisation du fichier fichier
-       */
-      $file_usage = \Drupal::service('file.usage');
-      $file_usage->delete($file, 'wb_universe', 'theme', $values);
-      /**
-       * On supprime le fichier sur le serveur.
-       */
-      $file->delete();
-      return true;
-    }
-  }
-}
-
-function _wb_universe_endsWith($string, $endString) {
-  $len = strlen($endString);
-  if ($len == 0) {
-    return true;
-  }
-  return (substr($string, -$len) === $endString);
-}
-
-// with given substring
-function _wb_universe_startsWith($string, $startString) {
-  $len = strlen($startString);
-  return (substr($string, 0, $len) === $startString);
-}
-
 

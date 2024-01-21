@@ -13,11 +13,16 @@ screenshot: wb_universe.png
 logo: logo.png
 
 regions:
+  top_header: "Top header"
   header: "header"
+  hero_slider: "Hero slider"
+  sidebar_left: "Sidebar left"
+  sidebar_right: "Sidebar right"
   before_content: "beforeContent"
   content: "content"
   after_content: "afterContent"
-  footer: "footer"
+  call_to_action: "Call to action"
+  footer: "Footer"
 
 libraries:
   - wb_universe/fontawesome
