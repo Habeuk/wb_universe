@@ -449,7 +449,10 @@ function wb_universe_preprocess_form_element(&$variables) {
       'textfield',
       'email',
       "textarea",
-      "select"
+      "select",
+      "checkbox",
+      "checkboxes",
+      "radios"
     ];
     if ($variables['element']['#type'] == 'checkbox') {
       if (!empty($variables["label"]["#children"])) {
@@ -459,14 +462,11 @@ function wb_universe_preprocess_form_element(&$variables) {
       }
     }
     elseif (in_array($variables["element"]["#type"], $inputs)) {
-
       // On ajoute la possiblité d'ajouter des class provenant de la
       // configuration du theme.
       $wb_universe_forms = theme_get_setting('wb_universe_forms');
       if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
         $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
-    }
-    else {
     }
   }
 }
