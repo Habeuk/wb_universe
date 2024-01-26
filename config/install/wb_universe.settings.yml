@@ -1,4 +1,7 @@
 # Disable the CDN provider so compiled source files can be used.
 cdn_provider: ''
 
-wb_universe_pages_search_container: "container"
+wb_universe_forms:
+  textfield: "mb-3"
+  email: "mb-3"
+  textarea: "mb-3"

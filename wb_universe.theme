@@ -444,11 +444,29 @@ function wb_universe_preprocess_image(&$variables) {
 }
 
 function wb_universe_preprocess_form_element(&$variables) {
-  if (!empty($variables["element"]["#type"]) && $variables['element']['#type'] == 'checkbox') {
-    if (!empty($variables["label"]["#children"])) {
-      $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
-      $variables["label"]['#attributes']['class'][] = 'custom-control-label';
-      unset($variables["label"]["#children"]);
+  if (!empty($variables["element"]["#type"])) {
+    $inputs = [
+      'textfield',
+      'email',
+      "textarea",
+      "select"
+    ];
+    if ($variables['element']['#type'] == 'checkbox') {
+      if (!empty($variables["label"]["#children"])) {
+        $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
+        $variables["label"]['#attributes']['class'][] = 'custom-control-label';
+        unset($variables["label"]["#children"]);
+      }
+    }
+    elseif (in_array($variables["element"]["#type"], $inputs)) {
+
+      // On ajoute la possiblité d'ajouter des class provenant de la
+      // configuration du theme.
+      $wb_universe_forms = theme_get_setting('wb_universe_forms');
+      if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
+        $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
+    }
+    else {
     }
   }
 }

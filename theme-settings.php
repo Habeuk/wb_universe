@@ -120,4 +120,35 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#title' => t('Class'),
     '#default_value' => theme_get_setting('wb_universe_layout.content.class')
   ];
+
+  /**
+   * Formatter forms and input.
+   */
+  $form['wb_universe_forms'] = [
+    '#type' => 'details',
+    '#title' => t('forms'),
+    '#description' => t("Permet de gerer les classes dans les formulaires"),
+    '#group' => 'wb_universe',
+    '#tree' => true
+  ];
+  $form['wb_universe_forms']["textfield"] = [
+    '#type' => 'textfield',
+    '#title' => t('input type textfield'),
+    '#default_value' => theme_get_setting('wb_universe_forms.textfield')
+  ];
+  $form['wb_universe_forms']["email"] = [
+    '#type' => 'textfield',
+    '#title' => t('input type email'),
+    '#default_value' => theme_get_setting('wb_universe_forms.email')
+  ];
+  $form['wb_universe_forms']["textarea"] = [
+    '#type' => 'textfield',
+    '#title' => t('input type textarea'),
+    '#default_value' => theme_get_setting('wb_universe_forms.textarea')
+  ];
+  $form['wb_universe_forms']["select"] = [
+    '#type' => 'textfield',
+    '#title' => t('input type select'),
+    '#default_value' => theme_get_setting('wb_universe_forms.select')
+  ];
 }
