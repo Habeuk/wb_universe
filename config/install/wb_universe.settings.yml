@@ -5,3 +5,8 @@ wb_universe_forms:
   textfield: "mb-3"
   email: "mb-3"
   textarea: "mb-3"
+  select: "mb-3"
+  checkbox: "mb-3"
+  checkboxes: "mb-3"
+  radios: "mb-3"
+  
