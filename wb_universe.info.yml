@@ -46,5 +46,5 @@ libraries-override:
   bootstrap_barrio/comments: false
   bootstrap_barrio/node: false
   bootstrap_styles/plugin.background_media.build: false
-  # disable ckeditor
-  # ckeditor/drupal.ckeditor: false
+  # disable ckeditor car cela bloque l'execution du contenu via vuejs. ( remove before D10 )
+  ckeditor/drupal.ckeditor: false
