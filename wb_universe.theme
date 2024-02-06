@@ -134,13 +134,18 @@ function wb_universe_preprocess_page(&$variables) {
    * applique les classes et ou configuration provenant de la configuration du
    * theme.
    */
-  $class = theme_get_setting('wb_universe_pages.search.' . ThemeSettings::getValidKeyForConfig($routeName));
+  $class = theme_get_setting('wb_universe_pages.terms.' . ThemeSettings::getValidKeyForConfig($routeName));
+  if (!$class) {
+    $class = theme_get_setting('wb_universe_pages.search.' . ThemeSettings::getValidKeyForConfig($routeName));
+  }
   if (!$class) {
     $class = theme_get_setting('wb_universe_pages.views.' . ThemeSettings::getValidKeyForConfig($routeName));
   }
+
   if ($class) {
     $variables["attributes_container"] = $class;
   }
+
   /**
    * Build layouts
    */
@@ -762,21 +767,26 @@ function wb_universe_preprocess_radios(&$vars) {
  * @param FormStateInterface $form_state
  */
 function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
-  $keys = Element::children($form);
-  $ignorefields = [
-    'form_build_id',
-    'form_id',
-    'form_token'
-  ];
-  foreach ($keys as $field_input) {
-    if (!in_array($field_input, $ignorefields)) {
-      if ('actions' == $field_input) {
-        $form[$field_input]['submit']['#attributes']['class'][] = 'btn btn-primary';
-        $form[$field_input]['submit']['#attributes']['class'][] = 'btn-lg';
-      }
-      else {
-        $form[$field_input]['#attributes']['class'][] = 'form-control-lg';
-        $form[$field_input]['#theme_wrappers'][] = 'form_element__clean';
+  $class = theme_get_setting('wb_universe_forms.views_exposed_form.class');
+  if ($class) {
+    $keys = Element::children($form);
+    $ignorefields = [
+      'form_build_id',
+      'form_id',
+      'form_token'
+    ];
+    foreach ($keys as $field_input) {
+      if (!in_array($field_input, $ignorefields)) {
+        if ('actions' == $field_input) {
+          $form[$field_input]['submit']['#attributes']['class'][] = 'btn btn-primary';
+          $form[$field_input]['submit']['#attributes']['class'][] = 'btn-lg';
+        }
+        else {
+          // if ($form[$field_input]['#type'] !== 'radios') {
+          // }
+          $form[$field_input]['#attributes']['class'][] = $class;
+          $form[$field_input]['#theme_wrappers'][] = 'form_element__clean';
+        }
       }
     }
   }

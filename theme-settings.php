@@ -49,6 +49,7 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
       '#default_value' => theme_get_setting('wb_universe_pages.search.' . $vk)
     ];
   }
+
   $form['wb_universe_pages']["views"] = [
     '#type' => 'details',
     '#title' => t('Pages views'),
@@ -66,8 +67,21 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
       '#default_value' => theme_get_setting('wb_universe_pages.views.' . $vk)
     ];
   }
+  $form['wb_universe_pages']["terms"] = [
+    '#type' => 'details',
+    '#title' => t('Pages terms taxomies'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE
+  ];
+  $key_term = ThemeSettings::getValidKeyForConfig("entity.taxonomy_term.canonical");
+  $form['wb_universe_pages']['terms'][$key_term] = [
+    '#type' => 'select',
+    '#title' => 'Select container : entity.taxonomy_term.canonical ',
+    '#options' => ThemeSettings::getTypesContainer(),
+    '#default_value' => theme_get_setting('wb_universe_pages.terms.' . $key_term)
+  ];
   /**
-   * Select templates for pages.
+   * --.
    */
   $form['wb_universe_layout'] = [
     '#type' => 'details',
@@ -165,5 +179,20 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#type' => 'textfield',
     '#title' => t('Container input type radios'),
     '#default_value' => theme_get_setting('wb_universe_forms.radios')
+  ];
+  $form['wb_universe_forms']["views_exposed_form"] = [
+    '#type' => 'details',
+    '#title' => t('views_exposed_form'),
+    '#open' => false
+  ];
+  $form['wb_universe_forms']["views_exposed_form"] = [
+    '#type' => 'details',
+    '#title' => t('views_exposed_form'),
+    '#open' => false
+  ];
+  $form['wb_universe_forms']['views_exposed_form']["class"] = [
+    '#type' => 'textfield',
+    '#title' => t('Class for each input'),
+    '#default_value' => theme_get_setting('wb_universe_forms.views_exposed_form.class')
   ];
 }
