@@ -70,7 +70,7 @@ class ThemeSettings {
    * Permet de retourner la bonne valeur de la clée.
    * Les données de configuration ne supporte pas "%% key contains a dot which
    * is not supported".
-   * On remplace . par - afin de differencie avec les _ definis au niveau du nom
+   * On remplace . par - afin de différencie avec les _ définis au niveau du nom
    * de la reoute.
    */
   public static function getValidKeyForConfig($key) {
