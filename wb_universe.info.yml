@@ -13,15 +13,15 @@ logo: logo.png
 
 regions:
   top_header: "Top header"
-  header: "Header"  
-  highlighted: "highlighted"
-  help: "help"
-  before_content: "Before content"
+  header: "header"
+  hero_slider: "Hero slider"
+  sidebar_left: "Sidebar left"
+  sidebar_right: "Sidebar right"
+  before_content: "beforeContent"
   content: "content"
-  sidebar_first: "Sidebar first"
-  sidebar_second: "Sidebar second"
   after_content: "afterContent"
-  footer: "footer"
+  call_to_action: "Call to action"
+  footer: "Footer"
 
 #libraries-override:
 #  bootstrap_barrio/global-styling: false

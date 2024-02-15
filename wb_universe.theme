@@ -1,4 +1,5 @@
 <?php
+use Drupal\wb_universe\ThemeSettings;
 
 /**
  * Use this fonction on module to alert meta data
@@ -61,6 +62,44 @@ function wb_universe_preprocess_html(&$variables) {
     $scriptStripe,
     'stripe-api-js'
   ];
+}
+
+/**
+ * Implement hook_preprocess_page
+ */
+function wb_universe_preprocess_page(&$variables) {
+  // MdbootstrapWbu::wbupreprocess_page($variables);
+  $routeName = \Drupal::routeMatch()->getRouteName();
+  /**
+   * wb_universe_pages:
+   * applique les classes et ou configuration provenant de la configuration du
+   * theme.
+   */
+  $class = theme_get_setting('wb_universe_pages.terms.' . ThemeSettings::getValidKeyForConfig($routeName));
+  if (!$class) {
+    $class = theme_get_setting('wb_universe_pages.search.' . ThemeSettings::getValidKeyForConfig($routeName));
+  }
+  if (!$class) {
+    $class = theme_get_setting('wb_universe_pages.views.' . ThemeSettings::getValidKeyForConfig($routeName));
+  }
+  
+  if ($class) {
+    $variables["attributes_container"] = $class;
+  }
+  
+  /**
+   * Build layouts
+   */
+  $wb_universe_layout = theme_get_setting('wb_universe_layout');
+  if (!empty($wb_universe_layout)) {
+    $show_sidebar_left = $wb_universe_layout['sidebar_left']['show'] ?? false;
+    $show_sidebar_right = $wb_universe_layout['sidebar_right']['show'] ?? false;
+    $variables['show_sidebar_left'] = $show_sidebar_left;
+    $variables['show_sidebar_right'] = $show_sidebar_right;
+    if (!empty($variables['page']['sidebar_left']) || !empty($variables['page']['sidebar_right'])) {
+      ThemeSettings::$hasSideBar = true;
+    }
+  }
 }
 
 /**
@@ -131,81 +170,15 @@ function wb_universe_preprocess_field(&$variables) {
 }
 
 /**
- * implement hook_preprocess_image
+ * Formatages des menus d'administration des entites.
+ * Implment hook_preprocess_menu_local_tasks
  *
- * @param int $variables
+ * @param array $variables
  */
-function wb_universe_preprocess_image(&$variables) {
-  $variables["attributes"]['class'][] = 'img-fluid';
+function wb_universe_preprocess_menu_local_tasks(&$variables) {
+  // dump($variables);
 }
 
-/**
- * On verra le comportement de la page title.
- *
- * @param
- *        $variables
- */
-// function wb_universe_preprocess_page_title(&$variables) {
-// if (is_array($variables["title"]) && empty($variables["title"]["#markup"])) {
-// $variables["title"]["#printed"] = false;
-// }
-// }
-
-/**
- * implemente hook_theme_suggestions_HOOK_alter
- * à voir
- *
- * @param int $suggestions
- * @param int $variables
- * @param int $hook
- */
-// function wb_universe_theme_suggestions_links_alter(array &$suggestions, array
-// $variables) {
-// if (!empty($variables['links']['node-readmore'])) {
-// $suggestions[] = 'links__node_readmore';
-// $suggestions[] = 'links__node_' .
-// $variables['links']['node-readmore']['url']->getOption('entity')->getType();
-// }
-// }
-
-// /**
-// * implemente hook_theme_suggestions_HOOK_alter
-// * à voir si on peut faire mieux.
-// * @param array $suggestions
-// * @param array $variables
-// */
-// function wb_universe_theme_suggestions_form_element_alter(array
-// &$suggestions, array $variables) {
-// // on verifie s'il ya une demande de surchage
-// if (!empty($variables['element']['#attributes']['data-twig'])) {
-// $suggestions[] = 'form_element__' .
-// $variables['element']['#attributes']['data-twig'];
-// }
-// elseif (!empty($variables['element']['#type'])) {
-// $suggestions[] = 'form_element__' . $variables['element']['#type'];
-// }
-// }
-
-/**
- * àvoir
- *
- * @param string $form
- * @param string $form_state
- */
-// function wb_universe_form_system_theme_settings_alter(&$form,
-// \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
-// if (isset($form_id)) {
-// return;
-// }
-
-// // MdbootstrapWbu::defineSetting($form, $form_state);
-// $form['google-analytics-gtag'] = [
-// '#type' => 'textfield',
-// '#title' => 'Google Analytics (id de mesure)',
-// '#default_value' => theme_get_setting('google-analytics-gtag'),
-// '#weight' => -40
-// ];
-// }
 
 
 
