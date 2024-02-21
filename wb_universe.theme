@@ -1,5 +1,7 @@
 <?php
 use Drupal\wb_universe\ThemeSettings;
+use Drupal\Core\Template\AttributeString;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Use this fonction on module to alert meta data
@@ -170,15 +172,46 @@ function wb_universe_preprocess_field(&$variables) {
 }
 
 /**
- * Formatages des menus d'administration des entites.
- * Implment hook_preprocess_menu_local_tasks
+ * On surcharge les buttons qui ne le sont pas.
  *
  * @param array $variables
  */
-function wb_universe_preprocess_menu_local_tasks(&$variables) {
-  // dump($variables);
+function wb_universe_preprocess_input__submit(&$variables) {
+  $class = [
+    'btn'
+  ];
+  if (!empty($variables['element']['#button_type']) && $variables['element']['#button_type'] == 'primary') {
+    $class[] = 'btn-primary';
+  }
+  else {
+    $class[] = 'btn-outline-secondary';
+  }
+  if (!empty($variables['attributes'])) {
+    if (!empty($variables['attributes']['class'])) {
+      if (!in_array('btn', $variables['attributes']['class']))
+        $variables['attributes']['class'] = $class;
+    }
+  }
+  else {
+    $variables['attributes']['class'] = $class;
+  }
 }
 
+function wb_universe_preprocess_menu_local_task(&$variables) {
+  /**
+   * $variables['link']['#options']['Attributes'] must be array.
+   */
+  if (isset($variables['link']['#options']['attributes'])) {
+    $variables['link']['#options']['Attributes']['class'][] = 'nav-link';
+  }
+  else {
+    $variables['link']['#options']['attributes'] = [
+      'class' => [
+        'nav-link'
+      ]
+    ];
+  }
+}
 
 
 

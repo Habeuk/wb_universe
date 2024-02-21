@@ -43,6 +43,7 @@
   ],
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "@stephane888/wbu-atomique": "file:../../../AppVuejs/wbu-atomique",
     "bootstrap": "^5.3.2"
   }
 }
