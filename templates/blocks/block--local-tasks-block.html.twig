@@ -26,7 +26,7 @@
  * @see template_preprocess_block()
  */
 #}
-{% set id = attributes.offsetGet('id') %}
+{% set identifiant = plugin_id|clean_unique_id %}
 <nav {{ attributes.addClass('navbar','navbar-expand-md','navbar-light') }}>
   <div class="container-fluid">
     <div class="navbar-brand" >
@@ -36,10 +36,10 @@
       {% endif %}
       {{ title_suffix }}
     </div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#{{-id-}}" aria-controls="{{-id-}}" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#{{-identifiant-}}" aria-controls="{{-identifiant-}}" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="{{-id-}}">
+    <div class="collapse navbar-collapse" id="{{-identifiant-}}">
       {% block content %}
 			{{ content }}
 			{% endblock %}
