@@ -1,0 +1,19 @@
+langcode: fr
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - wb_universe
+id: wb_universe_contenudelapageprincipale
+theme: wb_universe
+region: content
+weight: 1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Contenu de la page principale'
+  label_display: visible
+  provider: system
+visibility: {  }
