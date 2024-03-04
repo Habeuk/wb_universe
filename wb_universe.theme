@@ -213,5 +213,29 @@ function wb_universe_preprocess_menu_local_task(&$variables) {
   }
 }
 
+/**
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_pager(&$variables) {
+  if (!empty($variables['items']['next'])) {
+    $variables['items']['next']['attributes']->addClass('page-link');
+  }
+  if (!empty($variables['items']['first'])) {
+    $variables['items']['first']['attributes']->addClass('page-link');
+  }
+  if (!empty($variables['items']['last'])) {
+    $variables['items']['last']['attributes']->addClass('page-link');
+  }
+  if (!empty($variables['items']['previous'])) {
+    $variables['items']['previous']['attributes']->addClass('page-link');
+  }
+  if (!empty($variables['items']['pages'])) {
+    foreach ($variables['items']['pages'] as &$item) {
+      $item['attributes']->addClass('page-link');
+    }
+  }
+}
+
 
 
