@@ -204,7 +204,7 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
    */
   $menus = \Drupal\system\Entity\Menu::loadMultiple();
   $tempaltes_menus = [
-    '' => t('Vertical align'),
+    '' => t('Default (vertical align)'),
     'menu_horizontal' => t('Horizontal menu')
   ];
   $form['wb_universe_menus'] = [
@@ -228,20 +228,10 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
       '#options' => $tempaltes_menus,
       '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.template')
     ];
-    $form['wb_universe_menus'][$id]['slogan'] = [
-      '#type' => 'checkbox',
-      '#title' => "Afficher le slogan",
-      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.slogan')
-    ];
-    $form['wb_universe_menus'][$id]['logo'] = [
-      '#type' => 'checkbox',
-      '#title' => "Afficher le logo",
-      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.logo')
-    ];
-    $form['wb_universe_menus'][$id]['name'] = [
-      '#type' => 'checkbox',
-      '#title' => "Afficher le nom du site",
-      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.name')
+    $form['wb_universe_menus'][$id]['class_menu'] = [
+      '#type' => 'textfield',
+      '#title' => "Class menu",
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.class_menu')
     ];
   }
 }
