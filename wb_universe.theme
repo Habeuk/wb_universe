@@ -1,7 +1,8 @@
 <?php
+use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\wb_universe\ThemeSettings;
-use Drupal\Core\Template\AttributeString;
-use Drupal\Core\Template\Attribute;
+use Drupal\Core\Render\Element;
 
 /**
  * Use this fonction on module to alert meta data
@@ -166,7 +167,13 @@ function wb_universe_preprocess_field(&$variables) {
   elseif (isset($variables['element']['#field_name']) && $variables['element']['#field_name'] == 'node_link') {
     foreach ($variables['items'] as $key => $value) {
       $variables['items'][$key]['attributes']->addClass('btn');
-      $variables['items'][$key]['attributes']->addClass('btn-outline-danger');
+      $variables['items'][$key]['attributes']->addClass('btn-outline-primary');
+    }
+  }
+  elseif ($variables['field_type'] == 'image') {
+    foreach ($variables['items'] as &$item) {
+      if (is_object($item['attributes']))
+        $item['attributes']->addClass('img-fluid');
     }
   }
 }
@@ -214,6 +221,18 @@ function wb_universe_preprocess_menu_local_task(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_HOOK() menu__main
+ */
+function wb_universe_preprocess_menu(&$variables) {
+  $template = theme_get_setting('wb_universe_menus.' . $variables['menu_name'] . '.template');
+  if ($template == "menu_horizontal" || $variables['menu_name'] == "main") {
+    $hbk_menu_config = theme_get_setting('wb_universe_menus.' . $variables['menu_name'] . '.template');
+    // dump($hbk_menu_config);
+    // ThemeHelper::getSiteInformation($variables, $hbk_menu_config);
+  }
+}
+
+/**
  *
  * @param array $variables
  */
@@ -236,6 +255,97 @@ function wb_universe_preprocess_pager(&$variables) {
     }
   }
 }
+
+/**
+ * Implement hook_form_alter
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_input(&$variables) {
+  $control_inputs = [
+    'email',
+    'textfield',
+    'number',
+    'select',
+    'checkbox',
+    'checkboxes',
+    'radio',
+    'radios'
+  ];
+  if (in_array($variables['element']['#type'], $control_inputs)) {
+    $variables['attributes']['class'][] = 'form-control';
+  }
+}
+
+/**
+ * Implement hook_form_alter
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_textarea(&$variables) {
+  $variables['attributes']['class'][] = 'form-control';
+}
+
+function wb_universe_preprocess_form_element(&$variables) {
+  if (!empty($variables["element"]["#type"])) {
+    $inputs = [
+      'textfield',
+      'email',
+      "textarea",
+      "select",
+      "checkbox",
+      "checkboxes",
+      "radios"
+    ];
+    if ($variables['element']['#type'] == 'checkbox') {
+      if (!empty($variables["label"]["#children"])) {
+        $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
+        $variables["label"]['#attributes']['class'][] = 'custom-control-label';
+        unset($variables["label"]["#children"]);
+      }
+    }
+    elseif (in_array($variables["element"]["#type"], $inputs)) {
+      // On ajoute la possiblité d'ajouter des class provenant de la
+      // configuration du theme.
+      $wb_universe_forms = theme_get_setting('wb_universe_forms');
+      if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
+        $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
+    }
+  }
+}
+
+/**
+ *
+ * @param array $form
+ * @param FormStateInterface $form_state
+ */
+function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $form_state) {
+  $class = theme_get_setting('wb_universe_forms.views_exposed_form.class');
+  if ($class) {
+    $keys = Element::children($form);
+    $ignorefields = [
+      'form_build_id',
+      'form_id',
+      'form_token'
+    ];
+    foreach ($keys as $field_input) {
+      if (!in_array($field_input, $ignorefields)) {
+        if ('actions' == $field_input) {
+          $form[$field_input]['submit']['#attributes']['class'][] = 'btn btn-primary';
+          $form[$field_input]['submit']['#attributes']['class'][] = 'btn-lg';
+        }
+        else {
+          // if ($form[$field_input]['#type'] !== 'radios') {
+          // }
+          $form[$field_input]['#attributes']['class'][] = $class;
+          $form[$field_input]['#theme_wrappers'][] = 'form_element__clean';
+        }
+      }
+    }
+  }
+}
+
+
 
 
 

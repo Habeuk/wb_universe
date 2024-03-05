@@ -9,7 +9,6 @@ class Settings {
    * Contient les champs pour la configuration globale.
    */
   static function generalSettings(&$form, &$form_state) {
-    $configs = self::defaultconfigs();
     $form['general_settings'] = [
       '#type' => 'details',
       '#title' => t('General Settings'),
@@ -20,7 +19,7 @@ class Settings {
     $form['general_settings']['load_bootstrap'] = [
       '#type' => 'checkbox',
       '#title' => 'Charger bootstrap',
-      '#default_value' => $configs['general_settings']["load_bootstrap"]
+      '#default_value' => theme_get_setting('general_settings.load_bootstrap')
     ];
     // Semble pas utile dans la pratique.
     // $form['general_settings']['grid'] = [
@@ -78,7 +77,6 @@ class Settings {
    * Contient les champs pour la configuration globale.
    */
   static function StripeSettings(&$form, &$form_state) {
-    $configs = self::defaultconfigs();
     $form['stripe_settings'] = [
       '#type' => 'details',
       '#title' => t('Stripe Settings'),
@@ -89,15 +87,8 @@ class Settings {
     $form['stripe_settings']['load_stripe'] = [
       '#type' => 'checkbox',
       '#title' => 'Charge la bibiotheque stripe',
-      '#default_value' => $configs['stripe_settings']["load_stripe"]
+      '#default_value' => theme_get_setting('stripe_settings.load_stripe')
     ];
-  }
-  
-  static function defaultconfigs() {
-    if (!self::$configs) {
-      self::$configs = \Drupal::Config('wb_universe.settings')->get();
-    }
-    return self::$configs;
   }
   
 }

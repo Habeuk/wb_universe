@@ -198,4 +198,50 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#title' => t('Class for each input'),
     '#default_value' => theme_get_setting('wb_universe_forms.views_exposed_form.class')
   ];
+  
+  /**
+   * --.
+   */
+  $menus = \Drupal\system\Entity\Menu::loadMultiple();
+  $tempaltes_menus = [
+    '' => t('Vertical align'),
+    'menu_horizontal' => t('Horizontal menu')
+  ];
+  $form['wb_universe_menus'] = [
+    '#type' => 'details',
+    '#title' => t('Menus display'),
+    '#description' => t("Allows you to manage the display of menus"),
+    '#group' => 'wb_universe',
+    '#tree' => true
+  ];
+  foreach ($menus as $menu) {
+    $id = $menu->id();
+    $form['wb_universe_menus'][$id] = [
+      '#type' => 'details',
+      '#title' => $menu->label(),
+      '#options' => $tempaltes_menus,
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id)
+    ];
+    $form['wb_universe_menus'][$id]['template'] = [
+      '#type' => 'select',
+      '#title' => 'Template',
+      '#options' => $tempaltes_menus,
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.template')
+    ];
+    $form['wb_universe_menus'][$id]['slogan'] = [
+      '#type' => 'checkbox',
+      '#title' => "Afficher le slogan",
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.slogan')
+    ];
+    $form['wb_universe_menus'][$id]['logo'] = [
+      '#type' => 'checkbox',
+      '#title' => "Afficher le logo",
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.logo')
+    ];
+    $form['wb_universe_menus'][$id]['name'] = [
+      '#type' => 'checkbox',
+      '#title' => "Afficher le nom du site",
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.name')
+    ];
+  }
 }
