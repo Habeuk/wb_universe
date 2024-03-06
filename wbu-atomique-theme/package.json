@@ -15,9 +15,9 @@
   },
   "author": "gugledas",
   "license": "ISC",
-  "engines":{
-	"node": ">=20",
-	"npm": ">=10"
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -46,6 +46,6 @@
     "not ie 11"
   ],
   "dependencies": {
-    "@stephane888/wbu-atomique": "github:stephane888/wbu-atomique#2x"
+    "@stephane888/wbu-atomique": "file:../../../AppVuejs/wbu-atomique"
   }
 }
