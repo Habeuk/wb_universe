@@ -1,5 +1,4 @@
 <?php
-
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\wb_universe\ThemeSettings;
@@ -21,7 +20,8 @@ function wb_universe_preprocess_html(&$variables) {
   $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
   if ($variables['is_front']) {
     $_css[] = 'front-page';
-  } else {
+  }
+  else {
     $_css[] = 'not-front-page';
   }
   if (!empty($_css)) {
@@ -85,11 +85,11 @@ function wb_universe_preprocess_page(&$variables) {
   if (!$class) {
     $class = theme_get_setting('wb_universe_pages.views.' . ThemeSettings::getValidKeyForConfig($routeName));
   }
-
+  
   if ($class) {
     $variables["attributes_container"] = $class;
   }
-
+  
   /**
    * Build layouts
    */
@@ -151,9 +151,11 @@ function wb_universe_preprocess_field(&$variables) {
               if (empty($value['content']['#options']['attributes']['class']))
                 $value['content']['#options']['attributes']['class'] = [];
               $value['content']['#options']['attributes']['class'] += $value['attributes']->toArray()["class"];
-            } else
+            }
+            else
               $value['content']['#options']['attributes']->merge($value['attributes']);
-          } else {
+          }
+          else {
             $value['content']['#options']['attributes'] = $value['attributes']->toArray();
           }
         }
@@ -167,12 +169,11 @@ function wb_universe_preprocess_field(&$variables) {
       $variables['items'][$key]['attributes']->addClass('btn');
       $variables['items'][$key]['attributes']->addClass('btn-outline-primary');
     }
-  } elseif ($variables['field_type'] == 'image') {
-    foreach ($variables['items'] as &$item) {
-      if (is_object($item['attributes']))
-        $item['attributes']->addClass('img-fluid');
-    }
   }
+}
+
+function wb_universe_preprocess_image(&$variables) {
+  $variables['attributes']['class'][] = 'img-fluid';
 }
 
 /**
@@ -186,7 +187,8 @@ function wb_universe_preprocess_input__submit(&$variables) {
   ];
   if (!empty($variables['element']['#button_type']) && $variables['element']['#button_type'] == 'primary') {
     $class[] = 'btn-primary';
-  } else {
+  }
+  else {
     $class[] = 'btn-outline-secondary';
   }
   if (!empty($variables['attributes'])) {
@@ -194,7 +196,8 @@ function wb_universe_preprocess_input__submit(&$variables) {
       if (!in_array('btn', $variables['attributes']['class']))
         $variables['attributes']['class'] = $class;
     }
-  } else {
+  }
+  else {
     $variables['attributes']['class'] = $class;
   }
 }
@@ -205,7 +208,8 @@ function wb_universe_preprocess_menu_local_task(&$variables) {
    */
   if (isset($variables['link']['#options']['attributes'])) {
     $variables['link']['#options']['Attributes']['class'][] = 'nav-link';
-  } else {
+  }
+  else {
     $variables['link']['#options']['attributes'] = [
       'class' => [
         'nav-link'
@@ -253,18 +257,11 @@ function wb_universe_preprocess_pager(&$variables) {
  * @param array $variables
  */
 function wb_universe_preprocess_input(&$variables) {
-  $control_inputs = [
-    'email',
-    'textfield',
-    'number',
-    'select',
-    'checkbox',
-    'checkboxes',
-    'radio',
-    'radios'
-  ];
-  if (in_array($variables['element']['#type'], $control_inputs)) {
+  if (in_array($variables['element']['#type'], ThemeSettings::$control_inputs)) {
     $variables['attributes']['class'][] = 'form-control';
+  }
+  elseif (in_array($variables['element']['#type'], ThemeSettings::$check_inputs)) {
+    $variables['attributes']['class'][] = 'form-check-input';
   }
 }
 
@@ -279,29 +276,30 @@ function wb_universe_preprocess_textarea(&$variables) {
 
 function wb_universe_preprocess_form_element(&$variables) {
   if (!empty($variables["element"]["#type"])) {
-    $inputs = [
-      'textfield',
-      'email',
-      "textarea",
-      "select",
-      "checkbox",
-      "checkboxes",
-      "radios"
-    ];
-    if ($variables['element']['#type'] == 'checkbox') {
-      if (!empty($variables["label"]["#children"])) {
-        $variables["children"] = new FormattableMarkup($variables["label"]["#children"], []);
-        $variables["label"]['#attributes']['class'][] = 'custom-control-label';
-        unset($variables["label"]["#children"]);
-      }
-    } elseif (in_array($variables["element"]["#type"], $inputs)) {
-      // On ajoute la possiblité d'ajouter des class provenant de la
-      // configuration du theme.
-      $wb_universe_forms = theme_get_setting('wb_universe_forms');
-      if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
-        $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
+    // if ($variables['element']['#type'] == 'checkbox') {
+    // if (!empty($variables["label"]["#children"])) {
+    // $variables["children"] = new
+    // FormattableMarkup($variables["label"]["#children"], []);
+    // $variables["label"]['#attributes']['class'][] = 'custom-control-label';
+    // unset($variables["label"]["#children"]);
+    // }
+    // }
+    
+    // On ajoute la possiblité d'ajouter des class provenant de la
+    // configuration du theme.
+    $wb_universe_forms = theme_get_setting('wb_universe_forms');
+    if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
+      $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
+    // On ajoute les class sur les labels
+    if (in_array($variables['element']['#type'], ThemeSettings::$control_inputs)) {
+      $variables['label']['#attributes']['class'][] = 'form-label';
+    }
+    elseif (in_array($variables['element']['#type'], ThemeSettings::$check_inputs)) {
+      $variables['label']['#attributes']['class'][] = 'form-check-label';
     }
   }
+  // Le formatteur du label ne contient pas de type, on le passe à ce niveau.
+  $variables['label']['#type_custom'] = $variables["element"]["#type"];
 }
 
 /**
@@ -323,7 +321,8 @@ function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $f
         if ('actions' == $field_input) {
           $form[$field_input]['submit']['#attributes']['class'][] = 'btn btn-primary';
           $form[$field_input]['submit']['#attributes']['class'][] = 'btn-lg';
-        } else {
+        }
+        else {
           // if ($form[$field_input]['#type'] !== 'radios') {
           // }
           $form[$field_input]['#attributes']['class'][] = $class;

@@ -6,6 +6,22 @@ use Symfony\Component\Routing\RouteCollection;
 
 class ThemeSettings {
   /**
+   *
+   * @var array
+   */
+  public static $control_inputs = [
+    'email',
+    'textfield',
+    'number',
+    'select'
+  ];
+  public static $check_inputs = [
+    'checkbox',
+    'checkboxes',
+    'radio',
+    'radios'
+  ];
+  /**
    * Valeur definie dans le hook_preprocess_page et permet par la suite dans les
    * hook en dessous de savoir s'il ya une sidebar ou pas.
    *
