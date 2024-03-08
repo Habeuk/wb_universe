@@ -68,7 +68,6 @@
  */
 #}
 <article{{ attributes }}>
-
   {{ title_prefix }}
   {% if label and not page %}
     <h2{{ title_attributes }}>
@@ -86,9 +85,7 @@
       </div>
     </footer>
   {% endif %}
-
   <div{{ content_attributes }}>
     {{ content }}
   </div>
-
 </article>
