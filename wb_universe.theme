@@ -11,6 +11,16 @@ use Drupal\Core\Render\Element;
  * @param array $variables
  */
 function wb_universe_preprocess_html(&$variables) {
+  $paramettres = \Drupal::routeMatch()->getParameters()->keys();
+  if (!empty($variables['attributes']['class'])) {
+    $variables['attributes']['class'] = [
+      ...$variables['attributes']['class'],
+      ...$paramettres
+    ];
+  }
+  else
+    $variables['attributes']['class'] = $paramettres;
+  
   $_css = [];
   $uid = \Drupal::currentUser()->id();
   if ($uid && \Drupal\user\Entity\User::load($uid)->hasRole('administrator')) {
@@ -71,7 +81,6 @@ function wb_universe_preprocess_html(&$variables) {
  * Implement hook_preprocess_page
  */
 function wb_universe_preprocess_page(&$variables) {
-  // MdbootstrapWbu::wbupreprocess_page($variables);
   $routeName = \Drupal::routeMatch()->getRouteName();
   /**
    * wb_universe_pages:
