@@ -13,7 +13,8 @@ class ThemeSettings {
     'email',
     'textfield',
     'number',
-    'select'
+    'select',
+    'search_api_autocomplete'
   ];
   public static $check_inputs = [
     'checkbox',

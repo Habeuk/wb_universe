@@ -23,7 +23,7 @@
   We call a macro which calls itself to render the full tree.
   @see https://twig.symfony.com/doc/3.x/tags/macro.html
 #}
-{% import '@wb_universe/menu.html.twig' as menu %}
+{% import '@wb_universe/navigation/menu.html.twig' as menu %}
 
 {{ menu.menu_links(items, attributes, 0) }}
 
