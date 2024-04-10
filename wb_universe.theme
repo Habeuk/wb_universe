@@ -115,6 +115,43 @@ function wb_universe_preprocess_page(&$variables) {
 }
 
 /**
+ *
+ * @param
+ *        $variables
+ */
+function wb_universe_preprocess_fieldset(&$variables) {
+  /**
+   * Recuperer les classes passée aux niveaux hook_form_alter et les ajouter.
+   */
+  // Class pour le titre.
+  if (!empty($variables['element']['#legend'])) {
+    /**
+     *
+     * @var Drupal\Core\Template\Attribute $attribute
+     */
+    $attribute = $variables['legend']['attributes'];
+    if (!empty($variables['element']['#legend']['attributes']))
+      foreach ($variables['element']['#legend']['attributes'] as $k => $value) {
+        $attribute->setAttribute($k, $value);
+      }
+    $variables['legend']['attributes'] = $attribute;
+    //
+    if (!empty($variables['children'])) {
+      $variables['children'] = [
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => [
+          'class' => [
+            ""
+          ]
+        ],
+        '#value' => $variables['children']
+      ];
+    }
+  }
+}
+
+/**
  * implement hook_page_attachments_alter
  *
  * @param array $attachments
@@ -211,12 +248,21 @@ function wb_universe_preprocess_input__submit(&$variables) {
   }
 }
 
+function wb_universe_preprocess_menu_local_action(&$variables) {
+  /**
+   * $variables['link']['#options']['Attributes'] must be array.
+   */
+  if (isset($variables['link']['#options']['attributes'])) {
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link';
+  }
+}
+
 function wb_universe_preprocess_menu_local_task(&$variables) {
   /**
    * $variables['link']['#options']['Attributes'] must be array.
    */
   if (isset($variables['link']['#options']['attributes'])) {
-    $variables['link']['#options']['Attributes']['class'][] = 'nav-link';
+    $variables['link']['#options']['attributes']['class'][] = 'nav-link';
   }
   else {
     $variables['link']['#options']['attributes'] = [
@@ -342,13 +388,33 @@ function wb_universe_form_views_exposed_form_alter(&$form, FormStateInterface $f
   }
 }
 
+/**
+ * SUggestion pour les menus.
+ *
+ * @param array $suggestions
+ * @param array $variables
+ */
 function wb_universe_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
   if (!empty($variables['menu_name'])) {
-    $suggestion = theme_get_setting('hbk_cforge_menu_display.' . $variables['menu_name'] . '.template');
+    $suggestion = theme_get_setting('wb_universe_menus.' . $variables['menu_name'] . '.template');
     if ($suggestion) {
       $suggestions[] = 'menu__' . $suggestion;
     }
   }
+}
+
+/**
+ * Suggestion pour les vues.
+ * (besoin de base : On a besoin de pouvoir formatter de facon precise la vue du
+ * panier).
+ */
+function wb_universe_theme_suggestions_views_view_table_alter(array &$suggestions, array $variables) {
+  /**
+   *
+   * @var \Drupal\views\ViewExecutable $view
+   */
+  $view = $variables['view'];
+  $suggestions[] = 'views_view_table__' . $view->id();
 }
 
 /**

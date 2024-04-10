@@ -36,10 +36,10 @@
     'cols-' ~ header|length,
     responsive ? 'responsive-enabled',
     sticky ? 'sticky-enabled',
-    'w-100'
+    'w-100',
   ]
 %}
-<div class="table-responsive col">
+<div class="table-responsive col commerce-cart-form">
 <table{{ attributes.addClass(classes) }}>
   {% if caption_needed %}
     <caption>
@@ -54,7 +54,7 @@
     </caption>
   {% endif %}
   {% if header %}
-    <thead>
+    <thead class="h5 mb-0">
       <tr>
         {% for key, column in header %}
           {% if column.default_classes %}
@@ -62,6 +62,7 @@
               set column_classes = [
                 'views-field',
                 'views-field-' ~ fields[key],
+                'py-3'
               ]
             %}
           {% endif %}
