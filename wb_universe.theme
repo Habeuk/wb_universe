@@ -351,6 +351,7 @@ function wb_universe_preprocess_form_element(&$variables) {
     }
     elseif (in_array($variables['element']['#type'], ThemeSettings::$check_inputs)) {
       $variables['label']['#attributes']['class'][] = 'form-check-label';
+      $variables['attributes']['class'][] = 'form-check';
     }
   }
   // Le formatteur du label ne contient pas de type, on le passe à ce niveau.
