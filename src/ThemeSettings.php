@@ -14,7 +14,8 @@ class ThemeSettings {
     'textfield',
     'number',
     'select',
-    'search_api_autocomplete'
+    'search_api_autocomplete',
+    'phone_international'
   ];
   public static $check_inputs = [
     'checkbox',

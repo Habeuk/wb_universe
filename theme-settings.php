@@ -193,6 +193,11 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#title' => t('Container input type number'),
     '#default_value' => theme_get_setting('wb_universe_forms.number')
   ];
+  $form['wb_universe_forms']["phone_international"] = [
+    '#type' => 'textfield',
+    '#title' => t('Container input type phone_international'),
+    '#default_value' => theme_get_setting('wb_universe_forms.phone_international')
+  ];
   $form['wb_universe_forms']["views_exposed_form"] = [
     '#type' => 'details',
     '#title' => t('views_exposed_form'),

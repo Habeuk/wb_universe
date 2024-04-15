@@ -22,8 +22,8 @@ regions:
   call_to_action: "Call to action"
   footer: "Footer"
 
-#libraries-override:
-#  bootstrap_barrio/global-styling: false
+libraries-override:
+  address/form: false
 #  bootstrap_barrio/comments: false
 #  bootstrap_barrio/node: false
 #  bootstrap_styles/plugin.background_media.build: false

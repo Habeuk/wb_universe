@@ -321,6 +321,14 @@ function wb_universe_preprocess_input(&$variables) {
 }
 
 /**
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_input__tel(&$variables) {
+  $variables['attributes']['class'][] = 'form-control';
+}
+
+/**
  * Implement hook_form_alter
  *
  * @param array $variables
@@ -355,7 +363,18 @@ function wb_universe_preprocess_form_element(&$variables) {
     }
   }
   // Le formatteur du label ne contient pas de type, on le passe à ce niveau.
-  $variables['label']['#type_custom'] = $variables["element"]["#type"];
+  // ( plus necessaire car on formatte le label à ce niveau ).
+  // $variables['label']['#type_custom'] = $variables["element"]["#type"];
+  // dump($variables);
+  /**
+   * On a des cas assez rar, ou on souhaite passé les classes à partir de
+   * l'enfant.
+   * Example : le formattage du champs adresse.
+   * On va utiliser #class_wrappers
+   */
+  if (!empty($variables['element']['#class_wrappers'])) {
+    $variables['attributes']['class'][] = $variables['element']['#class_wrappers'];
+  }
 }
 
 /**
