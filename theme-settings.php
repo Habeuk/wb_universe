@@ -148,56 +148,22 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#group' => 'wb_universe',
     '#tree' => true
   ];
-  $form['wb_universe_forms']["textfield"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type textfield'),
-    '#default_value' => theme_get_setting('wb_universe_forms.textfield')
-  ];
-  $form['wb_universe_forms']["email"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type email'),
-    '#default_value' => theme_get_setting('wb_universe_forms.email')
-  ];
-  $form['wb_universe_forms']["textarea"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type textarea'),
-    '#default_value' => theme_get_setting('wb_universe_forms.textarea')
-  ];
-  $form['wb_universe_forms']["select"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type select'),
-    '#default_value' => theme_get_setting('wb_universe_forms.select')
-  ];
-  $form['wb_universe_forms']["checkbox"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type checkbox'),
-    '#default_value' => theme_get_setting('wb_universe_forms.checkbox')
-  ];
-  $form['wb_universe_forms']["checkboxes"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type checkboxes'),
-    '#default_value' => theme_get_setting('wb_universe_forms.checkboxes')
-  ];
-  $form['wb_universe_forms']["radios"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type radios'),
-    '#default_value' => theme_get_setting('wb_universe_forms.radios')
-  ];
-  $form['wb_universe_forms']["radio"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type radio'),
-    '#default_value' => theme_get_setting('wb_universe_forms.radio')
-  ];
-  $form['wb_universe_forms']["number"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type number'),
-    '#default_value' => theme_get_setting('wb_universe_forms.number')
-  ];
-  $form['wb_universe_forms']["phone_international"] = [
-    '#type' => 'textfield',
-    '#title' => t('Container input type phone_international'),
-    '#default_value' => theme_get_setting('wb_universe_forms.phone_international')
-  ];
+  foreach (ThemeSettings::$control_inputs as $type) {
+    $form['wb_universe_forms'][$type] = [
+      '#type' => 'textfield',
+      '#title' => t('Container input type : ' . $type),
+      '#default_value' => theme_get_setting('wb_universe_forms.' . $type)
+    ];
+  }
+  foreach (ThemeSettings::$check_inputs as $type) {
+    $form['wb_universe_forms'][$type] = [
+      '#type' => 'textfield',
+      '#title' => t('Container input type : ' . $type),
+      '#default_value' => theme_get_setting('wb_universe_forms.' . $type)
+    ];
+  }
+  
+  //
   $form['wb_universe_forms']["views_exposed_form"] = [
     '#type' => 'details',
     '#title' => t('views_exposed_form'),
