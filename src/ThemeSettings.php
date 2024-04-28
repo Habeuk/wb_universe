@@ -16,7 +16,8 @@ class ThemeSettings {
     'select',
     'search_api_autocomplete',
     'phone_international',
-    'password'
+    'password',
+    'entity_autocomplete'
   ];
   public static $check_inputs = [
     'checkbox',
