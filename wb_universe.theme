@@ -62,19 +62,6 @@ function wb_universe_preprocess_html(&$variables) {
       'google-analytics-gtag-value'
     ];
   }
-  // Ajout du script pour skripe v3 ( on doit mettre une variable pour
-  // conditionner l'affichage et gerer la version ).
-  $scriptStripe = [
-    '#tag' => 'script',
-    '#attributes' => [
-      'async' => "async",
-      'src' => 'https://js.stripe.com/v3/'
-    ]
-  ];
-  $variables['page']['#attached']['html_head'][] = [
-    $scriptStripe,
-    'stripe-api-js'
-  ];
 }
 
 /**
