@@ -175,25 +175,29 @@ function wb_universe_preprocess_field(&$variables) {
    * content_attributes ( add by formatage_models ) et ajouter au niveau de la
    * balise <a>.
    */
-  elseif ($variables['field_type'] == 'link') {
-    if ($variables['content_attributes'])
-      foreach ($variables['items'] as &$value) {
-        if (!empty($value['attributes'])) {
-          if (!empty($value['content']['#options']['attributes'])) {
-            if (is_array($value['content']['#options']['attributes'])) {
-              if (empty($value['content']['#options']['attributes']['class']))
-                $value['content']['#options']['attributes']['class'] = [];
-              $value['content']['#options']['attributes']['class'] += $value['attributes']->toArray()["class"];
-            }
-            else
-              $value['content']['#options']['attributes']->merge($value['attributes']);
-          }
-          else {
-            $value['content']['#options']['attributes'] = $value['attributes']->toArray();
-          }
-        }
-      }
-  }
+  // On masque ceci car en ajoutant, car on a ajouté un nouveau champs dans la
+  // config, pour gerer le content.
+  // elseif ($variables['field_type'] == 'link') {
+  // if ($variables['content_attributes'])
+  // foreach ($variables['items'] as &$value) {
+  // if (!empty($value['attributes'])) {
+  // if (!empty($value['content']['#options']['attributes'])) {
+  // if (is_array($value['content']['#options']['attributes'])) {
+  // if (empty($value['content']['#options']['attributes']['class']))
+  // $value['content']['#options']['attributes']['class'] = [];
+  // $value['content']['#options']['attributes']['class'] +=
+  // $value['attributes']->toArray()["class"];
+  // }
+  // else
+  // $value['content']['#options']['attributes']->merge($value['attributes']);
+  // }
+  // else {
+  // $value['content']['#options']['attributes'] =
+  // $value['attributes']->toArray();
+  // }
+  // }
+  // }
+  // }
   /**
    * for node link
    */
