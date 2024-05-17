@@ -2,5 +2,7 @@
 /vendor/
 /logs/
 /defaultfile/
+wbu-atomique-theme
+wbu-atomique-theme/
 package-lock.json
 
