@@ -3,6 +3,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\wb_universe\ThemeSettings;
 use Drupal\Core\Render\Element;
+use Drupal\wb_universe\Handler\MailStyles;
 
 /**
  * Use this fonction on module to alert meta data
@@ -62,6 +63,13 @@ function wb_universe_preprocess_html(&$variables) {
       'google-analytics-gtag-value'
     ];
   }
+}
+
+/**
+ * Implement hook_preprocess_mimemail_message
+ */
+function wb_universe_preprocess_mimemail_message(array &$variables) {
+  MailStyles::formatter($variables);
 }
 
 /**
