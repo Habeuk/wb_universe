@@ -27,6 +27,17 @@ class MailStyles {
    * en dessous de celui du theme.
    */
   protected static function buildHeader(array &$variables) {
+    $subject = $variables['subject'];
+    $variables['header'][] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h3',
+      '#value' => $subject,
+      '#attributes' => [
+        'class' => [
+          'mb-0'
+        ]
+      ]
+    ];
     if (!empty($variables['header'])) {
       $externeHeader = $variables['header'];
       $variables['header'] = [
