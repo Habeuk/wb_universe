@@ -42,7 +42,7 @@ function wb_universe_preprocess_html(&$variables) {
     $scriptUrl = [
       '#tag' => 'script',
       '#attributes' => [
-        'async',
+        'async' => 'async',
         'src' => 'https://www.googletagmanager.com/gtag/js?id=' . $IdAnalytique
       ]
     ];
@@ -61,6 +61,42 @@ function wb_universe_preprocess_html(&$variables) {
     $variables['page']['#attached']['html_head'][] = [
       $scriptInit,
       'google-analytics-gtag-value'
+    ];
+  }
+  if ($facebookApiId = theme_get_setting('facebook-api-id')) {
+    $languageId = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    if (!$languageId)
+      $languageId = 'fr';
+    $scriptUrl = [
+      '#tag' => 'script',
+      '#attributes' => [
+        'async' => 'async',
+        'defer' => 'defer',
+        'src' => 'https://connect.facebook.net/' . $languageId . '/sdk.js',
+        'crossorigin' => 'anonymous'
+      ]
+    ];
+    $scriptInit = [
+      '#tag' => 'script',
+      '#value' => " window.fbAsyncInit = function() {
+                FB.init({
+                  appId            : $facebookApiId,
+                  xfbml            : true,
+                  version          : 'v19.0'
+                });
+                // Permet de detecter le chargement de facebook.
+                var event = new CustomEvent('hbk_fbInit');
+                document.dispatchEvent(event);
+              };
+            "
+    ];
+    $variables['page']['#attached']['html_head'][] = [
+      $scriptUrl,
+      'facebook-url'
+    ];
+    $variables['page']['#attached']['html_head'][] = [
+      $scriptInit,
+      'facebook-init'
     ];
   }
 }

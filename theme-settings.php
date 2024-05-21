@@ -19,6 +19,12 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#default_value' => theme_get_setting('google-analytics-gtag'),
     '#weight' => -40
   ];
+  $form['facebook-api-id'] = [
+    '#type' => 'textfield',
+    '#title' => 'Facebook api id',
+    '#default_value' => theme_get_setting('facebook-api-id'),
+    '#weight' => -40
+  ];
   // Vertical tabs.
   $form['wb_universe'] = [
     '#type' => 'vertical_tabs',
