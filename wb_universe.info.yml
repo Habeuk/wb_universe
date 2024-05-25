@@ -3,13 +3,8 @@ type: theme
 description: "Ce theme format le rendu afin que le html generer soit compatible avec la librarie bootstrap 5. Build by habeuk.com"
 core_version_requirement: ^9 || ^10
 base theme: stable9
-dependencies:
-  - drupal:pathauto
-  - drupal:admin_toolbar
-
 screenshot: wb_universe.png
 logo: logo.png
-
 regions:
   top_header: "Top header"
   header: "header"
@@ -21,7 +16,6 @@ regions:
   after_content: "afterContent"
   call_to_action: "Call to action"
   footer: "Footer"
-
 libraries-override:
   address/form: false
 #  bootstrap_barrio/comments: false
