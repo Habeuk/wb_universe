@@ -89,6 +89,25 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     '#options' => ThemeSettings::getTypesContainer(),
     '#default_value' => theme_get_setting('wb_universe_pages.terms.' . $key_term)
   ];
+  
+  /**
+   * Pour l'instant, on a aucun cas contrait qui necessite que l'on surcharge
+   * separement les classes.
+   */
+  // $routes = ThemeSettings::getRoutesForUser();
+  
+  $form['wb_universe_pages']["user"] = [
+    '#type' => 'details',
+    '#title' => t('Pages user'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE
+  ];
+  $form['wb_universe_pages']['user']['user_all'] = [
+    '#type' => 'select',
+    '#title' => 'Select container : for all route like "user."',
+    '#options' => ThemeSettings::getTypesContainer(),
+    '#default_value' => theme_get_setting('wb_universe_pages.user.user_all')
+  ];
   /**
    * --.
    */
@@ -168,6 +187,7 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
       '#default_value' => theme_get_setting('wb_universe_forms.' . $type)
     ];
   }
+  // le cas
   
   //
   $form['wb_universe_forms']["views_exposed_form"] = [

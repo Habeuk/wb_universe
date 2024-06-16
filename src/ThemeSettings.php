@@ -7,6 +7,7 @@ use Symfony\Component\Routing\RouteCollection;
 class ThemeSettings {
   
   /**
+   * Les types de champs qui ont besoin "form-control".
    *
    * @var array
    */
@@ -18,10 +19,14 @@ class ThemeSettings {
     'search_api_autocomplete',
     'phone_international',
     'password',
-    'entity_autocomplete'
+    'entity_autocomplete',
+    'managed_file',
+    'file'
+    // 'submit' ne doit pas etre ici, car il na pas besoin de form-control.
   ];
   
   /**
+   * Les types de champs qui ont besoins de "form-check-input".
    *
    * @var array
    */
@@ -90,6 +95,21 @@ class ThemeSettings {
      */
     $router = \Drupal::service('router.route_provider');
     $routeCollection = self::getRouteByName("search.view%");
+    return $routeCollection->all();
+  }
+  
+  /**
+   * Retourne les routes liées à la recherche.
+   *
+   * @return array|\Symfony\Component\Routing\array<string,
+   */
+  public static function getRoutesForUser() {
+    /**
+     *
+     * @var \Drupal\Core\Routing\RouteProvider $router
+     */
+    $router = \Drupal::service('router.route_provider');
+    $routeCollection = self::getRouteByName("user.%");
     return $routeCollection->all();
   }
   

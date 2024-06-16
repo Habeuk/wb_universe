@@ -146,6 +146,16 @@ function wb_universe_preprocess_page(&$variables) {
 }
 
 /**
+ * Implement hook_preprocess_page
+ */
+function wb_universe_preprocess_page__user(&$variables) {
+  $class = theme_get_setting('wb_universe_pages.user.user_all');
+  if ($class) {
+    $variables["attributes_container"] = $class;
+  }
+}
+
+/**
  *
  * @param
  *        $variables
@@ -365,6 +375,10 @@ function wb_universe_preprocess_input__tel(&$variables) {
   $variables['attributes']['class'][] = 'form-control';
 }
 
+function wb_universe_preprocess_image_widget(&$vars) {
+  $vars['attributes']['class'][] = 'd-flex';
+}
+
 /**
  * Implement hook_form_alter
  *
@@ -398,7 +412,12 @@ function wb_universe_preprocess_form_element(&$variables) {
       $variables['label']['#attributes']['class'][] = 'form-check-label';
       $variables['attributes']['class'][] = 'form-check';
     }
+    if (!empty($variables["description"]["attributes"])) {
+      if ($variables["description"]["attributes"] instanceof \Drupal\Core\Template\Attribute)
+        $variables["description"]["attributes"]->addClass('small text-secondary fst-italic opacity-75');
+    }
   }
+  
   // Le formatteur du label ne contient pas de type, on le passe à ce niveau.
   // ( plus necessaire car on formatte le label à ce niveau ).
   // $variables['label']['#type_custom'] = $variables["element"]["#type"];
