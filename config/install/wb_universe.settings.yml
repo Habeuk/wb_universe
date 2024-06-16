@@ -1,9 +1,88 @@
-# Default settings of wb_universe theme.
 general_settings:
-  load_bootstrap: true
-  grid:
-    content_css: "container"
-    content_css_home: ""
-    content_css_taxo: ""
+  load_bootstrap: 0
 stripe_settings:
-  load_stripe: false
+  load_stripe: 0
+google-analytics-gtag: ''
+facebook-api-id: ''
+wb_universe_pages:
+  search:
+    search-view: ''
+    search-view_help_search: ''
+    search-view_node_search: ''
+    search-view_user_search: ''
+  views:
+    view-frontpage-feed_1: ''
+    view-frontpage-page_1: ''
+    view-taxonomy_term-feed_1: ''
+    view-taxonomy_term-page_render_1: ''
+  terms:
+    entity-taxonomy_term-canonical: container
+  user:
+    user_all: 'width-tablet mx-auto'
+wb_universe_layout:
+  sidebar_left:
+    show: 0
+    class: ''
+  sidebar_right:
+    show: 0
+    class: ''
+  content:
+    class: ''
+wb_universe_forms:
+  email: mb-4
+  textfield: mb-4
+  number: mb-4
+  select: mb-4
+  search_api_autocomplete: mb-4
+  phone_international: 'mb-4  d-flex flex-column '
+  password: 'mb-4 '
+  entity_autocomplete: mb-4
+  managed_file: mb-4
+  file: mb-4
+  date: mb-4
+  checkbox: mb-4
+  checkboxes: mb-4
+  radio: mb-4
+  radios: mb-4
+  views_exposed_form:
+    class: ''
+wb_universe_menus:
+  account:
+    template: ''
+    class_menu: ''
+  admin:
+    template: ''
+    class_menu: ''
+  footer:
+    template: ''
+    class_menu: ''
+  information-sur-la-boutique:
+    template: ''
+    class_menu: navbar-nav
+  main:
+    template: ''
+    class_menu: navbar-nav
+  tools:
+    template: ''
+    class_menu: ''
+wb_universe_regions:
+  top_header:
+    class_region: ''
+  header:
+    class_region: ''
+  hero_slider:
+    class_region: ''
+  sidebar_left:
+    class_region: ''
+  sidebar_right:
+    class_region: ''
+  before_content:
+    class_region: container
+  content:
+    class_region: ''
+  after_content:
+    class_region: ''
+  call_to_action:
+    class_region: ''
+  footer:
+    class_region: ''  
