@@ -5,6 +5,7 @@ namespace Drupal\wb_universe;
 use Symfony\Component\Routing\RouteCollection;
 
 class ThemeSettings {
+  
   /**
    *
    * @var array
@@ -19,12 +20,18 @@ class ThemeSettings {
     'password',
     'entity_autocomplete'
   ];
+  
+  /**
+   *
+   * @var array
+   */
   public static $check_inputs = [
     'checkbox',
     'checkboxes',
     'radio',
     'radios'
   ];
+  
   /**
    * Valeur definie dans le hook_preprocess_page et permet par la suite dans les
    * hook en dessous de savoir s'il ya une sidebar ou pas.
@@ -116,5 +123,4 @@ class ThemeSettings {
     }
     return $collection;
   }
-  
 }

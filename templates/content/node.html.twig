@@ -67,7 +67,14 @@
  *
  */
 #}
-<article{{attributes}}>
+{%
+    set classes = [
+        theme_hook_original,
+        view_mode,
+        label['#bundle'],
+    ]
+%}
+<article{{ attributes.addClass(classes) }}>
 	{{ title_prefix }}
 	{% if label and not page and display_submitted%}
 		<h2{{title_attributes}}>
@@ -88,7 +95,7 @@
 			</div>
 		</footer>
 	{% endif %}
-	<div{{content_attributes}}>
+	<div{{content_attributes.addClass('article-content')}}>
 		{{ content }}
 	</div>
 </article>

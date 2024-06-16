@@ -312,9 +312,11 @@ function wb_universe_preprocess_menu_local_task(&$variables) {
  * Implements hook_preprocess_HOOK() menu__main
  */
 function wb_universe_preprocess_menu(&$variables) {
-  $class_menu = theme_get_setting('wb_universe_menus.' . $variables['menu_name'] . 'class_menu');
-  if (!empty($class_menu))
-    $variables['attributes']['class'][] = $class_menu;
+  if (!empty($variables['menu_name'])) {
+    $class_menu = theme_get_setting('wb_universe_menus.' . $variables['menu_name'] . '.class_menu');
+    if (!empty($class_menu))
+      $variables['attributes']['class'][] = $class_menu;
+  }
 }
 
 /**
@@ -470,6 +472,17 @@ function wb_universe_theme_suggestions_views_view_table_alter(array &$suggestion
    */
   $view = $variables['view'];
   $suggestions[] = 'views_view_table__' . $view->id();
+}
+
+/**
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_region(&$vars) {
+  $class_region = theme_get_setting('wb_universe_regions.' . $vars["region"] . '.class_region');
+  if (!empty($class_region)) {
+    $vars['attributes']['class'][] = $class_region;
+  }
 }
 
 /**

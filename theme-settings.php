@@ -187,11 +187,11 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
   ];
   
   /**
-   * --.
+   * Menus
    */
   $menus = \Drupal\system\Entity\Menu::loadMultiple();
   $tempaltes_menus = [
-    '' => t('Default (vertical align)'),
+    '' => t('None (Defaut)'),
     'menu_horizontal' => t('Horizontal menu')
   ];
   $form['wb_universe_menus'] = [
@@ -205,20 +205,44 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
     $id = $menu->id();
     $form['wb_universe_menus'][$id] = [
       '#type' => 'details',
-      '#title' => $menu->label(),
-      '#options' => $tempaltes_menus,
-      '#default_value' => theme_get_setting('wb_universe_menus.' . $id)
+      '#title' => $menu->label()
     ];
     $form['wb_universe_menus'][$id]['template'] = [
       '#type' => 'select',
-      '#title' => 'Template',
+      '#title' => 'Selectionner un template',
       '#options' => $tempaltes_menus,
       '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.template')
     ];
     $form['wb_universe_menus'][$id]['class_menu'] = [
       '#type' => 'textfield',
       '#title' => "Class menu",
-      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.class_menu')
+      '#default_value' => theme_get_setting('wb_universe_menus.' . $id . '.class_menu'),
+      '#description' => "Ajouter la class 'navbar-nav' afin d'avoir un menu vertical"
     ];
   }
+  
+  /**
+   * Regions
+   */
+  $form['wb_universe_regions'] = [
+    '#type' => 'details',
+    '#title' => t('Region class'),
+    '#description' => t(" Add custom class to region "),
+    '#group' => 'wb_universe',
+    '#tree' => true
+  ];
+  $regions = system_region_list('wb_universe');
+  if ($regions)
+    foreach ($regions as $key => $label) {
+      $form['wb_universe_regions'][$key] = [
+        '#type' => 'details',
+        '#title' => $label
+      ];
+      $form['wb_universe_regions'][$key]['class_region'] = [
+        '#type' => 'textfield',
+        '#title' => "Class region",
+        '#default_value' => theme_get_setting('wb_universe_regions.' . $key . '.class_region'),
+        '#description' => ""
+      ];
+    }
 }
