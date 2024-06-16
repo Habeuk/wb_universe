@@ -21,7 +21,8 @@ class ThemeSettings {
     'password',
     'entity_autocomplete',
     'managed_file',
-    'file'
+    'file',
+    'date'
     // 'submit' ne doit pas etre ici, car il na pas besoin de form-control.
   ];
   

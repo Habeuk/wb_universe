@@ -379,6 +379,10 @@ function wb_universe_preprocess_image_widget(&$vars) {
   $vars['attributes']['class'][] = 'd-flex';
 }
 
+function wb_universe_preprocess_file_managed_file(&$vars) {
+  $vars['attributes']['class'][] = 'd-flex';
+}
+
 /**
  * Implement hook_form_alter
  *
@@ -404,6 +408,11 @@ function wb_universe_preprocess_form_element(&$variables) {
     $wb_universe_forms = theme_get_setting('wb_universe_forms');
     if (!empty($wb_universe_forms[$variables["element"]["#type"]]))
       $variables['attributes']['class'][] = $wb_universe_forms[$variables["element"]["#type"]];
+    // On formatte directement les champs password utiliser dans
+    // password_confirm.
+    if (!empty($variables['name']) && ($variables['name'] == "pass[pass1]" || $variables['name'] == "pass[pass2]")) {
+      $variables['attributes']['class'][] = 'col-md-6 px-1 pe-md-3';
+    }
     // On ajoute les class sur les labels
     if (in_array($variables['element']['#type'], ThemeSettings::$control_inputs)) {
       $variables['label']['#attributes']['class'][] = 'form-label';
@@ -412,6 +421,13 @@ function wb_universe_preprocess_form_element(&$variables) {
       $variables['label']['#attributes']['class'][] = 'form-check-label';
       $variables['attributes']['class'][] = 'form-check';
     }
+    // le champs password_confirm est tres peu utiliser, on fait un formatage
+    // endur.
+    elseif ($variables['element']['#type'] == 'password_confirm') {
+      $variables['attributes']['class'][] = 'mb-4 row g-0 py-4 px-3 px-md-4 bg-light border';
+    }
+    
+    // formatage de la description des champs.
     if (!empty($variables["description"]["attributes"])) {
       if ($variables["description"]["attributes"] instanceof \Drupal\Core\Template\Attribute)
         $variables["description"]["attributes"]->addClass('small text-secondary fst-italic opacity-75');
