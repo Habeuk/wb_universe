@@ -1,0 +1,1 @@
+Contient les feuilles de styles css/js chargées automatiquement via NPM.

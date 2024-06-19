@@ -1,0 +1,1 @@
+import "@stephane888/wbu-atomique/scss/drupal/themes/wb_universe/hbk_tabs_dark.scss";

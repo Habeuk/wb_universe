@@ -10,6 +10,7 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
   if (isset($form_id)) {
     return;
   }
+  $form['#submit'][] = '_wb_universe_form_system_theme_settings_submit';
   Settings::generalSettings($form, $form_state);
   Settings::StripeSettings($form, $form_state);
   // MdbootstrapWbu::defineSetting($form, $form_state);
@@ -265,4 +266,65 @@ function wb_universe_form_system_theme_settings_alter(&$form, FormStateInterface
         '#description' => ""
       ];
     }
+  
+  /**
+   * Regions
+   */
+  $form['wb_universe_blocks'] = [
+    '#type' => 'details',
+    '#title' => t('Region blocks'),
+    '#description' => t("Allows you to customize the display of certain blocks"),
+    '#group' => 'wb_universe',
+    '#tree' => true
+  ];
+  $form['wb_universe_blocks']['local_tasks_block'] = [
+    '#type' => 'details',
+    '#title' => 'Configuration des "Onglets ou tabs"'
+  ];
+  $form['wb_universe_blocks']['local_tasks_block']['custom_class'] = [
+    '#type' => 'textfield',
+    '#title' => "Custom class",
+    '#default_value' => theme_get_setting('wb_universe_blocks.local_tasks_block.custom_class'),
+    '#description' => ""
+  ];
+  $form['wb_universe_blocks']['local_tasks_block']['template_class'] = [
+    '#type' => 'select',
+    '#title' => "Select template css",
+    '#default_value' => theme_get_setting('wb_universe_blocks.local_tasks_block.template_class'),
+    '#options' => [
+      '' => t('None'),
+      'wb_universe/hbk_tabs_dark' => 'Tabs dark',
+      'wb_universe/hbk_tabs_primary' => 'Tabs primary',
+      'wb_universe/hbk_tabs_secondary' => 'Tabs secondary',
+      'wb_universe/hbk_tabs_background' => 'Tabs background'
+    ]
+  ];
+  
+  /**
+   * Regions
+   */
+  $form['wb_universe_tables'] = [
+    '#type' => 'details',
+    '#title' => t('Config tables'),
+    '#description' => t("Allows you to configure tables"),
+    '#group' => 'wb_universe',
+    '#tree' => true
+  ];
+  $form['wb_universe_tables']['custom_class'] = [
+    '#type' => 'textfield',
+    '#title' => t("Custom class for tag table"),
+    '#default_value' => theme_get_setting('wb_universe_tables.custom_class'),
+    '#description' => ""
+  ];
+  $form['wb_universe_tables']["active_container"] = [
+    '#type' => 'checkbox',
+    '#title' => t('Enable container'),
+    '#default_value' => theme_get_setting('wb_universe_tables.active_container')
+  ];
+  $form['wb_universe_tables']['custom_class_container'] = [
+    '#type' => 'textfield',
+    '#title' => t("Custom class for container"),
+    '#default_value' => theme_get_setting('wb_universe_tables.custom_class_container'),
+    '#description' => ""
+  ];
 }
