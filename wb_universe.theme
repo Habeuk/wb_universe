@@ -4,6 +4,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\wb_universe\ThemeSettings;
 use Drupal\Core\Render\Element;
 use Drupal\wb_universe\Handler\MailStyles;
+use Drupal\wb_universe\Handler\Wb_universePreRender;
 
 /**
  * Use this fonction on module to alert meta data
@@ -143,6 +144,24 @@ function wb_universe_preprocess_page(&$variables) {
       ThemeSettings::$hasSideBar = true;
     }
   }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function wb_universe_element_info_alter(&$type) {
+  // Add a pre-render to status_messages to alter the placeholder markup.
+  if (isset($type['status_messages'])) {
+    // dd($type);
+    $type['status_messages']['#pre_render'][] = [
+      Wb_universePreRender::class,
+      'messagePlaceholder'
+    ];
+  }
+}
+
+function wb_universe_preprocess_status_messages(&$vars) {
+  \Stephane888\Debug\debugLog::symfonyDebug($vars, 'wb_universe_preprocess_status_messages', true);
 }
 
 /**
