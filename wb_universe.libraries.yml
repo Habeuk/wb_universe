@@ -12,3 +12,7 @@ stripe_v3:
     https://js.stripe.com/v3/: { preprocess: false, type: external, attributes:{async: true} }
   dependencies:
     - core/once
+    
+messages:
+  js:
+    js/messages.js: {}

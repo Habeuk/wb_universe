@@ -16,8 +16,13 @@ regions:
   after_content: "afterContent"
   call_to_action: "Call to action"
   footer: "Footer"
+
 libraries-override:
   address/form: false
 #  bootstrap_barrio/comments: false
 #  bootstrap_barrio/node: false
 #  bootstrap_styles/plugin.background_media.build: false
+
+libraries-extend:
+  core/drupal.message:
+    - wb_universe/messages
