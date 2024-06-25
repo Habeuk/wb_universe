@@ -344,19 +344,21 @@ function wb_universe_preprocess_image(&$variables) {
  * @param array $variables
  */
 function wb_universe_preprocess_input__submit(&$variables) {
-  $class = [
-    'btn'
-  ];
+  $class = ' btn ';
   if (!empty($variables['element']['#button_type']) && $variables['element']['#button_type'] == 'primary') {
-    $class[] = 'btn-primary';
+    $class .= ' btn-primary ';
   }
   else {
-    $class[] = 'btn-outline-secondary';
+    $class .= ' btn-outline-secondary ';
   }
+  // if (\Drupal::currentUser()->id() == 1)
+  // dump($variables['attributes']['class']);
   if (!empty($variables['attributes'])) {
     if (!empty($variables['attributes']['class'])) {
-      if (!in_array('btn', $variables['attributes']['class']))
-        $variables['attributes']['class'] = $class;
+      // si btn exite deja, alors on suppose que le button est geré ailleurs.
+      if (!in_array('btn', $variables['attributes']['class'])) {
+        $variables['attributes']['class'][] = $class;
+      }
     }
   }
   else {
