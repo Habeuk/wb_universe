@@ -441,6 +441,15 @@ function wb_universe_preprocess_input(&$variables) {
 }
 
 /**
+ * Implement hook_preprocess_HOOK
+ *
+ * @param array $variables
+ */
+function wb_universe_preprocess_select(&$variables) {
+  $variables['attributes']['class'][] = 'form-control w-auto';
+}
+
+/**
  *
  * @param array $variables
  */
