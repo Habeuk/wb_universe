@@ -39,6 +39,9 @@
     'w-100'
   ]
 %}
+{% if hbk_active_container %}
+<div class="{{ custom_class_container }}">
+{% endif %}
 <div class="table-responsive col">
 <table{{ attributes.addClass(classes) }}>
   {% if caption_needed %}
@@ -119,3 +122,6 @@
   </tbody>
 </table>
 </div>
+{% if hbk_active_container %}
+</div>
+{% endif %}

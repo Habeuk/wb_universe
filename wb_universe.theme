@@ -193,6 +193,12 @@ function wb_universe_preprocess_table(&$vars) {
   $vars['custom_class_container'] = theme_get_setting('wb_universe_tables.custom_class_container');
 }
 
+function wb_universe_preprocess_views_view_table(&$vars) {
+  $vars["attributes"]['class'][] = theme_get_setting('wb_universe_tables.custom_class');
+  $vars['hbk_active_container'] = theme_get_setting('wb_universe_tables.custom_class');
+  $vars['custom_class_container'] = theme_get_setting('wb_universe_tables.custom_class_container');
+}
+
 /**
  * Implement hook_preprocess_page
  */
