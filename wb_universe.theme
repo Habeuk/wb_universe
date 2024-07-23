@@ -83,7 +83,7 @@ function wb_universe_preprocess_html(&$variables) {
                 FB.init({
                   appId            : $facebookApiId,
                   xfbml            : true,
-                  version          : 'v19.0'
+                  version          : 'v20.0'
                 });
                 FB.AppEvents.logPageView();   
                 // Permet de detecter le chargement de facebook.
