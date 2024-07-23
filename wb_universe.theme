@@ -83,8 +83,9 @@ function wb_universe_preprocess_html(&$variables) {
                 FB.init({
                   appId            : $facebookApiId,
                   xfbml            : true,
-                  version          : 'v19.0'
+                  version          : 'v20.0'
                 });
+                FB.AppEvents.logPageView();   
                 // Permet de detecter le chargement de facebook.
                 var event = new CustomEvent('hbk_fbInit');
                 document.dispatchEvent(event);
@@ -165,7 +166,8 @@ function wb_universe_preprocess_page(&$variables) {
  * @param array $vars
  */
 function wb_universe_preprocess_status_messages(&$vars) {
- // \Stephane888\Debug\debugLog::symfonyDebug($vars, 'wb_universe_preprocess_status_messages', true);
+  // \Stephane888\Debug\debugLog::symfonyDebug($vars,
+  // 'wb_universe_preprocess_status_messages', true);
 }
 
 /**
