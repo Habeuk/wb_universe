@@ -25,7 +25,7 @@
 #}
 <div{{ attributes }}>
   {{ title_prefix }}
-  {% if name and not page and view_mode == 'default'  %}
+  {% if name and not page and view_mode == 'default' and not content._layout_builder  %}
     <h2><a href="{{ url }}">{{ name }}</a></h2>
   {% endif %}
   {{ title_suffix }}
