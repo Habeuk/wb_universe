@@ -26,3 +26,7 @@ libraries-override:
 libraries-extend:
   core/drupal.message:
     - wb_universe/messages
+# Information added by Drupal.org packaging script on 2024-09-13
+version: '4.2.13'
+project: 'wb_universe'
+datestamp: 1726218954
