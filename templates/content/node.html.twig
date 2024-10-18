@@ -76,7 +76,7 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 	{{ title_prefix }}
-	{% if label and not page and display_submitted%}
+	{% if label and not page and not content._layout_builder %}
 		<h2{{title_attributes}}>
 			<a href="{{ url }}" rel="bookmark">{{ label }}</a>
 		</h2>
