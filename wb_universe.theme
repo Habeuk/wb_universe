@@ -127,7 +127,7 @@ function wb_universe_preprocess_page(&$variables) {
   if (!$class) {
     $class = theme_get_setting('wb_universe_pages.views.' . ThemeSettings::getValidKeyForConfig($routeName));
   }
-  
+  //
   if ($class) {
     $variables["attributes_container"] = $class;
   }
@@ -148,18 +148,24 @@ function wb_universe_preprocess_page(&$variables) {
 }
 
 /**
- * Implements hook_element_info_alter().
+ *
+ * @param array $variables
  */
-// function wb_universe_element_info_alter(&$type) {
-// // Add a pre-render to status_messages to alter the placeholder markup.
-// // if (isset($type['status_messages'])) {
-// // // dd($type);
-// // $type['status_messages']['#pre_render'][] = [
-// // Wb_universePreRender::class,
-// // 'messagePlaceholder'
-// // ];
-// // }
-// }
+function wb_universe_preprocess_commerce_product_variation(&$variables) {
+  /**
+   *
+   * @var \Drupal\commerce_product\Entity\ProductVariation $product_variation_entity
+   */
+  $product_variation_entity = $variables['product_variation_entity'];
+  $variables['attributes'] = [
+    'class' => [
+      'commerce_product_variation',
+      'view_mode__' . $variables['elements']['#view_mode']
+    ],
+    'commerce_id' => $product_variation_entity->getProductId(),
+    'commerce_variant_id' => $product_variation_entity->id()
+  ];
+}
 
 /**
  *
