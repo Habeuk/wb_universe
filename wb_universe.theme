@@ -14,31 +14,26 @@ use Drupal\wb_universe\Handler\Wb_universePreRender;
  */
 function wb_universe_preprocess_html(&$variables) {
   $paramettres = \Drupal::routeMatch()->getParameters()->keys();
-  if (!empty($variables['attributes']['class'])) {
-    $variables['attributes']['class'] = [
-      ...$variables['attributes']['class'],
-      ...$paramettres
-    ];
-  }
-  else
-    $variables['attributes']['class'] = $paramettres;
-  
   $_css = [];
   $uid = \Drupal::currentUser()->id();
   if ($uid && \Drupal\user\Entity\User::load($uid)->hasRole('administrator')) {
     $_css[] = 'administrator';
   }
   // Add.
-  $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
-  if ($variables['is_front']) {
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
     $_css[] = 'front-page';
   }
   else {
     $_css[] = 'not-front-page';
   }
-  if (!empty($_css)) {
-    $variables['html_attributes']->setAttribute('class', $_css);
-  }
+  
+  $variables['html_attributes']->setAttribute('class', $_css);
+  $variables['attributes']['class'] = [
+    ...$variables['attributes']['class'],
+    ...$_css,
+    ...$paramettres
+  ];
+  
   if ($IdAnalytique = theme_get_setting('google-analytics-gtag')) {
     $scriptUrl = [
       '#tag' => 'script',
