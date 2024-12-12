@@ -28,11 +28,18 @@ function wb_universe_preprocess_html(&$variables) {
   }
   
   $variables['html_attributes']->setAttribute('class', $_css);
-  $variables['attributes']['class'] = [
-    ...$variables['attributes']['class'],
-    ...$_css,
-    ...$paramettres
-  ];
+  if (!empty($variables['attributes']['class'])) {
+    $variables['attributes']['class'] = [
+      ...$variables['attributes']['class'],
+      ...$_css,
+      ...$paramettres
+    ];
+  }
+  else
+    $variables['attributes']['class'] = [
+      ...$_css,
+      ...$paramettres
+    ];
   
   if ($IdAnalytique = theme_get_setting('google-analytics-gtag')) {
     $scriptUrl = [
