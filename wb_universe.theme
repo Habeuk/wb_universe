@@ -26,6 +26,8 @@ function wb_universe_preprocess_html(&$variables) {
   else {
     $_css[] = 'not-front-page';
   }
+  if (\Drupal::languageManager()->getCurrentLanguage()->getDirection() == \Drupal\Core\Language\LanguageInterface::DIRECTION_RTL)
+    $_css[] = 'rtl';
   
   $variables['html_attributes']->setAttribute('class', $_css);
   if (!empty($variables['attributes']['class'])) {

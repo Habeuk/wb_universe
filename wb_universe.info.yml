@@ -27,3 +27,8 @@ libraries-extend:
   core/drupal.message:
     - wb_universe/messages
 
+
+# Information added by Drupal.org packaging script on 2024-12-13
+version: '4.2.20'
+project: 'wb_universe'
+datestamp: 1734083933
