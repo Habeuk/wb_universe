@@ -31,9 +31,11 @@
  */
 #}
 {% if items %}
-  <nav class="pager" role="navigation" aria-labelledby="{{ heading_id }}">
-    <h4 id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</h4>
-    <ul class="pagination pager__items js-pager__items">
+  <nav role="navigation" aria-labelledby="{{ heading_id }}" {{ attributes.addClass('pager') }}>
+    {% if pagination_heading_level %}
+    	<pagination_heading_level id="{{ heading_id }}" class="visually-hidden">{{ 'Pagination'|t }}</pagination_heading_level>
+    {% endif %}
+    <ul {{ content_attributes.addClass(['pagination', 'pager__items', 'js-pager__items']) }}>
       {# Print first item if we are not on the first page. #}
       {% if items.first %}
         <li class="page-item pager__item pager__item--first">
