@@ -133,7 +133,9 @@ function wb_universe_preprocess_page(&$variables) {
   }
   //
   if ($class) {
-    $variables["attributes_container"] = $class;
+    // Au depart on utilisait attributes_container, mais attributes est plus
+    // adapté.
+    $variables["attributes"]['class'][] = $class;
   }
   
   /**
