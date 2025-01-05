@@ -43,10 +43,12 @@
       	{%
           set link_classes = [
             'nav-link',
-            item.in_active_trail ? 'active',
-            item.url.getOption('attributes').class ? item.url.getOption('attributes').class,
+            item.in_active_trail ? 'active'
           ]
         %}
+        {% if item.url.getOption('attributes').class %}
+        	{% set link_classes = link_classes|merge(item.url.getOption('attributes').class) %}
+        {% endif %}
         {{ link(item.title, item.url, item.link_attributes ? item.link_attributes.addClass(link_classes) : {'class': link_classes}) }}        
         {% if item.below %}
           {{ _self.menu_links(item.below, attributes, menu_level + 1) }}
