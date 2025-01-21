@@ -13,7 +13,17 @@ use Drupal\wb_universe\Handler\Wb_universePreRender;
  * @param array $variables
  */
 function wb_universe_preprocess_html(&$variables) {
-  $paramettres = \Drupal::routeMatch()->getParameters()->keys();
+  $view_id = \Drupal::routeMatch()->getParameter('view_id');
+  // si on est sur une page de view.
+  if ($view_id) {
+    $paramettres = [
+      "page-view",
+      $view_id,
+      \Drupal::routeMatch()->getParameter('display_id')
+    ];
+  }
+  else
+    $paramettres = \Drupal::routeMatch()->getParameters()->keys();
   $_css = [];
   $uid = \Drupal::currentUser()->id();
   if ($uid && \Drupal\user\Entity\User::load($uid)->hasRole('administrator')) {
@@ -171,15 +181,6 @@ function wb_universe_preprocess_commerce_product_variation(&$variables) {
     'commerce_id' => $product_variation_entity->getProductId(),
     'commerce_variant_id' => $product_variation_entity->id()
   ];
-}
-
-/**
- *
- * @param array $vars
- */
-function wb_universe_preprocess_status_messages(&$vars) {
-  // \Stephane888\Debug\debugLog::symfonyDebug($vars,
-  // 'wb_universe_preprocess_status_messages', true);
 }
 
 /**
