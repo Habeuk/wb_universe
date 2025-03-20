@@ -36,8 +36,28 @@
  *
  * @see template_preprocess_field()
  */
+ 
+ /**
+  * Exclusiment pour les champs de description, on a besoin des balises d'entetes afin de mettre en place des styles adaptés.
+  */
 #}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+{%
+  set title_classes = [
+    'field__label',
+    label_display == 'visually_hidden' ? 'visually-hidden',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
 {% if label_hidden == false %}
 	<div{{ title_attributes.addClass(title_classes) }}>{{ label }}</div>
 {% endif %}
 {% for item in items %}{{ item.content }}{% endfor %}
+</div>

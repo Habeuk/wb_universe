@@ -198,6 +198,15 @@ function wb_universe_preprocess_block(&$vars) {
 }
 
 /**
+ * implement hook_preprocess_block
+ *
+ * @param array $vars
+ */
+function wb_universe_preprocess_block__clear(&$vars) {
+  $vars['has_contextual_links'] = \Drupal::currentUser()->hasPermission('access contextual links');
+}
+
+/**
  * implement hook_preprocess_table
  *
  * @param array $vars
