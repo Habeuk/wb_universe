@@ -82,7 +82,7 @@
 {% endif %}
 {# Possibilite d'afficher la colonne de gauche ou droite. #}
 {% if (show_sidebar_left or show_sidebar_right) and (page.sidebar_left or page.sidebar_right) %}
-	<div {{ attributes }}>
+	<main {{ attributes }}>
     	<div class="row main-row">
         {% if show_sidebar_left and page.sidebar_left %}
         	{{ page.sidebar_left }}
@@ -94,13 +94,13 @@
         	{{ page.sidebar_right }}
         {% endif %}
         </div>
-    </div>
+    </main>
 {% else %}
-<div {{ attributes }}>
-    {% if page.content %}
-        {{ page.content }}
-    {% endif %}
-</div>
+    <main {{ attributes }}>
+        {% if page.content %}
+            {{ page.content }}
+        {% endif %}
+    </main>
 {% endif %}
 {% if page.after_content %}
 	{{ page.after_content }}
