@@ -23,7 +23,8 @@ class ThemeSettings {
     'managed_file',
     'file',
     'date',
-    'search'
+    'search',
+    'textarea'
     // 'submit' ne doit pas etre ici, car il na pas besoin de form-control.
   ];
   
@@ -145,4 +146,5 @@ class ThemeSettings {
     }
     return $collection;
   }
+  
 }
