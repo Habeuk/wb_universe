@@ -229,7 +229,8 @@ function wb_universe_preprocess_views_view_table(&$vars) {
 function wb_universe_preprocess_page__user(&$variables) {
   $class = theme_get_setting('wb_universe_pages.user.user_all');
   if ($class) {
-    $variables["attributes_container"] = $class;
+    // $variables["attributes_container"] = $class;
+    $variables["attributes"]['class'][] = $class;
   }
 }
 
