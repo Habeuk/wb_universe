@@ -448,7 +448,7 @@ function wb_universe_preprocess_input(&$variables) {
  * @param array $variables
  */
 function wb_universe_preprocess_select(&$variables) {
-  $variables['attributes']['class'][] = 'form-control w-auto';
+  $variables['attributes']['class'][] = 'form-control';
 }
 
 /**
