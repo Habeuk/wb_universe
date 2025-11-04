@@ -27,4 +27,3 @@ libraries-override:
 libraries-extend:
   core/drupal.message:
     - wb_universe/messages
-
