@@ -115,6 +115,25 @@ function wb_universe_preprocess_html(&$variables) {
       'facebook-init'
     ];
   }
+  
+  /**
+   * Ajout des librairies de maniere dynamique.
+   */
+  $directory = "/themes/custom/drush_site_install";
+  
+  $linktUrl = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'stylesheet',
+      'media' => 'all',
+      'href' => $directory . '/preprocess_html--sfdfdf.css'
+    ]
+  ];
+  $variables['page']['#attached']['html_head'][] = [
+    $linktUrl,
+    'sfdfdf-url-preprocess_html',
+    -100 //
+  ];
 }
 
 /**
@@ -285,6 +304,44 @@ function wb_universe_page_attachments_alter(array &$attachments) {
   if (!empty($stripe_settings['load_stripe'])) {
     $attachments["#attached"]["library"][] = "wb_universe/stripe_v3";
   }
+  /**
+   * Ajout des librairies de maniere dynamique.
+   */
+  $directory = "/themes/custom/drush_site_install";
+  
+  $linktUrl = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'stylesheet',
+      'media' => 'all',
+      'href' => $directory . '/attachments_alter--sfdfdf.css'
+    ]
+  ];
+  $attachments['#attached']['html_head'][] = [
+    $linktUrl,
+    'sfdfdf-url',
+    100 //
+  ];
+}
+
+/**
+ * Implements hook_css_alter().
+ */
+function wb_universe_css_alter(&$css) {
+  $css["/themes/custom/drush_site_install/css/node__home_page.css"] = [
+    'weight' => 10,
+    'group' => 110,
+    'type' => 'file',
+    'data' => "/themes/custom/drush_site_install/css/node__home_page.css",
+    'version' => -1,
+    'media' => 'all',
+    'preprocess' => false,
+    'license' => [
+      'name' => 'GPL-2.0-or-later',
+      'url' => "https://www.drupal.org/licensing/faq",
+      'gpl-compatible' => true
+    ]
+  ];
 }
 
 /**
