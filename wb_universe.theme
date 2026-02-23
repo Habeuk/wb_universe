@@ -196,11 +196,13 @@ function wb_universe_preprocess_page(&$variables) {
       $entity = \Drupal::routeMatch()->getParameter($parameter);
       $bundle = $entity->bundle() ? $entity->bundle() : $parameter;
       $id = $entity->id();
+      // On charge la librarie par defaut, pour l'entité.
+      if (!empty($configLibraries[$bundle]['default']))
+        $variables['#attached']['library'][] = $configLibraries[$bundle]['default'];
+      // On charge la librarie specifique à la page.
       if (!empty($configLibraries[$bundle][$id])) {
         $variables['#attached']['library'][] = $configLibraries[$bundle][$id];
       }
-      elseif (!empty($configLibraries[$bundle]['default']))
-        $variables['#attached']['library'][] = $configLibraries[$bundle]['default'];
     }
   }
   // $timer = Timer::stop($name);
