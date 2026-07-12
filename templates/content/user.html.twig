@@ -1,0 +1,108 @@
+{#
+/**
+ * @file
+ * Theme override to present all user data.
+ *
+ * Available variables:
+ * - content: A list of content items. Use 'content' to print all content, or
+ *   print a subset such as 'content.field_example'.
+ * - attributes: HTML attributes for the container element.
+ * - user: A Drupal User entity.
+ * - elements: The full render array including #view_mode.
+ *
+ * @see template_preprocess_user()
+ */
+#}
+
+{% set view_mode = elements['#view_mode'] ?? 'full' %}
+{% set user_picture = content.user_picture ?? null %}
+{% set user_name = user.getDisplayName() %}
+{% set filtered_content = content|without('user_picture') %}
+
+<article{{ attributes.addClass('user-profile', 'user-profile--' ~ view_mode|clean_class) }}>
+  
+  {% if view_mode == 'full' %}
+    {# ========== MODE FULL ========== #}
+    <div class="row">
+      
+      {# Colonne de gauche - Avatar #}
+      <div class="col-lg-4 col-xl-3 mb-4 mb-lg-0">
+        <div class="card shadow-sm border-0 rounded-3">
+          <div class="card-body text-center p-4">
+            
+            {# Avatar #}
+            {% if user_picture %}
+              <div class="mb-3">
+                {{ user_picture }}
+              </div>
+            {% else %}
+              <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+                     style="width: 120px; height: 120px; font-size: 3rem;">
+                  {{ user_name|first|upper }}
+                </div>
+              </div>
+            {% endif %}
+            
+            {# Nom d'utilisateur #}
+            <h2 class="h4 mb-0">{{ user_name }}</h2>
+            
+          </div>
+        </div>
+      </div>
+      
+      {# Colonne de droite - Champs du profil #}
+      <div class="col-lg-8 col-xl-9">
+        {% if filtered_content|render|striptags|trim is not empty %}
+          <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-4">
+              {{ filtered_content }}
+            </div>
+          </div>
+        {% else %}
+          <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-4 text-center text-muted">
+              {{ 'No additional information available.'|t }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      
+    </div>
+    
+  {% elseif view_mode == 'compact' %}
+    {# ========== MODE COMPACT ========== #}
+    <div class="d-flex align-items-center gap-3 bg-light p-3 border border-radius-5">      
+      {# Avatar petit #}
+      {% if user_picture %}
+        <div class="flex-shrink-0 rounded-circle overflow-hidden border border-1 border-black shadow-sm">
+          {{ user_picture }}
+        </div>
+      {% else %}
+        <div class="flex-shrink-0">
+          <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" 
+               style="width: 48px; height: 48px; font-size: 1.25rem;">
+            {{ user_name|first|upper }}
+          </div>
+        </div>
+      {% endif %}
+      
+      {# Nom et champs #}
+      <div class="flex-grow-1">
+        <strong>{{ user_name }}</strong>
+        {% if filtered_content|render|striptags|trim is not empty %}
+          <div class="small text-muted">
+            {{ filtered_content }}
+          </div>
+        {% endif %}
+      </div>
+      
+    </div>    
+  {% else %}
+    {# ========== AUTRES MODES (teaser, etc.) ========== #}
+      {% if content %}
+        {{- content -}}
+      {% endif %}
+  {% endif %}
+  
+</article>
