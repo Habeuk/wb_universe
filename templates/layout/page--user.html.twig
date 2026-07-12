@@ -8,53 +8,9 @@
  */
 #}
 {% extends "@wb_universe/layout/page.html.twig" %}
-
-{% block top_header %}
-	{% if logged_in %}
-		{{ parent() }}
-	{% endif %}
-{% endblock %}
-
-{% block hero_slider %}
-	{% if logged_in %}
-		{{ parent() }}
-	{% endif %}
-{% endblock %}
-
-{% block call_to_action %}
-	{% if logged_in %}
-		{{ parent() }}
-	{% endif %}
-{% endblock %}
-
-{% block header %}
-  {% if logged_in %}
-    {{ parent() }}
-  {% endif %}
-{% endblock %}
-
-{% block before_content %}
-  {% if logged_in %}
-    {{ parent() }}
-  {% endif %}
-{% endblock %}
-
-{% block after_content %}
-  {% if logged_in %}
-    {{ parent() }}
-  {% endif %}
-{% endblock %}
-
-{% block footer %}
-  {% if logged_in %}
-    {{ parent() }}
-  {% endif %}
-{% endblock %}
-
 {% block main_content %}
-  <div class="user-page">
+  <div class="user-page bg-light">
     
-    {% if logged_in %}
       {# ========== LAYOUT AUTHENTIFIÉ ========== #}
       <div class="container">
         <div class="row">          
@@ -72,32 +28,25 @@
                 {{ page.highlighted }}
               </div>
             {% endif %}
-            
-            {% block user_content %}
-              <div class="card shadow-sm border-0 rounded-3">
-                <div class="card-body p-4">
-                  {{ page.content }}
-                </div>
-              </div>
-            {% endblock %}
-          </div>          
-        </div>
-      </div>
-      
-    {% else %}
-      {# ========== LAYOUT NON-AUTHENTIFIÉ ========== #}
-      <div class="min-vh-100 space-padding d-flex align-items-center justify-content-center bg-light">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-              
-              {% block user_tabs_block %}
+            {% block user_tabs_block %}
                 {% if user_tabs %}
                   <div class="mb-4">
                     {{ user_tabs }}
                   </div>
                 {% endif %}
-              {% endblock %}
+            {% endblock %}
+            {% block user_content %}
+            	<div class="space-padding">{{ page.content }}</div>
+            {% endblock %}
+          </div>          
+        </div>
+      </div>      
+
+      {# ========== LAYOUT NON-AUTHENTIFIÉ ========== 
+      <div class="min-vh-100 space-padding d-flex align-items-center justify-content-center bg-light">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               
               {{ block('user_messages_block') }}
               
@@ -115,7 +64,7 @@
           </div>
         </div>
       </div>
-    {% endif %}
+      #}
     
   </div>
 {% endblock %}
