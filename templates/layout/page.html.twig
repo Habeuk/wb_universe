@@ -68,46 +68,69 @@
  */
 #}
 
-{% if page.top_header %}
-	{{ page.top_header }}
-{% endif %}
-{% if page.header %}
-	{{ page.header }}
-{% endif %}   
-{% if page.hero_slider %}
-	{{ page.hero_slider }}
-{% endif %} 
-{% if page.before_content %}
+{% block top_header %}
+  {% if page.top_header %}
+    {{ page.top_header }}
+  {% endif %}
+{% endblock %}
+
+{% block header %}
+  {% if page.header %}
+    {{ page.header }}
+  {% endif %}
+{% endblock %}
+
+{% block hero_slider %}
+  {% if page.hero_slider %}
+    {{ page.hero_slider }}
+  {% endif %}
+{% endblock %}
+
+{% block before_content %}
+  {% if page.before_content %}
     {{ page.before_content }}
-{% endif %}
+  {% endif %}
+{% endblock %}
+
 {# Possibilite d'afficher la colonne de gauche ou droite. #}
-{% if (show_sidebar_left or show_sidebar_right) and (page.sidebar_left or page.sidebar_right) %}
-	<main {{ attributes.setAttribute('id','main-content') }}>
-    	<div class="row main-row">
-        {% if show_sidebar_left and page.sidebar_left %}
-        	{{ page.sidebar_left }}
-        {% endif %}
-        {% if page.content %}
-        	{{ page.content }}
-        {% endif %}
-        {% if show_sidebar_right and page.sidebar_right %}
-        	{{ page.sidebar_right }}
-        {% endif %}
-        </div>
-    </main>
-{% else %}
-    <main {{ attributes.setAttribute('id','main-content') }}>
-        {% if page.content %}
-            {{ page.content }}
-        {% endif %}
-    </main>
-{% endif %}
-{% if page.after_content %}
-	{{ page.after_content }}
-{% endif %}
-{% if page.call_to_action %}
-	{{ page.call_to_action }}
-{% endif %}    
-{% if page.footer %}
+<main {{ attributes.setAttribute('id','main-content') }}>
+{% block main_content %}    
+        {% if (show_sidebar_left or show_sidebar_right) and (page.sidebar_left or page.sidebar_right) %}	
+        	<div class="row main-row">
+        	{% block main_content_with_sidebar %}
+                {% if show_sidebar_left and page.sidebar_left %}
+                	{{ page.sidebar_left }}
+                {% endif %}
+                {% if page.content %}
+                	{{ page.content }}
+                {% endif %}
+                {% if show_sidebar_right and page.sidebar_right %}
+                	{{ page.sidebar_right }}
+                {% endif %}
+             {% endblock %}
+            </div>
+        {% else %}
+        	{% if page.content %}
+        	    {{ page.content }}
+        	{% endif %}        
+        {% endif %}    
+{% endblock %}
+</main>
+
+{% block after_content %}
+  {% if page.after_content %}
+    {{ page.after_content }}
+  {% endif %}
+{% endblock %}
+
+{% block call_to_action %}
+  {% if page.call_to_action %}
+    {{ page.call_to_action }}
+  {% endif %}
+{% endblock %}
+
+{% block footer %}
+  {% if page.footer %}
     {{ page.footer }}
-{% endif %}
+  {% endif %}
+{% endblock %}

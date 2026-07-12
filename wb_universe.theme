@@ -149,8 +149,6 @@ function wb_universe_preprocess_mimemail_message(array &$variables) {
  * Implement hook_preprocess_page
  */
 function wb_universe_preprocess_page(&$variables) {
-  // $name = 'wb_universe_preprocess_page';
-  // Timer::start($name);
   $routeName = \Drupal::routeMatch()->getRouteName();
   /**
    * wb_universe_pages:
@@ -175,7 +173,7 @@ function wb_universe_preprocess_page(&$variables) {
    * Build layouts
    */
   $wb_universe_layout = theme_get_setting('wb_universe_layout');
-  if (!empty($wb_universe_layout)) {
+  if ($wb_universe_layout !== []) {
     $show_sidebar_left = $wb_universe_layout['sidebar_left']['show'] ?? false;
     $show_sidebar_right = $wb_universe_layout['sidebar_right']['show'] ?? false;
     $variables['show_sidebar_left'] = $show_sidebar_left;
@@ -273,9 +271,21 @@ function wb_universe_preprocess_views_view_table(&$vars) {
  * Implement hook_preprocess_page
  */
 function wb_universe_preprocess_page__user(&$variables) {
+  // Récupérer les tabs (menu user) depuis la région top_header
+  $tabs = _wb_universe_get_region_block_by_suffix($variables, 'top_header', '_tabs');
+  if ($tabs) {
+    $variables['user_tabs'] = $tabs;
+  }
+  
+  // Récupérer les messages depuis la région header
+  $messages = _wb_universe_get_region_block_by_suffix($variables, 'header', '_messages');
+  if ($messages) {
+    $variables['user_messages'] = $messages;
+  }
+  
+  // Classe existante
   $class = theme_get_setting('wb_universe_pages.user.user_all');
   if ($class) {
-    // $variables["attributes_container"] = $class;
     $variables["attributes"]['class'][] = $class;
   }
 }
@@ -696,7 +706,6 @@ function wb_universe_preprocess_region__content(&$vars) {
 }
 
 /**
- * Cette region est definie par le theme bootstrap_barrio.
  *
  * @param array $vars
  */
@@ -711,4 +720,34 @@ function _apply_style_region__content(&$vars) {
     $wb_universe_layout = theme_get_setting('wb_universe_layout');
     $vars['attributes']['class'][] = $wb_universe_layout['content']['class'];
   }
+}
+
+/**
+ * Helper function to get a block from a region by suffix.
+ *
+ * @param array $variables
+ *        The page variables.
+ * @param string $region
+ *        The region name (e.g., 'top_header', 'header').
+ * @param string $suffix
+ *        The suffix to search for in the block key (e.g., '_tabs',
+ *        '_messages').
+ *        
+ * @return array|null The render array of the matching block, or NULL if not
+ *         found.
+ */
+function _wb_universe_get_region_block_by_suffix(&$variables, $region, $suffix) {
+  if (!empty($variables['page'][$region])) {
+    foreach ($variables['page'][$region] as $key => $block) {
+      // Ignorer les clés système qui commencent par #
+      if (strpos($key, '#') === 0) {
+        continue;
+      }
+      // Vérifier si la clé se termine par le suffixe recherché
+      if (substr($key, -strlen($suffix)) === $suffix) {
+        return $variables['page'][$region][$key];
+      }
+    }
+  }
+  return null;
 }
